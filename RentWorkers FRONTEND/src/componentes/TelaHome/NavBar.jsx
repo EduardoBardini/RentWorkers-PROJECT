@@ -15,7 +15,6 @@ function NavBar() {
         <div className='navButtons'>
           <p>Home</p>
           <p>Sobre nós</p>
-          <p>Serviços</p>
           <p>Como funciona</p>
           <button className='entrarButton' onClick={ indoParaLogin }>Entrar</button>
         </div>
