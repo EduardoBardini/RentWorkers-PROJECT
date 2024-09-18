@@ -51,3 +51,19 @@
     padding-left: 32px;
     background-color: rgba(217, 217, 217, 1);
  }
+ .divBuscaPainel{
+    width: 55%;
+    height: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: self-end;
+ }
+ .inputStyle{
+    width: 60%;
+    height: 60%;
+    background-color: rgba(217, 217, 217, 1);
+    border-radius: 25px;
+    border-color: transparent;
+    padding-left: 25px;
+   
+ }

@@ -6,7 +6,7 @@ import Body from './Body';
 
 function PaginaHome() {
   return(
-    <div className="container">
+    <div className="containerHome">
       <NavBar />
       <Body />
     </div>

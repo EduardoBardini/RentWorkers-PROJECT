@@ -15,6 +15,9 @@ function NavBusca() {
             <option value=""></option>
             </select>
          </div>
+         <div className="divBuscaPainel">
+           <input className='inputStyle' placeholder='Buscar' />
+         </div>
          
         </div>
     </div>

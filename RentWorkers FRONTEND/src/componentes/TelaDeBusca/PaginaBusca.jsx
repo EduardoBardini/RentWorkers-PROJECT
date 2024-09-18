@@ -3,7 +3,7 @@ import NavBusca from '../TelaDeBusca/NavBusca';
 
 function PaginaBusca() {
     return (
-      <div className="container">
+      <div className="containerBusca">
         <NavBusca />
       </div>
     )
