@@ -33,7 +33,6 @@ function TelaLogin() {
                 
                 <input className='inptLogin' type="text" value={ email } onChange={ (e) => setEmail(e.target.value)} placeholder="Email" />
                 <input className='inptLogin' type="password" value={ senha } onChange={ (e) => setSenha(e.target.value)} placeholder="Senha" />
-                <input className='inptLogin'type="text" value={ telefone } onChange={ (e) => setTelefone(e.target.value)} placeholder="Telefone"/>
 
                 <button className="buttonStyle" type="submit">Entrar</button>
 

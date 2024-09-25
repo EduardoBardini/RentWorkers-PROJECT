@@ -6,6 +6,7 @@ import './index.css'
 import PaginaHome from './componentes/TelaHome/PaginaHome.jsx'
 import PaginaBusca from './componentes/TelaDeBusca/PaginaBusca.jsx'
 import TelaLogin from './componentes/TelaLogin/TelaLogin.jsx'
+import TelaCadastro from './componentes/TelaCadastro/TelaCadastro.jsx';
 
 const router = createBrowserRouter([
 {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
 {
   path: "/login",
   element: <TelaLogin />
+},
+{
+  path: "/cadastro",
+  element: <TelaCadastro />
 }
 ])
 

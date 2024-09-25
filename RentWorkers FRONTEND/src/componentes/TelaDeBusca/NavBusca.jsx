@@ -1,6 +1,16 @@
 import '../TelaDeBusca/NavBusca.css';
 
 function NavBusca() {
+  
+
+
+
+  const publishWork = {
+    
+  }
+
+
+
   return(
     <div className="NavContainer">
       <div className='divLogo'>
