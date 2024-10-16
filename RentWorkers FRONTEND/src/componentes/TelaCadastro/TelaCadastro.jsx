@@ -16,8 +16,7 @@ function TelaCadastro(){
                     </div> 
                     <div className='divFraseEfeito'>
                         <label className='lblFraseEfeito'>Encontre profissionais ou ofereça seus serviços</label>
-                        <label className='lblFraseEfeito'>com facilidade e segurança.</label>
-                        
+                        <label className='lblFraseEfeito'>com facilidade e segurança.</label> 
                     </div>
                     <div className='divDadosEscritos'>
                         <div className='distanceDiv'>

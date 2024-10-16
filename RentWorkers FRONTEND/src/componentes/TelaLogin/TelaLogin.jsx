@@ -33,22 +33,19 @@ function TelaLogin() {
                 <div className='divSubTitulo'>
                     <label> Digite seus dados de acesso no campo abaixo. </label>
                 </div>
-                <div className='divEmail'>
-                    <input className='inptLogin' type="text" value={ email } onChange={ (e) => setEmail(e.target.value)} placeholder="Email" />
-                </div>
-                <div className='divSenha'>
-                    <input className='inptLogin' type="password" value={ senha } onChange={ (e) => setSenha(e.target.value)} placeholder="Senha" />
-                </div>
-                <div className='divButtonLogin'>
-                    <button className="buttonStyle" type="submit">Entrar</button>
-                    <p>Não possui uma conta?  <Link to={"/cadastro"}>Cadastre-se</Link></p>
-                </div>
+               
+                    <div className='divEmail'>
+                     <input className='inptLogin' type="text" value={ email } onChange={ (e) => setEmail(e.target.value)} placeholder="Email" />
+                    </div>
+                    <div className='divSenha'>
+                     <input className='inptLogin' type="password" value={ senha } onChange={ (e) => setSenha(e.target.value)} placeholder="Senha" />
+                    </div>
+                    <div className='divButtonLogin'>
+                     <button className="buttonStyle" type="submit">Entrar</button>
+                     <p>Não possui uma conta?  <Link to={"/cadastro"}>Cadastre-se</Link></p>
+                    </div>
                 
-
-                
-
             </form>
-
          </div>
         </div>
     )
