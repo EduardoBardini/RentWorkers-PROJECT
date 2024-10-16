@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import '../TelaCadastro/Cadastro.css'
 
 function TelaCadastro(){
@@ -11,7 +12,12 @@ function TelaCadastro(){
             <div className="divCadastro">
                 <form className="formCadastro">
                     <div className='titleCad'>
-                        <h1>Cadastro</h1>
+                        <h2>Bem vindo ao RentWorkers</h2>
+                    </div> 
+                    <div className='divFraseEfeito'>
+                        <label className='lblFraseEfeito'>Encontre profissionais ou ofereça seus serviços</label>
+                        <label className='lblFraseEfeito'>com facilidade e segurança.</label>
+                        
                     </div>
                     <div className='divDadosEscritos'>
                         <div className='distanceDiv'>
@@ -38,8 +44,9 @@ function TelaCadastro(){
                             </label>
                         </div>
                     </div>
-                    <div>
+                    <div className='divButton'>
                         <button className='buttonCadastro'  type='submit'>Cadastrar-se</button>
+                        <p>Possui uma conta? <Link to="/login">Logar-se</Link></p>
                     </div>
                     
                     
