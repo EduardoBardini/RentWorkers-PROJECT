@@ -8,10 +8,10 @@
 		<version>3.3.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>RentWorkers.BACKEND</groupId>
-	<artifactId>RentWorkers-BACKEND</artifactId>
+	<groupId>backend.example</groupId>
+	<artifactId>backend.example</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>RentWorkers-BACKEND</name>
+	<name>backend.example</name>
 	<description>Nosso backend da SA</description>
 	<url/>
 	<licenses>

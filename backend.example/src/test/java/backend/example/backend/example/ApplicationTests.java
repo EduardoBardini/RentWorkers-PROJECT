@@ -1,10 +1,10 @@
-package RentWorkers.BACKEND.RentWorkers.BACKEND;
+package backend.example.backend.example;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RentWorkersBackendApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {
