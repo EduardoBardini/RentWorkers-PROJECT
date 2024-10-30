@@ -1,15 +1,18 @@
-import '../TelaHome/PaginaHome.css';
 
-import NavBar from './NavBar';
-import Body from './Body';
+import '../TelaHome/PaginaHome.css'
+import ParteHome from './parteHome';
 
 
 function PaginaHome() {
   return(
-    <div className="containerHome">
-      <NavBar />
-      <Body />
+    <div className="divContainer">
+
+      <ParteHome />
+
+
+
     </div>
+    
   )
 }
 
