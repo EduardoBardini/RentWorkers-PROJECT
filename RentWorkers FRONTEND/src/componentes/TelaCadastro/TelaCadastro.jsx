@@ -1,7 +1,39 @@
 import { Link } from 'react-router-dom';
 import '../TelaCadastro/Cadastro.css'
+import { useState } from 'react';
+import axios from 'axios';
+import React from 'react';
+import { criarUsuario } from '../../services/api';
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 function TelaCadastro(){
+
+    const [nome, setNome] = useState('');
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [confirmaSenha, setConfirmaSenha] = useState('');
+    const [telefone, setTelefone] = useState('');
+    const [cep, setCep] = useState('');
+    const [tipoUsuario, setTipoUsuario] = useState('');
+
+    function cadastrarUsuario(e){
+        e.preventDefault();
+
+        const usuario = {nome , email, senha , telefone, cep, tipoUsuario}
+        console.log(usuario);
+
+        criarUsuario(usuario).then((response) => {
+            console.log(response.data);
+            navigator('')
+        })
+
+    }
+
+  
+
     return(
         <div className="containerCadastro">
             <div className="divImagem">
@@ -20,31 +52,31 @@ function TelaCadastro(){
                     </div>
                     <div className='divDadosEscritos'>
                         <div className='distanceDiv'>
-                            <input className='inptCss' placeholder='Nome' />
-                            <input className='inptCss' type='email' placeholder='@mail.com' />
+                            <input value={nome} onChange={(e) => setNome(e.target.value)} className='inptCss' placeholder='Nome' />
+                            <input value={email} onChange={(e) => setEmail(e.target.value)} className='inptCss' type='email' placeholder='@mail.com' />
                         </div>
                         <div className='distanceDiv'>
-                            <input className='inptCss' type='password' placeholder='Senha'/>
-                            <input className='inptCss' type='password' placeholder='Confirmar Senha'/>
+                            <input value={senha} onChange={(e) => setSenha(e.target.value)} className='inptCss' type='password' placeholder='Senha'/>
+                            <input value={confirmaSenha} onChange={(e) => setConfirmaSenha(e.target.value)} className='inptCss' type='password' placeholder='Confirmar Senha'/>
                         </div>
                         <div  className='distanceDiv'>
-                            <input className='inptCss' type='tel' placeholder='+55' />
-                            <input className='inptCss' type="text" placeholder='CEP'/>
+                            <input value={telefone} onChange={(e) => setTelefone(e.target.value)} className='inptCss' type='tel' placeholder='+55' />
+                            <input value={cep} onChange={(e) => setCep(e.target.value)} className='inptCss' type="text" placeholder='CEP'/>
                         </div>
                         <div className='radioButton'>
                             <p>Tipo de conta: </p>
                             <label>
-                               <input type='radio' name='tipoConta' />
+                               <input type='radio' value="CLIENTE" checked={tipoUsuario == "CLIENTE"} onChange={(e) => setTipoUsuario(e.target.value)} name='tipoConta' />
                                 Cliente
                             </label>
                             <label>
-                                <input type='radio' name='tipoConta' />
+                                <input type='radio' value="TRABALHADOR"   checked={tipoUsuario == "TRABALHADOR"} onChange={(e) => setTipoUsuario(e.target.value)}  name='tipoConta' />
                                 Trabalhador
                             </label>
                         </div>
                     </div>
                     <div className='divButton'>
-                        <button className='buttonCadastro'  type='submit'>Cadastrar-se</button>
+                        <button onClick={cadastrarUsuario} className='buttonCadastro'  type='submit'>Cadastrar-se</button>
                         <p>Possui uma conta? <Link to="/login">Logar-se</Link></p>
                     </div>
                     
