@@ -1,15 +1,30 @@
 import { Link } from 'react-router-dom';
 import '../TelaCadastro/Cadastro.css'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import React from 'react';
-import { criarUsuario } from '../../services/api';
+import { criarUsuario, listaUsuarios } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
 
 
 
 
+
 function TelaCadastro(){
+
+    const navigate = useNavigate();
+
+    const [usuarios, setUsuarios] = useState([]);
+
+    
+
+    useEffect(() => {
+        listaUsuarios().then((response) => {
+            setUsuarios(response.data);
+        }).catch(error => {
+            console.log(error);
+        })
+    })
 
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
@@ -22,13 +37,50 @@ function TelaCadastro(){
     function cadastrarUsuario(e){
         e.preventDefault();
 
-        const usuario = {nome , email, senha , telefone, cep, tipoUsuario}
-        console.log(usuario);
+        let inputsPreenchidos = false;
+        let emailExiste = false;
+        let telefoneExiste = false;
+        let senhaIgual = false;
 
-        criarUsuario(usuario).then((response) => {
-            console.log(response.data);
-            navigator('')
-        })
+        if(nome != '' && email != '' && senha != '' && confirmaSenha != '' && telefone != '' && cep != '' && tipoUsuario != '' ) {
+             inputsPreenchidos = true
+        }else {
+            alert('Preencha todos os campos!');
+        }
+
+        if(inputsPreenchidos) {
+            for(let i = 0; i < usuarios.length; i++) {
+                if(usuarios[i].email == email) {
+                    emailExiste = true;
+                }
+                if(usuarios[i].telefone == telefone){
+                    telefoneExiste = true;
+                }
+            }
+        }
+
+        if(emailExiste) {
+            alert("Este email ja esta sendo utilizado!");
+        }
+        if(telefoneExiste) {
+            alert("Este telefone ja esta sendo utilizado!")
+        }
+        if(senha != confirmaSenha) {
+            alert("As senhas não se conferem");
+            senhaIgual = true
+        }
+
+        if(inputsPreenchidos && !senhaIgual && !emailExiste && !telefoneExiste) {
+            const usuario = {nome , email, senha , telefone, cep, tipoUsuario}
+             console.log(usuario);
+
+             criarUsuario(usuario).then((response) => {
+             console.log(response.data);
+             navigate('/login')
+            })
+        }
+
+        
 
     }
 
@@ -76,7 +128,7 @@ function TelaCadastro(){
                         </div>
                     </div>
                     <div className='divButton'>
-                        <button onClick={cadastrarUsuario} className='buttonCadastro'  type='submit'>Cadastrar-se</button>
+                        <button onClick={cadastrarUsuario} className='buttonCadastro' type='submit'>Cadastrar-se</button>
                         <p>Possui uma conta? <Link to="/login">Logar-se</Link></p>
                     </div>
                     

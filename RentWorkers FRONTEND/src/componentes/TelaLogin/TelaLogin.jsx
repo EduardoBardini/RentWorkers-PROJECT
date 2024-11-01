@@ -1,22 +1,41 @@
 import { Link } from 'react-router-dom';
 import '../TelaLogin/Login.css'
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { listaUsuarios } from '../../services/api';
 
 function TelaLogin() {
     
+
+    const [usuarios, setUsuarios] = useState([]);
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
-    const [telefone, setTelefone] = useState('');
+
+    useEffect(() => {
+        listaUsuarios().then((response) => {
+            setUsuarios(response.data);
+            console.log(usuarios)
+        }).catch(error => {
+            console.log(error);
+        })
+    })
+    
+    let usuarioExiste = false;
 
     function checkLogin(e) {
-        if(email != "" && senha != "" && telefone != ""){
+        if(email == "" || senha == "" ){
             e.preventDefault()
-
+            alert("Preencha todos os campos")
+        }else {
+            for(let i = 0;i < usuarios.length; i++ ) {
+                if(usuarios[i].email == email && usuarios[i].senha == senha) {
+                    alert("Login realizado!");
+                    usuarioExiste = true;
+                }
+            }
+            if(!usuarioExiste) {
+                alert("Email ou senha incorretos");
+            }
         }
-        
-        
-
-        
     }
 
     
