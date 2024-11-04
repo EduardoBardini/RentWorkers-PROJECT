@@ -4,9 +4,9 @@ import { createBrowserRouter , RouterProvider } from 'react-router-dom'
 import './index.css'
 
 import PaginaHome from './componentes/TelaHome/PaginaHome.jsx'
-import PaginaBusca from './componentes/TelaDeBusca/PaginaBusca.jsx'
 import TelaLogin from './componentes/TelaLogin/TelaLogin.jsx'
 import TelaCadastro from './componentes/TelaCadastro/TelaCadastro.jsx';
+
 
 const router = createBrowserRouter([
 {
@@ -14,8 +14,8 @@ const router = createBrowserRouter([
   element: <PaginaHome />
 },
 {
-  path: "/buscarPerfil",
-  element: <PaginaBusca />
+  path: "/telaprincipal",
+  element: <Menu />
 },
 {
   path: "/login",
@@ -27,9 +27,15 @@ const router = createBrowserRouter([
 }
 ])
 
+import { UserProvider } from './context/GlobalContext.jsx'
 
 createRoot(document.getElementById('root')).render(
+  
   <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>,
+    <UserProvider>
+      <RouterProvider router={router} />
+    </UserProvider>
+  </StrictMode>
+  
+  ,
 );

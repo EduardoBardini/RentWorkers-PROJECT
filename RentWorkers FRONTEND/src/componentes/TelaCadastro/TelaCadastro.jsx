@@ -89,7 +89,7 @@ function TelaCadastro(){
     return(
         <div className="containerCadastro">
             <div className="divImagem">
-                <img width={900} height={800}  src="/images/imagemCadastro.jpg"/>
+                
 
 
             </div>
