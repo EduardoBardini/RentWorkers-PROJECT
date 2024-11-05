@@ -3,9 +3,10 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter , RouterProvider } from 'react-router-dom'
 import './index.css'
 
-import PaginaHome from './componentes/TelaHome/PaginaHome.jsx'
-import TelaLogin from './componentes/TelaLogin/TelaLogin.jsx'
+import PaginaHome from './componentes/TelaHome/PaginaHome.jsx';
+import TelaLogin from './componentes/TelaLogin/TelaLogin.jsx';
 import TelaCadastro from './componentes/TelaCadastro/TelaCadastro.jsx';
+import TelaPrincipal from './componentes/TelaPrincipal/TelaPrincipal.jsx';
 
 
 const router = createBrowserRouter([
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
 },
 {
   path: "/telaprincipal",
-  element: <Menu />
+  element: <TelaPrincipal/>
 },
 {
   path: "/login",
