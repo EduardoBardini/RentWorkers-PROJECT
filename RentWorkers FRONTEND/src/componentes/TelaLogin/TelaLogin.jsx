@@ -43,7 +43,7 @@ function TelaLogin() {
             if(!usuarioExiste) {
                 alert("Email ou senha incorretos");
             }else {
-                navigator('/menu');
+                navigator('/telaprincipal');
             }
         }
     }

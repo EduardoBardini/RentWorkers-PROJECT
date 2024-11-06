@@ -17,7 +17,6 @@ import com.ReFazer.back.end.services.AvaliacaoService;
 
 @RestController
 @RequestMapping("/avaliacoes")
-
 @CrossOrigin
 public class AvaliacaoController {
     
@@ -25,7 +24,7 @@ public class AvaliacaoController {
     @Autowired
     AvaliacaoService avaliacaoService;
 
-    @PostMapping("avaliacao")
+    @PostMapping
     public ResponseEntity<?> createAvaliacao(@RequestBody CreateAvaliacaoDTO dto){
 
         System.out.println(dto.getNota_avaliacao());

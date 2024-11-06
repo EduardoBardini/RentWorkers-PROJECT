@@ -1,0 +1,40 @@
+.divContainerCardTrabalhador {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    
+}
+
+.div-img-trabalhador {
+    height: 100%;
+    width: 40%;
+    border-radius: 2px;
+    background-color: transparent;
+    background-image: url("images/img-pedreiro.webp");
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+.div-info-trabalhador {
+    display: flex;
+    padding-left: 15px;
+    flex-direction: column;
+    width: 60%;
+    height: 100%;
+}
+ .div-nome-trabalhador{
+    height: 20%;
+    width: 100%;
+    background-color: aqua;
+ }
+ .div-info-adicionais {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    flex-direction: column;
+    height: 80%;
+    width: 100%;
+    background-color: aquamarine;
+ }
+ 

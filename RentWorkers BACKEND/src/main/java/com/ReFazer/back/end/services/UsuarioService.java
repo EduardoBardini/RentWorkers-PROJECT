@@ -41,16 +41,46 @@ public class UsuarioService {
     AvaliacaoRepository avaliacaoRepository;
 
     @Transactional
-    public void createUsuario( CreateUsuarioDTO dto) {
+    public UsuarioEntity createUsuario( CreateUsuarioDTO userDummy ) {
+        if (usuarioRepository.existsByEmail(userDummy.getEmail())) {
+            throw new EmailJaCadastradoException("O e-mail já está cadastrado: " + userDummy.getEmail());
+        }
 
+
+        if (userDummy.getNome() == null || userDummy.getNome().isEmpty()) {
+            throw new CampoObrigatorioException("O campo nome é obrigatório.");
+        }
+    
+        if (userDummy.getEmail() == null || userDummy.getEmail().isEmpty()) {
+            throw new CampoObrigatorioException("O campo email é obrigatório.");
+        }
+    
+        if (userDummy.getSenha() == null || userDummy.getSenha().isEmpty()) {
+            throw new CampoObrigatorioException("O campo senha é obrigatório.");
+        }
+    
+        if (userDummy.getTelefone() == null || userDummy.getTelefone().isEmpty()) {
+            throw new CampoObrigatorioException("O campo telefone é obrigatório.");
+        }
+    
+        if (userDummy.getCep() == null || userDummy.getCep().isEmpty()) {
+            throw new CampoObrigatorioException("O campo CEP é obrigatório.");
+        }
+
+        if (userDummy.getTipoUsuario() == null || userDummy.getTipoUsuario().isEmpty()) {
+            throw new CampoObrigatorioException("O campo tipo de usuario é obrigatório.");
+        }
+    
+        // Se todas as validações passaram, salva o usuário
         UsuarioEntity usuarioEntity = new UsuarioEntity();
-        usuarioEntity.setNome(dto.getNome());
-        usuarioEntity.setEmail(dto.getEmail());
-        usuarioEntity.setSenha(dto.getSenha());
-        usuarioEntity.setTelefone(dto.getTelefone());
-        usuarioEntity.setCep(dto.getCep());
-        usuarioEntity.setTipoUsuario(dto.getTipoUsuario());
-        
+        // usuarioEntity.setId_usuario(dto.getId_usuario());
+        // usuarioEntity.setEspecialidade(userDummy.getEspecialidade());
+        usuarioEntity.setNome(userDummy.getNome());
+        usuarioEntity.setEmail(userDummy.getEmail());
+        usuarioEntity.setSenha(userDummy.getSenha());
+        usuarioEntity.setTelefone(userDummy.getTelefone());
+        usuarioEntity.setCep(userDummy.getCep());
+        usuarioEntity.setTipoUsuario(userDummy.getTipoUsuario());
 
         usuarioEntity = usuarioRepository.save(usuarioEntity);
 
@@ -80,7 +110,11 @@ public class UsuarioService {
 
         // }
 
+        
+        
         // trabalhoSolicitadoRepository.saveAll(trabalhosSolicitadoEntity);
+
+        return usuarioEntity;
     }
 
 
@@ -101,7 +135,15 @@ public class UsuarioService {
 
     // }
 
+    public boolean loginUsuario(String email, String senha) {
+        UsuarioEntity usuario = usuarioRepository.findByEmail(email);
 
+        if (usuario != null && usuario.getSenha().equals(senha)) {
+            return true; // Login bem-sucedido
+        } else {
+            return false; // Falha no login
+        }
+    }
 
 
 
@@ -132,6 +174,7 @@ public class UsuarioService {
 
                     usuarioDTO.setId_usuario(usuario.getId_usuario());
                     usuarioDTO.setNome(usuario.getNome());
+                    usuarioDTO.setEspecialidade(usuario.getEspecialidade());
                     usuarioDTO.setEmail(usuario.getEmail());
                     usuarioDTO.setSenha(usuario.getSenha());
                     usuarioDTO.setTelefone(usuario.getTelefone());
@@ -157,6 +200,7 @@ public class UsuarioService {
 
         ShowUsuarioDTO dto = new ShowUsuarioDTO();
         dto.setId_usuario(usuarioEntity.getId_usuario());
+        dto.setEspecialidade(usuarioEntity.getEspecialidade());
         dto.setNome(usuarioEntity.getNome());
         dto.setEmail(usuarioEntity.getEmail());
         dto.setSenha(usuarioEntity.getSenha());
@@ -266,6 +310,7 @@ public class UsuarioService {
         UsuarioEntity usuarioEntity = optionalUsuarioEntity.get();
 
         usuarioEntity.setNome(dto.getNome());
+        usuarioEntity.setEspecialidade(dto.getEspecialidade());
         usuarioEntity.setEmail(dto.getEmail());
         usuarioEntity.setSenha(dto.getSenha());
         usuarioEntity.setTelefone(dto.getTelefone());

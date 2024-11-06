@@ -110,3 +110,21 @@
     .none-option {
       display: none;
     }
+
+
+
+
+    /* BODY */
+
+    .container-body {
+      display: flex;
+      height: 85%;
+      width: 100%;
+      background-color: #ebebea;
+      align-items: center;
+      justify-content: center;
+    }
+    .div-card-trabalhador {
+      height: 30%;
+      width: 35%;
+    }

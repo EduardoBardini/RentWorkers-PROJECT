@@ -5,8 +5,10 @@ package com.ReFazer.back.end.dtos.req;
 
 public class CreateUsuarioDTO {
     
-    private Long id_usuario;
+    // private Long id_usuario;
     private String nome;
+    private String especialidade;
+
     private String email;
     private String senha;
     private String telefone;
@@ -14,17 +16,22 @@ public class CreateUsuarioDTO {
     private String tipoUsuario;
     // private CreateAvaliacaoDTO avaliacao;
     // private List<CreateTrabalhoSolicitadoDTO> trabalhos;
-    public Long getId_usuario() {
-        return id_usuario;
-    }
-    public void setId_usuario(Long id_usuario) {
-        this.id_usuario = id_usuario;
-    }
+    // public Long getId_usuario() {
+    //     return id_usuario;
+    // }
+    // public void setId_usuario(Long id_usuario) {
+    //     this.id_usuario = id_usuario;
     public String getNome() {
         return nome;
     }
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    public String getEspecialidade() {
+        return especialidade;
+    }
+    public void setEspecialidade(String especialidade) {
+        this.especialidade = especialidade;
     }
     public String getEmail() {
         return email;
@@ -50,14 +57,16 @@ public class CreateUsuarioDTO {
     public void setCep(String cep) {
         this.cep = cep;
     }
-    public void setTipoUsuario( String tipoUsuario ) {
-        this.tipoUsuario = tipoUsuario;
-    }
     public String getTipoUsuario() {
         return tipoUsuario;
     }
+    public void setTipoUsuario(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
+   
+
+
     
- 
     // public CreateAvaliacaoDTO getAvaliacao() {
     //     return avaliacao;
     // }

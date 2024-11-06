@@ -1,8 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link , useNavigate } from 'react-router-dom';
 import '../TelaPrincipal/TelaPrincipal.css'
+import CardTrabalhador from './CardTrabalhador.';
+import { listaUsuarios } from '../../services/api';
 
 function TelaPrincipal() {
+
+  const [usuarios, setUsuarios] = useState([]);
+
+  useEffect(() => {
+      listaUsuarios().then((response) => {
+        setUsuarios(response);
+        console.log(response);
+      }).catch((error) => {
+        console.log(error);
+      })
+  })
+
+
+
+  
 
   const [inptSearch, setInptSearch] = useState();
 
@@ -42,8 +59,13 @@ function TelaPrincipal() {
           </div>
 
         </div>
-
       </div>
+
+    <div className='container-body'>
+      <div className='div-card-trabalhador'>
+        
+      </div>
+    </div>
     </div>
   )
 }

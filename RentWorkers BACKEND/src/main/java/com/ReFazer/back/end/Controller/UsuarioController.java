@@ -40,9 +40,8 @@ public class UsuarioController {
     // TrabalhoSolicitadoService trabalhoSolicitadoService;
 
     @PostMapping
-
     public ResponseEntity<?> createUsuario(@RequestBody CreateUsuarioDTO dto) {
-        System.out.println(dto.getId_usuario());
+        // System.out.println(dto.getId_usuario());
 
         System.out.println(dto.getNome());
         System.out.println(dto.getEmail());
