@@ -1,23 +1,23 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 
+// Criação do contexto
 export const UserContext = createContext();
 
-export function UserProvider({ children }) {
-    const [idUsuarioLogado, setIdUsuarioLogado ] = useState();
-    
-    function usuarioLogado( id ) {
-        setIdUsuarioLogado(id);
-    }
-    
-    return (
-      <UserContext.Provider value={{ idUsuarioLogado, setIdUsuarioLogado }}>
-        {children}
-      </UserContext.Provider>
-    );
-}
+// Componente Provider
+export const UserProvider = ({ children }) => {
+  const [idUsuarioLogado, setIdUsuarioLogado] = useState(null);
 
-export function useUserProvider() {
-    return useContext(UserContext);
-}
-  
-  
+  // Lógica para definir o idUsuarioLogado (por exemplo, a partir do login)
+  const login = (id) => {
+    setIdUsuarioLogado(id); // Atualiza o id do usuário logado
+  };
+
+  return (
+    <UserContext.Provider value={{ idUsuarioLogado, login }}>
+      {children}
+    </UserContext.Provider>
+  );
+};
+
+// Hook para acessar o contexto
+export const useUserContext = () => useContext(UserContext);

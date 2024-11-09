@@ -7,6 +7,9 @@ import PaginaHome from './componentes/TelaHome/PaginaHome.jsx';
 import TelaLogin from './componentes/TelaLogin/TelaLogin.jsx';
 import TelaCadastro from './componentes/TelaCadastro/TelaCadastro.jsx';
 import TelaPrincipal from './componentes/TelaPrincipal/TelaPrincipal.jsx';
+import Perfil from './componentes/TelaPerfil/Perfil.jsx';
+
+import CardTrabalhador from './componentes/TelaPrincipal/CardTrabalhador.jsx';
 
 
 const router = createBrowserRouter([
@@ -18,6 +21,12 @@ const router = createBrowserRouter([
   path: "/telaprincipal",
   element: <TelaPrincipal/>
 },
+
+{
+  path: "/CardTrabalhador.",
+  element: <CardTrabalhador/>
+},
+
 {
   path: "/login",
   element: <TelaLogin />
@@ -25,7 +34,15 @@ const router = createBrowserRouter([
 {
   path: "/cadastro",
   element: <TelaCadastro />
-}
+}, 
+
+{
+  path: "/perfil",
+  element: <Perfil />
+}, 
+
+
+
 ])
 
 import { UserProvider } from './context/GlobalContext.jsx'
