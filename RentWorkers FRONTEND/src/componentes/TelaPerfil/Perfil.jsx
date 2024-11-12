@@ -12,6 +12,7 @@ function Perfil() {
     const [cep, setCep] = useState("");
 
     useEffect(() => {
+        
         if (!idUsuarioLogado) {
             alert("Por favor, faça login para visualizar seu perfil.");
             return;

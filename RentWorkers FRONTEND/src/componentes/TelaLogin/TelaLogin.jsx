@@ -35,8 +35,9 @@ function TelaLogin() {
         );
 
         if (usuarioEncontrado) {
-            alert("Login realizado!");
+            alert("Login realizado!"); 
             login(usuarioEncontrado.id_usuario); 
+
             navigate('/telaprincipal');
         } else {
             alert("Email ou senha incorretos");

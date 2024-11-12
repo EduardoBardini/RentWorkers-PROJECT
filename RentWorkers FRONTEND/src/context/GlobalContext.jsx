@@ -10,10 +10,13 @@ export const UserProvider = ({ children }) => {
   // Lógica para definir o idUsuarioLogado (por exemplo, a partir do login)
   const login = (id) => {
     setIdUsuarioLogado(id); // Atualiza o id do usuário logado
+    localStorage.setItem("idUsuarioLogado", id);
   };
 
+  
+
   return (
-    <UserContext.Provider value={{ idUsuarioLogado, login }}>
+    <UserContext.Provider value={{ idUsuarioLogado, login}}>
       {children}
     </UserContext.Provider>
   );
