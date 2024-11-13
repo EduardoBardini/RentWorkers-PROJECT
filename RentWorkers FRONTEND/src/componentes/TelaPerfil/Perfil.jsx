@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./Perfil.css";
-import { listaUsuarios } from "../../services/api";
+import { listaUsuarios,atualizarUsuario } from "../../services/api";
 import { UserContext } from "../../context/GlobalContext";
 import { Hamburger, Plus, InformationSquare, OpenPadlock, Trash, Settings } from "./IconPerfil";
+
+
 
 function Perfil() {
     const { idUsuarioLogado } = useContext(UserContext);
@@ -10,18 +12,20 @@ function Perfil() {
     const [email, setEmail] = useState("");
     const [telefone, setTelefone] = useState("");
     const [cep, setCep] = useState("");
+    const [editarUsuario, setEditarUsuario] = useState(false);
 
     useEffect(() => {
-        
+        console.log("ID do Usuário Logado:", idUsuarioLogado);
+
         if (!idUsuarioLogado) {
             alert("Por favor, faça login para visualizar seu perfil.");
             return;
         }
-    
+
         listaUsuarios()
             .then((response) => {
                 const usuarioLogado = response.data.find(
-                    (user) => user.id_usuario === idUsuarioLogado
+                    (user) => user.id_usuario == idUsuarioLogado
                 );
                 if (usuarioLogado) {
                     setEmail(usuarioLogado.email);
@@ -35,7 +39,40 @@ function Perfil() {
                 console.log("Erro ao carregar lista de usuários:", error);
             });
     }, [idUsuarioLogado]);
-    
+
+    function mostrarEdicao() {
+        setEditarUsuario(!editarUsuario); // Alterna entre visualização e edição
+    }
+
+    function atualizarEdicao() {
+
+        const dadosAtualizado = {
+
+            id_usuario: idUsuarioLogado,
+            email,
+            telefone,
+            cep,
+
+
+        }
+
+        atualizarUsuario(dadosAtualizado)
+            .then(() => {
+
+                alert("Informações atualizadas com sucesso");
+                setEditarUsuario(false)
+
+
+            })
+            .catch((error) => {
+
+                console.error("erro ao atualizar os dados do usuario", error);
+                alert("erro ao salvar informações,Tente Novamente")
+
+            })
+
+    }
+
     return (
         <div className="container-Perfil">
             <div className="divPainel">
@@ -62,13 +99,48 @@ function Perfil() {
                 </div>
 
                 <div className="div-meio">
-                    <p>Email: {email}</p>
-                    <p>Telefone: {telefone}</p>
-                    <p>CEP: {cep}</p>
+                    {editarUsuario ? (
+                        <div>
+                            <p>Email:
+                                <input
+                                    type="text"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+
+                            </p>
+                            <p>Telefone:
+                                <input
+                                    type="text"
+                                    value={telefone}
+                                    onChange={(e) => setTelefone(e.target.value)}
+                                />
+                            </p>
+
+
+                            <p> CEP:
+
+                                <input
+                                    type="text"
+                                    value={cep}
+                                    onChange={(e) => setCep(e.target.value)}
+                                />
+
+                            </p>
+
+
+                        </div>
+                    ) : (
+                        <div>
+                            <p>Email: {email}</p>
+                            <p>Telefone: {telefone}</p>
+                            <p>CEP: {cep}</p>
+                        </div>
+                    )}
 
                     <div className="div-botoes">
-                        <button className="botaoSalvar">Salvar</button>
-                        <button className="botaoInfo">Editar Informações</button>
+                        <button onClick={atualizarEdicao} className="botaoSalvar">Salvar</button>
+                        <button onClick={mostrarEdicao} className="botaoInfo">Editar Informações</button>
                     </div>
 
                     <div className="div-form">

@@ -10,4 +10,14 @@ export const listaUsuarios = () => {
 
 export const criarUsuario = (usuario) => axios.post('http://localhost:8080/usuarios', usuario);
 
+// Corrigir a exportação da função atualizarUsuario
+export const atualizarUsuario = async (dadosAtualizado) => {
+    try {
+        const response = await api.put(`/usuarios/${dadosAtualizado.id_usuario}`, dadosAtualizado);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
 export default api;
