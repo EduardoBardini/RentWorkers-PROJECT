@@ -125,6 +125,10 @@
       justify-content: center;
     }
     .div-card-trabalhador {
+      display: flex; 
       height: 30%;
       width: 35%;
+      border-radius: 25px;
+
+      
     }

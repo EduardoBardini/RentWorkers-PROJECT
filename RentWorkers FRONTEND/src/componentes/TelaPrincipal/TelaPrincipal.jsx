@@ -9,15 +9,27 @@ function TelaPrincipal() {
   const navigate = useNavigate();
   const { idUsuarioLogado } = useContext(UserContext);
   const [usuarios, setUsuarios] = useState([]);
+  const [trabalhadores, setTrabalhadores] = useState([]);
   const [inptSearch, setInptSearch] = useState(""); 
   const [usuarioLogado, setUsuarioLogado] = useState(null);
+   
+
+
+  useEffect(() => {
+    console.log(trabalhadores)
+  }, [trabalhadores]);
 
   useEffect(() => {
     listaUsuarios()
       .then((response) => {
+     
         setUsuarios(response.data);
-        const usuarioAtual = response.data.find(user => user.id_usuario === idUsuarioLogado);
+        console.log(usuarios)
+        const usuarioAtual = response.data.find(user => user.id_usuario == idUsuarioLogado);
         setUsuarioLogado(usuarioAtual); 
+
+        setTrabalhadores(usuarios.filter((usuario) => usuario.tipoUsuario == "TRABALHADOR" ));
+        
       })
       .catch((error) => {
         console.log("Erro ao carregar usuários:", error);
@@ -72,9 +84,11 @@ function TelaPrincipal() {
       </div>
 
       <div className='container-body'>
-        <div className='div-card-trabalhador'>
-          <CardTrabalhador />
-        </div>
+        {trabalhadores.map((trabalhador) => (
+            <CardTrabalhador key={trabalhador.id_usuario}/>
+          // <div className='div-card-trabalhador' key={trabalhador.id_usuario}>
+          //</div>
+        ))}
       </div>
     </div>
   );

@@ -6,11 +6,12 @@ import { Hamburger, Plus, InformationSquare, OpenPadlock, Trash, Settings } from
 
 function Perfil() {
     const { idUsuarioLogado } = useContext(UserContext);
-
+    
+    const [nome, setNome] = useState("")
     const [email, setEmail] = useState("");
     const [telefone, setTelefone] = useState("");
     const [cep, setCep] = useState("");
-
+    
     useEffect(() => {
         
         if (!idUsuarioLogado) {
@@ -20,10 +21,15 @@ function Perfil() {
     
         listaUsuarios()
             .then((response) => {
+                
+                
                 const usuarioLogado = response.data.find(
-                    (user) => user.id_usuario === idUsuarioLogado
+                    (user) => user.id_usuario == idUsuarioLogado
                 );
+                
+
                 if (usuarioLogado) {
+                    setNome(usuarioLogado.nome)
                     setEmail(usuarioLogado.email);
                     setTelefone(usuarioLogado.telefone);
                     setCep(usuarioLogado.cep);
@@ -50,7 +56,7 @@ function Perfil() {
             <div className="divPerfil">
                 <div className="div-cima">
                     <img className="imgPerfilum" src="/images/download 46 (1).png" alt="Perfil" />
-                    <p className="fonteNome">Jackson Arthur Dudu dos Santos</p>
+                    <p className="fonteNome">{nome}</p>
                 </div>
 
                 <div className="divPerfil-Esquerda">
