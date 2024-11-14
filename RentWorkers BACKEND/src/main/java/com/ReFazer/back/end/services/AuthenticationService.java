@@ -33,7 +33,7 @@ public class AuthenticationService {
         usuario.setEspecialidade(input.getEspecialidade());
         usuario.setEmail(input.getEmail());
         usuario.setCep(input.getCep());
-        usuario.setCep(input.getCep());
+        usuario.setTelefone(input.getTelefone());
         usuario.setTipoUsuario(input.getTipoUsuario());
 
         usuario.setPassword(passwordEncoder.encode(input.getPassword()));

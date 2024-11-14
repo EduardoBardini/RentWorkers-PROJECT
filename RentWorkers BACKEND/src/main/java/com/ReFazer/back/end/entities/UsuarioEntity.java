@@ -3,6 +3,9 @@ package com.ReFazer.back.end.entities;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,9 +15,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 @Entity(name = "usuario")
 public class UsuarioEntity implements UserDetails {
 
@@ -23,7 +23,7 @@ public class UsuarioEntity implements UserDetails {
     @Column(name = "id_usuario")
     private Long id_usuario;
 
-    @Column(name = "nome")
+    @Column(name = "username")
     private String username;
 
     @Column(name = "especialidade")
@@ -32,7 +32,7 @@ public class UsuarioEntity implements UserDetails {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "senha")
+    @Column(name = "password")
     private String password;
 
     @Column(name = "telefone")
@@ -42,7 +42,7 @@ public class UsuarioEntity implements UserDetails {
     private String cep;
 
     @Column(name = "tipo_usuario")
-    private String tipoUsuario;  
+    private String tipoUsuario;
 
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.REMOVE)
     private AvaliacaoEntity avaliacao;
@@ -50,14 +50,12 @@ public class UsuarioEntity implements UserDetails {
     @OneToMany(mappedBy = "usuario")
     private List<TrabalhoSolicitadoEntity> trabalhos;
 
-    
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-      
-        return List.of(() -> tipoUsuario);  
+
+        return List.of(() -> tipoUsuario);
     }
 
-   
     @Override
     public String getUsername() {
         return email;
@@ -82,7 +80,6 @@ public class UsuarioEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 
     public Long getId_usuario() {
         return id_usuario;
