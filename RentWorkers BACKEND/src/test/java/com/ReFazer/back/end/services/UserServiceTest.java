@@ -6,9 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -42,9 +40,9 @@ public class UserServiceTest {
     
         assertNotNull(usuarioCriado);
         assertNotNull(usuarioCriado.getId_usuario());
-        assertEquals(userDummy.getNome(), usuarioCriado.getNome());
+        assertEquals(userDummy.getNome(), usuarioCriado.getusername());
         assertEquals(userDummy.getEmail(), usuarioCriado.getEmail());
-        assertEquals(userDummy.getSenha(), usuarioCriado.getSenha());
+        assertEquals(userDummy.getSenha(), usuarioCriado.getPassword());
         assertEquals(userDummy.getTelefone(), usuarioCriado.getTelefone());
         assertEquals(userDummy.getCep(), usuarioCriado.getCep());
         assertEquals(userDummy.getTipoUsuario(), usuarioCriado.getTipoUsuario());

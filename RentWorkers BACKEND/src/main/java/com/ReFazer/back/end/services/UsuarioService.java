@@ -77,7 +77,7 @@ public class UsuarioService {
         // usuarioEntity.setEspecialidade(userDummy.getEspecialidade());
         usuarioEntity.setNome(userDummy.getNome());
         usuarioEntity.setEmail(userDummy.getEmail());
-        usuarioEntity.setSenha(userDummy.getSenha());
+        usuarioEntity.setPassword(userDummy.getSenha());
         usuarioEntity.setTelefone(userDummy.getTelefone());
         usuarioEntity.setCep(userDummy.getCep());
         usuarioEntity.setTipoUsuario(userDummy.getTipoUsuario());
@@ -138,7 +138,7 @@ public class UsuarioService {
     public boolean loginUsuario(String email, String senha) {
         UsuarioEntity usuario = usuarioRepository.findByEmail(email);
 
-        if (usuario != null && usuario.getSenha().equals(senha)) {
+        if (usuario != null && usuario.getPassword().equals(senha)) {
             return true; // Login bem-sucedido
         } else {
             return false; // Falha no login
@@ -173,10 +173,10 @@ public class UsuarioService {
                     }
 
                     usuarioDTO.setId_usuario(usuario.getId_usuario());
-                    usuarioDTO.setNome(usuario.getNome());
+                    usuarioDTO.setNome(usuario.getusername());
                     usuarioDTO.setEspecialidade(usuario.getEspecialidade());
                     usuarioDTO.setEmail(usuario.getEmail());
-                    usuarioDTO.setSenha(usuario.getSenha());
+                    usuarioDTO.setSenha(usuario.getPassword());
                     usuarioDTO.setTelefone(usuario.getTelefone());
                     usuarioDTO.setCep(usuario.getCep());
                     usuarioDTO.setTipoUsuario(usuario.getTipoUsuario());
@@ -187,23 +187,25 @@ public class UsuarioService {
                 }).toList();
     }
 
-    public ShowUsuarioDTO getUsuarioById(Long id_usuario) {
+     public UsuarioEntity getUsuarioEntityById(Long id_usuario) {
+        return usuarioRepository.findById(id_usuario)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+    }
 
+    public ShowUsuarioDTO getUsuarioById(Long id_usuario) {
         Optional<UsuarioEntity> optionalUsuarioEntity = usuarioRepository.findById(id_usuario);
 
         if (optionalUsuarioEntity.isEmpty()) {
-            // jogar uma excecao
-
+            throw new RuntimeException("Usuário não encontrado");
         }
 
         UsuarioEntity usuarioEntity = optionalUsuarioEntity.get();
-
         ShowUsuarioDTO dto = new ShowUsuarioDTO();
         dto.setId_usuario(usuarioEntity.getId_usuario());
         dto.setEspecialidade(usuarioEntity.getEspecialidade());
-        dto.setNome(usuarioEntity.getNome());
+        dto.setNome(usuarioEntity.getUsername());
         dto.setEmail(usuarioEntity.getEmail());
-        dto.setSenha(usuarioEntity.getSenha());
+        dto.setSenha(usuarioEntity.getPassword());
         dto.setTelefone(usuarioEntity.getTelefone());
         dto.setCep(usuarioEntity.getCep());
         dto.setTipoUsuario(usuarioEntity.getTipoUsuario());
@@ -215,7 +217,6 @@ public class UsuarioService {
         dto.setAvaliacao(avaliacaoDTO);
         List<ShowTrabalhoSolicitadoDTO> trabalhosSolicitadosDTO = new ArrayList<>();
 
-        // Preenche a lista iterando sobre os trabalhos de usuarioEntity
         for (TrabalhoSolicitadoEntity trabalho : usuarioEntity.getTrabalhos()) {
             ShowTrabalhoSolicitadoDTO trabalhoDTO = new ShowTrabalhoSolicitadoDTO();
             trabalhoDTO.setTipo(trabalho.getTipo());
@@ -229,8 +230,13 @@ public class UsuarioService {
         dto.setTrabalhos(trabalhosSolicitadosDTO);
 
         return dto;
-
     }
+
+     public void save(UsuarioEntity usuario) {
+        usuarioRepository.save(usuario);
+    }
+
+    
 
     @Transactional
     public void deleteUsuarioById(long id_usuario) {
@@ -312,7 +318,7 @@ public class UsuarioService {
         usuarioEntity.setNome(dto.getNome());
         usuarioEntity.setEspecialidade(dto.getEspecialidade());
         usuarioEntity.setEmail(dto.getEmail());
-        usuarioEntity.setSenha(dto.getSenha());
+        usuarioEntity.setPassword(dto.getSenha());
         usuarioEntity.setTelefone(dto.getTelefone());
         usuarioEntity.setCep(dto.getCep());
         usuarioEntity.setTipoUsuario(dto.getTipoUsuario());

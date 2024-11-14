@@ -1,5 +1,6 @@
 package com.ReFazer.back.end.entities;
 
+import java.util.Collection;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -11,43 +12,77 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
-@Entity(name = "usuario")
-public class UsuarioEntity {
-    
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+@Entity(name = "usuario")
+public class UsuarioEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario") // Mapeia a coluna correta
-    private Long id_usuario; // Nome do atributo é id_usuario
+    @Column(name = "id_usuario")
+    private Long id_usuario;
 
     @Column(name = "nome")
-    private String nome;
-
+    private String username;
 
     @Column(name = "especialidade")
     private String especialidade;
 
     @Column(name = "email")
     private String email;
-    
+
     @Column(name = "senha")
-    private String senha;
+    private String password;
 
     @Column(name = "telefone")
     private String telefone;
-    
+
     @Column(name = "cep")
     private String cep;
-    
+
     @Column(name = "tipo_usuario")
-    private String tipoUsuario ; 
-    
-    @OneToOne(mappedBy = "usuario",cascade = CascadeType.REMOVE)
+    private String tipoUsuario;  
+
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.REMOVE)
     private AvaliacaoEntity avaliacao;
 
     @OneToMany(mappedBy = "usuario")
     private List<TrabalhoSolicitadoEntity> trabalhos;
+
+    
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+      
+        return List.of(() -> tipoUsuario);  
+    }
+
+   
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
 
     public Long getId_usuario() {
         return id_usuario;
@@ -57,12 +92,12 @@ public class UsuarioEntity {
         this.id_usuario = id_usuario;
     }
 
-    public String getNome() {
-        return nome;
+    public String getusername() {
+        return username;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String username) {
+        this.username = username;
     }
 
     public String getEspecialidade() {
@@ -81,12 +116,12 @@ public class UsuarioEntity {
         this.email = email;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getPassword() {
+        return password;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getTelefone() {
@@ -128,10 +163,4 @@ public class UsuarioEntity {
     public void setTrabalhos(List<TrabalhoSolicitadoEntity> trabalhos) {
         this.trabalhos = trabalhos;
     }
-
-   
-   
-
-
-
 }

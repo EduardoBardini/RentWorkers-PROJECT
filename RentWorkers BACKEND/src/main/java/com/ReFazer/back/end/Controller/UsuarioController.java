@@ -16,12 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 // import com.ReFazer.back.end.dtos.req.ChangeAvaliacaoDTO;
-import com.ReFazer.back.end.dtos.req.ChangeTrabalhoSolicitadoDTO;
 import com.ReFazer.back.end.dtos.req.ChangeUsuarioDTO;
 // import com.ReFazer.back.end.dtos.req.CreateAvaliacaoDTO;
 import com.ReFazer.back.end.dtos.req.CreateUsuarioDTO;
-import com.ReFazer.back.end.dtos.resp.ShowTrabalhoSolicitadoDTO;
 import com.ReFazer.back.end.dtos.resp.ShowUsuarioDTO;
+import com.ReFazer.back.end.entities.UsuarioEntity;
 // import com.ReFazer.back.end.services.TrabalhoSolicitadoService;
 import com.ReFazer.back.end.services.UsuarioService;
 
@@ -156,25 +155,44 @@ public class UsuarioController {
     //  }
 
   
-    @PutMapping("/{id_usuario}/trabalho/{id_trabalho_solicitado}")
-    public ResponseEntity<?> putMethodName(@PathVariable long id_usuario, @PathVariable String tipoProjeto,
-            @RequestBody ChangeTrabalhoSolicitadoDTO changeTrabalhoSolicitadoDTO) {
+    // @PutMapping("/{id_usuario}/trabalho/{id_trabalho_solicitado}")
+    // public ResponseEntity<?> putMethodName(@PathVariable long id_usuario, @PathVariable String tipoProjeto,
+    //         @RequestBody ChangeTrabalhoSolicitadoDTO changeTrabalhoSolicitadoDTO) {
 
-        ShowUsuarioDTO usuaDTO = usuarioService.getUsuarioById(id_usuario);
+    //     ShowUsuarioDTO usuaDTO = usuarioService.getUsuarioById(id_usuario);
 
-        for (ShowTrabalhoSolicitadoDTO trabalhoSolicitadoDTO : usuaDTO.getTrabalhos()) {
-            if (trabalhoSolicitadoDTO.getTipo().equals(tipoProjeto)) {
+    //     for (ShowTrabalhoSolicitadoDTO trabalhoSolicitadoDTO : usuaDTO.getTrabalhos()) {
+    //         if (trabalhoSolicitadoDTO.getTipo().equals(tipoProjeto)) {
 
-                trabalhoSolicitadoDTO.setTipo(changeTrabalhoSolicitadoDTO.getTipo());
-                trabalhoSolicitadoDTO.setValor(changeTrabalhoSolicitadoDTO.getValor());
-                trabalhoSolicitadoDTO.setLocalizacao(changeTrabalhoSolicitadoDTO.getLocalizacao());
-                trabalhoSolicitadoDTO.setDescricao(changeTrabalhoSolicitadoDTO.getDescricao());
-                trabalhoSolicitadoDTO.setStatus(changeTrabalhoSolicitadoDTO.isStatus());
-            }
+    //             trabalhoSolicitadoDTO.setTipo(changeTrabalhoSolicitadoDTO.getTipo());
+    //             trabalhoSolicitadoDTO.setValor(changeTrabalhoSolicitadoDTO.getValor());
+    //             trabalhoSolicitadoDTO.setLocalizacao(changeTrabalhoSolicitadoDTO.getLocalizacao());
+    //             trabalhoSolicitadoDTO.setDescricao(changeTrabalhoSolicitadoDTO.getDescricao());
+    //             trabalhoSolicitadoDTO.setStatus(changeTrabalhoSolicitadoDTO.isStatus());
+    //         }
 
-        }
+    //     }
+    //     return ResponseEntity.status(200).build();
+
+    // }
+    @PutMapping("/{id_usuario}")
+    public ResponseEntity<?> updateUsuario(@PathVariable long id_usuario, @RequestBody ChangeUsuarioDTO changeUsuarioDTO) {
+    
+        UsuarioEntity usuario = usuarioService.getUsuarioEntityById(id_usuario);
+    
+        usuario.setNome(changeUsuarioDTO.getNome());
+        usuario.setEspecialidade(changeUsuarioDTO.getEspecialidade());
+        usuario.setEmail(changeUsuarioDTO.getEmail());
+        usuario.setPassword(changeUsuarioDTO.getSenha());
+        usuario.setTelefone(changeUsuarioDTO.getTelefone());
+        usuario.setCep(changeUsuarioDTO.getCep());
+        usuario.setTipoUsuario(changeUsuarioDTO.getTipoUsuario());
+    
+        usuarioService.save(usuario);
+    
         return ResponseEntity.status(200).build();
-
     }
+    
 
+ 
 }
