@@ -77,13 +77,13 @@ public class UsuarioController {
 
 
 
-    @GetMapping
-    public ResponseEntity<?> getAllUsuarios() {
+    // @GetMapping
+    // public ResponseEntity<?> getAllUsuarios() {
 
-        List<ShowUsuarioDTO> usuarios = usuarioService.getAllUsuarios();
+    //     List<ShowUsuarioDTO> usuarios = usuarioService.getAllUsuarios();
 
-        return ResponseEntity.status(200).body(usuarios);
-    }
+    //     return ResponseEntity.status(200).body(usuarios);
+    // }
 
     @GetMapping("/{id_usuario}")
     public ResponseEntity<?> getAllUsuarios(@PathVariable long id_usuario) {
