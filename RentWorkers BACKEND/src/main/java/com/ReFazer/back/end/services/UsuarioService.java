@@ -47,7 +47,7 @@ public class UsuarioService {
         }
 
 
-        if (userDummy.getNome() == null || userDummy.getNome().isEmpty()) {
+        if (userDummy.getUsername() == null || userDummy.getUsername().isEmpty()) {
             throw new CampoObrigatorioException("O campo nome é obrigatório.");
         }
     
@@ -75,7 +75,7 @@ public class UsuarioService {
         UsuarioEntity usuarioEntity = new UsuarioEntity();
         // usuarioEntity.setId_usuario(dto.getId_usuario());
         // usuarioEntity.setEspecialidade(userDummy.getEspecialidade());
-        usuarioEntity.setNome(userDummy.getNome());
+        usuarioEntity.setUsername(userDummy.getUsername());
         usuarioEntity.setEmail(userDummy.getEmail());
         usuarioEntity.setPassword(userDummy.getSenha());
         usuarioEntity.setTelefone(userDummy.getTelefone());
@@ -172,8 +172,8 @@ public class UsuarioService {
                         avaliacaoDTO.setTexto_avaliativo(usuario.getAvaliacao().getTexto_avaliativo());
                     }
 
-                    usuarioDTO.setId_usuario(usuario.getId_usuario());
-                    usuarioDTO.setNome(usuario.getusername());
+                    usuarioDTO.setId_usuario(usuario.getId_Usuario());
+                    usuarioDTO.setNome(usuario.getUsername());
                     usuarioDTO.setEspecialidade(usuario.getEspecialidade());
                     usuarioDTO.setEmail(usuario.getEmail());
                     usuarioDTO.setSenha(usuario.getPassword());
@@ -201,7 +201,7 @@ public class UsuarioService {
 
         UsuarioEntity usuarioEntity = optionalUsuarioEntity.get();
         ShowUsuarioDTO dto = new ShowUsuarioDTO();
-        dto.setId_usuario(usuarioEntity.getId_usuario());
+        dto.setId_usuario(usuarioEntity.getId_Usuario());
         dto.setEspecialidade(usuarioEntity.getEspecialidade());
         dto.setNome(usuarioEntity.getUsername());
         dto.setEmail(usuarioEntity.getEmail());
@@ -250,7 +250,7 @@ public class UsuarioService {
 
         UsuarioEntity usuarioEntity = optionalUsuarioEntity.get();
 
-        if (usuarioEntity.getId_usuario() != null) {
+        if (usuarioEntity.getId_Usuario() != null) {
             usuarioRepository.deleteById(id_usuario);
 
         } else {
@@ -315,7 +315,7 @@ public class UsuarioService {
 
         UsuarioEntity usuarioEntity = optionalUsuarioEntity.get();
 
-        usuarioEntity.setNome(dto.getNome());
+        usuarioEntity.setUsername(dto.getUsername());
         usuarioEntity.setEspecialidade(dto.getEspecialidade());
         usuarioEntity.setEmail(dto.getEmail());
         usuarioEntity.setPassword(dto.getSenha());

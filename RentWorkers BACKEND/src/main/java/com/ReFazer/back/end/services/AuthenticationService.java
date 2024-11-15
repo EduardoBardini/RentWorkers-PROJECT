@@ -29,7 +29,7 @@ public class AuthenticationService {
 
     public UsuarioEntity signup(RegisterUserDto input) {
         UsuarioEntity usuario = new UsuarioEntity();
-        usuario.setNome(input.getUsername());
+        usuario.setUsername(input.getUsername());
         usuario.setEspecialidade(input.getEspecialidade());
         usuario.setEmail(input.getEmail());
         usuario.setCep(input.getCep());

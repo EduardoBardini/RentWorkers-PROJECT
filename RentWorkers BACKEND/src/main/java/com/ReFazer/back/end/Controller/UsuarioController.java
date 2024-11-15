@@ -42,7 +42,7 @@ public class UsuarioController {
     public ResponseEntity<?> createUsuario(@RequestBody CreateUsuarioDTO dto) {
         // System.out.println(dto.getId_usuario());
 
-        System.out.println(dto.getNome());
+        System.out.println(dto.getUsername());
         System.out.println(dto.getEmail());
         System.out.println(dto.getSenha());
         System.out.println(dto.getTelefone());
@@ -180,7 +180,7 @@ public class UsuarioController {
     
         UsuarioEntity usuario = usuarioService.getUsuarioEntityById(id_usuario);
     
-        usuario.setNome(changeUsuarioDTO.getNome());
+        usuario.setUsername(changeUsuarioDTO.getUsername());
         usuario.setEspecialidade(changeUsuarioDTO.getEspecialidade());
         usuario.setEmail(changeUsuarioDTO.getEmail());
         usuario.setPassword(changeUsuarioDTO.getSenha());
