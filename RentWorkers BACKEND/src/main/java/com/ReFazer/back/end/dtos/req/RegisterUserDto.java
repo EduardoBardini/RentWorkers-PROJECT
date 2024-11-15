@@ -2,7 +2,7 @@ package com.ReFazer.back.end.dtos.req;
 
 
 public class RegisterUserDto {
-    private String nome;
+    private String username;
 
 
 
@@ -18,12 +18,12 @@ public class RegisterUserDto {
 
     private String tipoUsuario;
 
-    public String getNome() {
-        return nome;
+    public String getUsername() {
+        return username;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEspecialidade() {

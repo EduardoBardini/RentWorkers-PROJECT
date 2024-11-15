@@ -3,7 +3,7 @@ package com.ReFazer.back.end.dtos.req;
 public class LoginUserDto {
     private String email;
 
-    private String senha;
+    private String password;
 
     public String getEmail() {
         return email;
@@ -13,11 +13,12 @@ public class LoginUserDto {
         this.email = email;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassword(String senha) {
-        this.senha = senha;
+    public void setPassword(String password) {
+        this.password = password;
     }
+
 }
