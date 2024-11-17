@@ -5,18 +5,23 @@ export const UserContext = createContext();
 
 // Componente Provider
 export const UserProvider = ({ children }) => {
-  const [idUsuarioLogado, setIdUsuarioLogado] = useState(localStorage.getItem("idUsuarioLogado"));
 
-  // Lógica para definir o idUsuarioLogado (por exemplo, a partir do login)
-  const login = (id) => {
-    setIdUsuarioLogado(id); // Atualiza o id do usuário logado
-    localStorage.setItem("idUsuarioLogado", id);
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
+  const login = (jwtToken) => {
+    setToken(jwtToken);
+    localStorage.setItem("token", jwtToken);
   };
 
-  
+  const logout = () => {
+    setToken(null);
+    localStorage.removeItem("token");
+  };
+
+  const isAuthenticated = () => !!token;  
 
   return (
-    <UserContext.Provider value={{ idUsuarioLogado, login}}>
+    <UserContext.Provider value={{ token, login, logout, isAuthenticated }}>
       {children}
     </UserContext.Provider>
   );

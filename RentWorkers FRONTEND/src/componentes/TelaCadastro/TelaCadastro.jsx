@@ -3,9 +3,8 @@ import '../TelaCadastro/Cadastro.css'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import React from 'react';
-import { criarUsuario, listaUsuarios } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
-
+import { listaUsuarios } from '../../config/axios';
 
 
 
@@ -26,9 +25,9 @@ function TelaCadastro(){
         })
     })
 
-    const [nome, setNome] = useState('');
+    const [username, setNome] = useState('');
     const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
+    const [password, setSenha] = useState('');
     const [confirmaSenha, setConfirmaSenha] = useState('');
     const [telefone, setTelefone] = useState('');
     const [cep, setCep] = useState('');
@@ -42,7 +41,7 @@ function TelaCadastro(){
         let telefoneExiste = false;
         let senhaIgual = false;
 
-        if(nome != '' && email != '' && senha != '' && confirmaSenha != '' && telefone != '' && cep != '' && tipoUsuario != '' ) {
+        if(username != '' && email != '' && password != '' && confirmaSenha != '' && telefone != '' && cep != '' && tipoUsuario != '' ) {
              inputsPreenchidos = true
         }else {
             alert('Preencha todos os campos!');
@@ -65,16 +64,15 @@ function TelaCadastro(){
         if(telefoneExiste) {
             alert("Este telefone ja esta sendo utilizado!")
         }
-        if(senha != confirmaSenha) {
+        if(password != confirmaSenha) {
             alert("As senhas não se conferem");
             senhaIgual = true
         }
 
         if(inputsPreenchidos && !senhaIgual && !emailExiste && !telefoneExiste) {
-            const usuario = {nome , email, senha , telefone, cep, tipoUsuario}
-             console.log(usuario);
-
-             criarUsuario(usuario).then((response) => {
+            const usuario = {username , email, password , telefone, cep, tipoUsuario}
+            console.log(usuario);
+            axios.post('http://127.0.0.1:8080/auth/signup', usuario).then((response) => {
              console.log(response.data);
              navigate('/login')
             })
@@ -104,11 +102,11 @@ function TelaCadastro(){
                     </div>
                     <div className='divDadosEscritos'>
                         <div className='distanceDiv'>
-                            <input value={nome} onChange={(e) => setNome(e.target.value)} className='inptCss' placeholder='Nome' />
+                            <input value={username} onChange={(e) => setNome(e.target.value)} className='inptCss' placeholder='Nome' />
                             <input value={email} onChange={(e) => setEmail(e.target.value)} className='inptCss' type='email' placeholder='@mail.com' />
                         </div>
                         <div className='distanceDiv'>
-                            <input value={senha} onChange={(e) => setSenha(e.target.value)} className='inptCss' type='password' placeholder='Senha'/>
+                            <input value={password} onChange={(e) => setSenha(e.target.value)} className='inptCss' type='password' placeholder='Senha'/>
                             <input value={confirmaSenha} onChange={(e) => setConfirmaSenha(e.target.value)} className='inptCss' type='password' placeholder='Confirmar Senha'/>
                         </div>
                         <div  className='distanceDiv'>

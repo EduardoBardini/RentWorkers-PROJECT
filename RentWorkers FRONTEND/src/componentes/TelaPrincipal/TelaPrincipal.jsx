@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../TelaPrincipal/TelaPrincipal.css';
-import { listaUsuarios } from '../../services/api';
+import { listaUsuarios } from '../../config/axios';
 import { UserContext } from '../../context/GlobalContext';
 import CardTrabalhador from './CardTrabalhador';
 

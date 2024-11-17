@@ -45,6 +45,8 @@ const router = createBrowserRouter([
 
 ])
 
+
+
 import { UserProvider } from './context/GlobalContext.jsx'
 
 createRoot(document.getElementById('root')).render(

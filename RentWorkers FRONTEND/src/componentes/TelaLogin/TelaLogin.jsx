@@ -1,48 +1,28 @@
 import { Link, useNavigate } from 'react-router-dom';
 import '../TelaLogin/Login.css';
 import { useState, useEffect, useContext } from "react";
-import { listaUsuarios } from '../../services/api';
 import { UserContext } from '../../context/GlobalContext';
 
 function TelaLogin() {
     const navigate = useNavigate();
-    const [usuarios, setUsuarios] = useState([]);
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const { login } = useContext(UserContext); 
 
-    useEffect(() => {
-        listaUsuarios()
-            .then((response) => {
-                setUsuarios(response.data);
-                console.log("Usuários carregados:", response.data);
-            })
-            .catch(error => {
-                console.log("Erro ao carregar usuários:", error);
-            });
-    }, []);
-
-    function checkLogin(e) {
-        e.preventDefault();
-
-        if (email === "" || senha === "") {
-            alert("Preencha todos os campos");
-            return;
-        }
-
-        const usuarioEncontrado = usuarios.find(
-            user => user.email === email && user.senha === senha
-        );
-
-        if (usuarioEncontrado) {
-            alert("Login realizado!"); 
-            login(usuarioEncontrado.id_usuario); 
-
-            navigate('/telaprincipal');
-        } else {
-            alert("Email ou senha incorretos");
-        }
+    const handleLogin = async () => {
+      const loginData = {
+        email: email,
+        password: senha
+      };
+      try {
+        const response = await api.post('/auth/login', loginData);      
+        login(response.data.token);
+        navigate("/telaprincipal");
+      } catch (error) {
+        console.error('Erro ao buscar dados do usuário:', error);
     }
+    
+  };
 
     return (
         <div className="containerLogin">
@@ -50,7 +30,7 @@ function TelaLogin() {
                 <img className='imgStyle' src='/images/imagemLogin.jpg' alt="Login" />
             </div>
             <div className="divFormLogin">
-                <form className='divForm' onSubmit={checkLogin}>
+                <form className='divForm' onSubmit={ handleLogin }>
                     <div className='divTitulo'>
                         <h1>Faça o seu login</h1>
                     </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./Perfil.css";
-import { listaUsuarios,atualizarUsuario } from "../../services/api";
+import { listaUsuarios } from "../../config/axios";
 import { UserContext } from "../../context/GlobalContext";
 import { Hamburger, Plus, InformationSquare, OpenPadlock, Trash, Settings } from "./IconPerfil";
 
