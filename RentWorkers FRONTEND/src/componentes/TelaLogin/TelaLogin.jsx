@@ -6,13 +6,15 @@ import { UserContext } from '../../context/GlobalContext';
 function TelaLogin() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
+    const [password, setSenha] = useState('');
     const { login } = useContext(UserContext); 
 
-    const handleLogin = async () => {
-      const loginData = {
+    const handleLogin = async (e) => {
+        
+        e.preventDefault();      
+        const loginData = {
         email: email,
-        password: senha
+        password: password
       };
       try {
         const response = await api.post('/auth/login', loginData);      
@@ -50,7 +52,7 @@ function TelaLogin() {
                         <input
                             className='inptLogin'
                             type="password"
-                            value={senha}
+                            value={password}
                             onChange={(e) => setSenha(e.target.value)}
                             placeholder="Senha"
                         />

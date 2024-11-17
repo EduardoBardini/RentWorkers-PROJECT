@@ -9,8 +9,8 @@ export const UserProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   const login = (jwtToken) => {
-    setToken(jwtToken);
-    localStorage.setItem("token", jwtToken);
+    setToken("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzci5qYWNrZGlhc0BnbWFpbC5jb20iLCJpYXQiOjE3MzE2MjM5MTYsImV4cCI6MTczMTYyMzk1Mn0.Yuj4SqyFplcoEKbuS9eEYjDwueVc-2o40JLqfhxyS_0");
+    localStorage.setItem("token", "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzci5qYWNrZGlhc0BnbWFpbC5jb20iLCJpYXQiOjE3MzE2MjM5MTYsImV4cCI6MTczMTYyMzk1Mn0.Yuj4SqyFplcoEKbuS9eEYjDwueVc-2o40JLqfhxyS_0");
   };
 
   const logout = () => {
