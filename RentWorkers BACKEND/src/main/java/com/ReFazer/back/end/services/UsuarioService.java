@@ -173,10 +173,10 @@ public class UsuarioService {
                     }
 
                     usuarioDTO.setId_usuario(usuario.getId_Usuario());
-                    usuarioDTO.setNome(usuario.getUsername());
+                    usuarioDTO.setUsername(usuario.getUsername());
                     usuarioDTO.setEspecialidade(usuario.getEspecialidade());
                     usuarioDTO.setEmail(usuario.getEmail());
-                    usuarioDTO.setSenha(usuario.getPassword());
+                    usuarioDTO.setPassword(usuario.getPassword());
                     usuarioDTO.setTelefone(usuario.getTelefone());
                     usuarioDTO.setCep(usuario.getCep());
                     usuarioDTO.setTipoUsuario(usuario.getTipoUsuario());
@@ -203,7 +203,7 @@ public class UsuarioService {
         ShowUsuarioDTO dto = new ShowUsuarioDTO();
         dto.setId_usuario(usuarioEntity.getId_Usuario());
         dto.setEspecialidade(usuarioEntity.getEspecialidade());
-        dto.setNome(usuarioEntity.getUsername());
+        dto.setUsername(usuarioEntity.getUsername());
         dto.setEmail(usuarioEntity.getEmail());
         dto.setSenha(usuarioEntity.getPassword());
         dto.setTelefone(usuarioEntity.getTelefone());
