@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../TelaLogin/Login.css';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../context/GlobalContext';
+import api  from '../../config/axios'
 
 function TelaLogin() {
     const navigate = useNavigate();
@@ -18,7 +19,7 @@ function TelaLogin() {
       };
       try {
         const response = await api.post('/auth/login', loginData);      
-        login(response.data.token);
+        login(response.data.token, response.data.usuario);
         navigate("/telaprincipal");
       } catch (error) {
         console.error('Erro ao buscar dados do usuário:', error);

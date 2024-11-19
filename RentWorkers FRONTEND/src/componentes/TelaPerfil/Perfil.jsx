@@ -7,7 +7,7 @@ import { Hamburger, Plus, InformationSquare, OpenPadlock, Trash, Settings } from
 
 
 function Perfil() {
-    const { idUsuarioLogado } = useContext(UserContext);
+    const { usuario } = useContext(UserContext);
 
     const [email, setEmail] = useState("");
     const [telefone, setTelefone] = useState("");
@@ -15,18 +15,10 @@ function Perfil() {
     const [editarUsuario, setEditarUsuario] = useState(false);
 
     useEffect(() => {
-        console.log("ID do Usuário Logado:", idUsuarioLogado);
-
-        if (!idUsuarioLogado) {
-            alert("Por favor, faça login para visualizar seu perfil.");
-            return;
-        }
 
         listaUsuarios()
             .then((response) => {
-                const usuarioLogado = response.data.find(
-                    (user) => user.id_usuario == idUsuarioLogado
-                );
+                
                 if (usuarioLogado) {
                     setEmail(usuarioLogado.email);
                     setTelefone(usuarioLogado.telefone);

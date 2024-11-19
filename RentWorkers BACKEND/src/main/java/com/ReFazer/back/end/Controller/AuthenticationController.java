@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ReFazer.back.end.dtos.req.LoginResponse;
 import com.ReFazer.back.end.dtos.req.LoginUserDto;
 import com.ReFazer.back.end.dtos.req.RegisterUserDto;
+import com.ReFazer.back.end.dtos.resp.ShowUsuarioDTO;
 import com.ReFazer.back.end.entities.UsuarioEntity;
 import com.ReFazer.back.end.services.AuthenticationService;
 import com.ReFazer.back.end.services.JwtService;
@@ -41,6 +42,12 @@ public class AuthenticationController {
         LoginResponse response = new LoginResponse();
         response.setToken(jwtToken);
         response.setExpiresIn(jwtService.getExpirationTime());
+        ShowUsuarioDTO usuario = new ShowUsuarioDTO();
+        usuario.setCep(authenticatedUser.getCep());
+        usuario.setEmail(authenticatedUser.getEmail());
+        usuario.setTelefone(authenticatedUser.getTelefone());
+
+        response.setUsuario(usuario);
 
         return ResponseEntity.ok(response);
     }
