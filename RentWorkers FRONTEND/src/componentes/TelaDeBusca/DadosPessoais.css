@@ -1,11 +1,10 @@
-.dadosPessoais-container{
+.dadosPessoais-container {
     border: 2px solid #000;
     border-radius: 10px;
-    background-color:white;
+    background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    width: 350px;
-    height: 350px;
-    
+    width: 300px;
+    height: 300px;
     padding: 15px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
@@ -13,11 +12,17 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição suave para transformação e sombra */
 }
+
+/* Efeito de hover para dar a impressão de "flutuar" */
+.dadosPessoais-container:hover {
+    opacity: 90%;
+    transform: translateY(-10px) scale(1.05); /* Move para frente e aumenta ligeiramente o tamanho */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.6); /* Aumenta a sombra para acentuar o efeito de profundidade */
     
-.imgPerfilUm{
+}
 
-width: 100px;
-
+.imgPerfilUm {
+    width: 100px;
 }

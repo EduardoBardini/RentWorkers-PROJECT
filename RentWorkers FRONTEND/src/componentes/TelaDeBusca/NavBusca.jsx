@@ -63,7 +63,7 @@ function NavBusca() {
             onKeyDown={handleKeyDown}
           />
           <button onClick={BuscarTrabalhador} type="button" className="btnBuscar">
-            <IconBusca style={{ width: '20px', height: '20px' }} />
+          <IconBusca style={{ width: '40px', height: '40px' }} />
           </button>
           <img className='imgPerfil' src='/images/download 46 (1).png' alt="Perfil" />
         </div>

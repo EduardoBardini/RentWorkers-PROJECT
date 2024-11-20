@@ -1,0 +1,214 @@
+
+
+@media (min-width: 1024px) {
+    
+
+    .container-EditarPerfil{
+
+
+        background-color: rgba(120, 208, 210, 1);
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    
+    
+    }
+
+
+
+    .divPainel-EditarPerfil{
+
+        background-color: white;
+        width: 5%;
+        height: 90%;
+        margin-left: 5rem;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        flex-direction: column;
+        gap: 25px;
+    
+    
+    }
+
+    .divEditarPerfil{
+
+        background-color: rgba(120, 208, 210, 1);
+        /* background-color: blueviolet; */
+        width: 80%;
+        height: 90%;
+        margin-left: 5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        border-bottom-right-radius: 40px;
+
+
+    }
+
+    .div-cimaEditarPerfil{
+        background-color: rgb(238, 223, 223);
+        width: 100%;
+        height: 25%;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        flex-direction: row;
+        gap: 30px;
+    
+
+    }
+
+
+    .imgPerfilumEditarPerfil {
+
+        width: 130px;
+        padding-left: 30px;
+    
+    
+    
+    }
+
+    .fonteNomeEditarPerfil {
+
+        font-size: 40px;
+        font-family: Arial, Helvetica, sans-serif;
+        border: 0px;
+        padding-top: 3rem;
+        
+    
+    }
+
+    .divEditarPerfil-Esquerda{
+
+        background-color: white;
+        width: 17%;
+        height: 75%;
+
+
+
+    }
+
+    .div-dados-EditarPerfil{
+        width: 100%;
+        height: 20%;
+        background-color: white;
+        /* border-bottom: 3px solid black; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 2px solid black;
+    }
+
+    .div-nota-EditarPerfil{
+
+        width: 100%;
+        height: 20%;
+        background-color: white;
+        /* border-bottom: 3px solid black; */
+    
+        border-bottom: 2px solid black;
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+
+    }
+
+    .div-solicitacoes-EditarPerfil{
+
+        width: 100%;
+        height: 20%;
+        background-color: white;
+        /* border-bottom: 3px solid black; */
+    
+        border-bottom: 2px solid black;
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+
+    }
+
+
+    .div-vazio-EditarPerfil{
+
+
+        width: 100%;
+        height: 20%;
+        background-color: white;
+        /* border-bottom: 3px solid black; */
+    
+        border-bottom: 2px solid black;
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+
+    }
+
+    .div-Sair-EditarPerfil{
+
+
+        width: 100%;
+        height: 17.8%;
+        background-color: white;
+        /* border-bottom: 3px solid black; */
+    
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .div-meio-EditarPerfil{
+
+        background-color:#e4f6f6;
+
+
+        /* background-color: red; */
+        width: 83%;
+        height: 75%;
+        border-bottom-right-radius: 40px;
+    
+        display: flex;
+       justify-content: center;
+        align-items: center;
+        flex-direction:column;
+        flex-wrap: wrap;
+
+    }
+
+    .fonteUmEditarPerfil,.fonteDoisEditarPerfil,.fonteTresEditarPerfil, .fonteQuadroEditarPerfil{
+        
+
+        font-size: 30px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: normal; /* Se desejar que todas as fontes sejam normais */
+        line-height: 1; /* Remove o espaçamento entre as linhas */
+        padding: 0;
+
+    }
+
+    .botaoConfirmar{
+
+        width: 20%;
+        height: 10%;
+        border-radius: 30px;
+
+        border: solid 2px black;
+        font-size: 20px;
+
+
+    }
+}
+
+
+

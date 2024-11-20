@@ -47,6 +47,9 @@ public class AuthenticationController {
         usuario.setEmail(authenticatedUser.getEmail());
         usuario.setTelefone(authenticatedUser.getTelefone());
 
+        
+
+
         response.setUsuario(usuario);
 
         return ResponseEntity.ok(response);
