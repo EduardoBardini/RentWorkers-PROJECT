@@ -2,9 +2,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../TelaLogin/Login.css';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../context/GlobalContext';
+<<<<<<< HEAD
 import { listaUsuarios } from '../../config/axios';
 import api from '../../config/axios';
 
+=======
+import api  from '../../config/axios'
+>>>>>>> 256c205ec980010473dee37e7d67a0fd1235c601
 
 function TelaLogin() {
     const navigate = useNavigate();
@@ -28,6 +32,7 @@ function TelaLogin() {
 
         e.preventDefault();
         const loginData = {
+<<<<<<< HEAD
             email: email,
             password: password
         };
@@ -46,6 +51,20 @@ function TelaLogin() {
 
 
     };
+=======
+        email: email,
+        password: password
+      };
+      try {
+        const response = await api.post('/auth/login', loginData);      
+        login(response.data.token, response.data.usuario);
+        navigate("/telaprincipal");
+      } catch (error) {
+        console.error('Erro ao buscar dados do usuário:', error);
+    }
+    
+  };
+>>>>>>> 256c205ec980010473dee37e7d67a0fd1235c601
 
     return (
         <div className="containerLogin">

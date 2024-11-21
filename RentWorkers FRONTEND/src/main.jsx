@@ -10,6 +10,10 @@ import TelaPrincipal from './componentes/TelaPrincipal/TelaPrincipal.jsx';
 import Perfil from './componentes/TelaPerfil/Perfil.jsx';
 
 import CardTrabalhador from './componentes/TelaPrincipal/CardTrabalhador.jsx';
+import EditarPerfil from './componentes/TelaEditarPerfil/EditarPerfil.jsx';
+import Cliente from './componentes/TelaCliente/Cliente.jsx';
+
+import PaginaBusca from './componentes/TelaDeBusca/PaginaBusca.jsx'
 
 
 const router = createBrowserRouter([
@@ -40,9 +44,28 @@ const router = createBrowserRouter([
   path: "/perfil",
   element: <Perfil />
 }, 
+{
+
+path: "/EditarPerfil",
+element: <EditarPerfil />
+}, 
 
 
+<<<<<<< HEAD
 // PROJETO C OU SEM , AQUA365 -- VER
+=======
+{
+
+  path: "/cliente",
+  element: <Cliente />
+  }, 
+
+  {
+    path: "/buscarPerfil",
+    element: <PaginaBusca />
+  },
+
+>>>>>>> 256c205ec980010473dee37e7d67a0fd1235c601
 ])
 
 
