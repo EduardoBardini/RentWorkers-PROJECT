@@ -23,7 +23,7 @@ public class UsuarioEntity implements UserDetails {
     @Column(name = "id_usuario")
     private Long id_usuario;
 
-    @Column(name = "nome")
+    @Column(name = "username")
     private String username;
 
     @Column(name = "especialidade")
@@ -32,7 +32,7 @@ public class UsuarioEntity implements UserDetails {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "senha")
+    @Column(name = "password")
     private String password;
 
     @Column(name = "telefone")
@@ -58,10 +58,7 @@ public class UsuarioEntity implements UserDetails {
     }
 
    
-    @Override
-    public String getUsername() {
-        return email;
-    }
+  
 
     @Override
     public boolean isAccountNonExpired() {
@@ -92,11 +89,11 @@ public class UsuarioEntity implements UserDetails {
         this.id_usuario = id_usuario;
     }
 
-    public String getusername() {
+    public String getUsername() {
         return username;
     }
 
-    public void setNome(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 

@@ -1,9 +1,11 @@
 package com.ReFazer.back.end.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.ReFazer.back.end.entities.UsuarioEntity;
 
+@Repository
 public interface UsuarioRepository extends JpaRepository<UsuarioEntity,Long> {
     // public List<UsuarioEntity> findByUsuarioNome(String  nome);
     // public List<UsuarioEntity> findByEmail(String  Email);

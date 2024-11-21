@@ -29,7 +29,7 @@ public class AuthenticationService {
 
     public UsuarioEntity signup(RegisterUserDto input) {
         UsuarioEntity usuario = new UsuarioEntity();
-        usuario.setNome(input.getNome());
+        usuario.setUsername(input.getNome());
         usuario.setEspecialidade(input.getEspecialidade());
         usuario.setEmail(input.getEmail());
         usuario.setCep(input.getCep());
@@ -45,7 +45,7 @@ public class AuthenticationService {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         input.getEmail(),
-                        input.getSenha()));
+                        input.getPassword()));
 
         return userRepository.findByEmail(input.getEmail())
                 .orElseThrow();

@@ -7,11 +7,11 @@ public class ShowUsuarioDTO {
     
 
     private Long id_usuario;
-    private String nome;
+    private String username;
     private String especialidade;
 
     private String email;
-    private String senha;
+    private String password;
     private String telefone;
     private String cep;
     private String tipoUsuario;
@@ -25,11 +25,11 @@ public class ShowUsuarioDTO {
     public void setId_usuario(Long id_usuario) {
         this.id_usuario = id_usuario;
     }
-    public String getNome() {
-        return nome;
+    public String getUsername() {
+        return username;
     }
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setUsername(String username) {
+        this.username = username;
     }
     public String getEspecialidade() {
         return especialidade;
@@ -43,11 +43,11 @@ public class ShowUsuarioDTO {
     public void setEmail(String email) {
         this.email = email;
     }
-    public String getSenha() {
-        return senha;
+    public String getPassword() {
+        return password;
     }
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setPassword(String password) {
+        this.password = password;
     }
     public String getTelefone() {
         return telefone;
@@ -79,8 +79,7 @@ public class ShowUsuarioDTO {
     public void setTrabalhos(List<ShowTrabalhoSolicitadoDTO> trabalhos) {
         this.trabalhos = trabalhos;
     }
-  
-   
+ 
 
 
     

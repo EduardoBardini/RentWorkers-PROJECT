@@ -41,28 +41,27 @@ public class UsuarioService {
     AvaliacaoRepository avaliacaoRepository;
 
     @Transactional
-    public UsuarioEntity createUsuario( CreateUsuarioDTO userDummy ) {
+    public UsuarioEntity createUsuario(CreateUsuarioDTO userDummy) {
         if (usuarioRepository.existsByEmail(userDummy.getEmail())) {
             throw new EmailJaCadastradoException("O e-mail já está cadastrado: " + userDummy.getEmail());
         }
 
-
-        if (userDummy.getNome() == null || userDummy.getNome().isEmpty()) {
+        if (userDummy.getUsername() == null || userDummy.getUsername().isEmpty()) {
             throw new CampoObrigatorioException("O campo nome é obrigatório.");
         }
-    
+
         if (userDummy.getEmail() == null || userDummy.getEmail().isEmpty()) {
             throw new CampoObrigatorioException("O campo email é obrigatório.");
         }
-    
-        if (userDummy.getSenha() == null || userDummy.getSenha().isEmpty()) {
+
+        if (userDummy.getPassword() == null || userDummy.getPassword().isEmpty()) {
             throw new CampoObrigatorioException("O campo senha é obrigatório.");
         }
-    
+
         if (userDummy.getTelefone() == null || userDummy.getTelefone().isEmpty()) {
             throw new CampoObrigatorioException("O campo telefone é obrigatório.");
         }
-    
+
         if (userDummy.getCep() == null || userDummy.getCep().isEmpty()) {
             throw new CampoObrigatorioException("O campo CEP é obrigatório.");
         }
@@ -70,14 +69,14 @@ public class UsuarioService {
         if (userDummy.getTipoUsuario() == null || userDummy.getTipoUsuario().isEmpty()) {
             throw new CampoObrigatorioException("O campo tipo de usuario é obrigatório.");
         }
-    
+
         // Se todas as validações passaram, salva o usuário
         UsuarioEntity usuarioEntity = new UsuarioEntity();
         // usuarioEntity.setId_usuario(dto.getId_usuario());
         // usuarioEntity.setEspecialidade(userDummy.getEspecialidade());
-        usuarioEntity.setNome(userDummy.getNome());
+        usuarioEntity.setUsername(userDummy.getUsername());
         usuarioEntity.setEmail(userDummy.getEmail());
-        usuarioEntity.setPassword(userDummy.getSenha());
+        usuarioEntity.setPassword(userDummy.getPassword());
         usuarioEntity.setTelefone(userDummy.getTelefone());
         usuarioEntity.setCep(userDummy.getCep());
         usuarioEntity.setTipoUsuario(userDummy.getTipoUsuario());
@@ -110,28 +109,20 @@ public class UsuarioService {
 
         // }
 
-        
-        
         // trabalhoSolicitadoRepository.saveAll(trabalhosSolicitadoEntity);
 
         return usuarioEntity;
     }
 
-
     // @Transactional
     // public void createAvaliacao(CreateAvaliacaoDTO dto){
 
+    // AvaliacaoEntity avaliacaoEntity = new AvaliacaoEntity();
+    // avaliacaoEntity.setNota_avaliacao(dto.getNota_avaliacao());
+    // avaliacaoEntity.setTexto_avaliativo(dto.getTexto_avaliativo());
+    // avaliacaoEntity.setUsuario(dto.getUsuario());
 
-
-
-    //     AvaliacaoEntity avaliacaoEntity = new AvaliacaoEntity();
-    //     avaliacaoEntity.setNota_avaliacao(dto.getNota_avaliacao());
-    //     avaliacaoEntity.setTexto_avaliativo(dto.getTexto_avaliativo());
-    //     avaliacaoEntity.setUsuario(dto.getUsuario());
-
-    //      avaliacaoEntity = avaliacaoRepository.save(avaliacaoEntity);
-
-
+    // avaliacaoEntity = avaliacaoRepository.save(avaliacaoEntity);
 
     // }
 
@@ -144,8 +135,6 @@ public class UsuarioService {
             return false; // Falha no login
         }
     }
-
-
 
     public List<ShowUsuarioDTO> getAllUsuarios() {
         List<UsuarioEntity> usuarioEntity = usuarioRepository.findAll();
@@ -173,10 +162,10 @@ public class UsuarioService {
                     }
 
                     usuarioDTO.setId_usuario(usuario.getId_usuario());
-                    usuarioDTO.setNome(usuario.getusername());
+                    usuarioDTO.setUsername(usuario.getUsername());
                     usuarioDTO.setEspecialidade(usuario.getEspecialidade());
                     usuarioDTO.setEmail(usuario.getEmail());
-                    usuarioDTO.setSenha(usuario.getPassword());
+                    usuarioDTO.setPassword(usuario.getPassword());
                     usuarioDTO.setTelefone(usuario.getTelefone());
                     usuarioDTO.setCep(usuario.getCep());
                     usuarioDTO.setTipoUsuario(usuario.getTipoUsuario());
@@ -187,36 +176,49 @@ public class UsuarioService {
                 }).toList();
     }
 
-     public UsuarioEntity getUsuarioEntityById(Long id_usuario) {
-        return usuarioRepository.findById(id_usuario)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-    }
+    // public UsuarioEntity getUsuarioEntityById(Long id_usuario) {
+    // return usuarioRepository.findById(id_usuario)
+    // .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+    // }
 
     public ShowUsuarioDTO getUsuarioById(Long id_usuario) {
         Optional<UsuarioEntity> optionalUsuarioEntity = usuarioRepository.findById(id_usuario);
-
+    
+        // Verifica se o usuário foi encontrado
         if (optionalUsuarioEntity.isEmpty()) {
             throw new RuntimeException("Usuário não encontrado");
         }
-
+    
+        // Obtém a entidade do usuário
         UsuarioEntity usuarioEntity = optionalUsuarioEntity.get();
         ShowUsuarioDTO dto = new ShowUsuarioDTO();
+        
+        // Preenche os dados do DTO
         dto.setId_usuario(usuarioEntity.getId_usuario());
+        dto.setUsername(usuarioEntity.getUsername());
         dto.setEspecialidade(usuarioEntity.getEspecialidade());
-        dto.setNome(usuarioEntity.getUsername());
         dto.setEmail(usuarioEntity.getEmail());
-        dto.setSenha(usuarioEntity.getPassword());
+        dto.setPassword(usuarioEntity.getPassword());
         dto.setTelefone(usuarioEntity.getTelefone());
         dto.setCep(usuarioEntity.getCep());
         dto.setTipoUsuario(usuarioEntity.getTipoUsuario());
-
-        ShowAvaliacaoDTO avaliacaoDTO = new ShowAvaliacaoDTO();
-        avaliacaoDTO.setNota_avaliacao(usuarioEntity.getAvaliacao().getNota_avaliacao());
-        avaliacaoDTO.setTexto_avaliativo(usuarioEntity.getAvaliacao().getTexto_avaliativo());
-
-        dto.setAvaliacao(avaliacaoDTO);
+    
+        // Verifica se a avaliação não é null e preenche o DTO de avaliação
+        if (usuarioEntity.getAvaliacao() != null) {
+            ShowAvaliacaoDTO avaliacaoDTO = new ShowAvaliacaoDTO();
+            avaliacaoDTO.setNota_avaliacao(usuarioEntity.getAvaliacao().getNota_avaliacao());
+            avaliacaoDTO.setTexto_avaliativo(usuarioEntity.getAvaliacao().getTexto_avaliativo());
+            dto.setAvaliacao(avaliacaoDTO);
+        } else {
+            // Caso a avaliação seja null, você pode definir valores padrão
+            ShowAvaliacaoDTO avaliacaoDTO = new ShowAvaliacaoDTO();
+            avaliacaoDTO.setNota_avaliacao(0.0); // Nota padrão
+            avaliacaoDTO.setTexto_avaliativo("Sem avaliação"); // Texto padrão
+            dto.setAvaliacao(avaliacaoDTO);
+        }
+    
+        // Preenche os dados dos trabalhos solicitados
         List<ShowTrabalhoSolicitadoDTO> trabalhosSolicitadosDTO = new ArrayList<>();
-
         for (TrabalhoSolicitadoEntity trabalho : usuarioEntity.getTrabalhos()) {
             ShowTrabalhoSolicitadoDTO trabalhoDTO = new ShowTrabalhoSolicitadoDTO();
             trabalhoDTO.setTipo(trabalho.getTipo());
@@ -226,17 +228,16 @@ public class UsuarioService {
             trabalhoDTO.setStatus(trabalho.isStatus());
             trabalhosSolicitadosDTO.add(trabalhoDTO);
         }
-
+    
+        // Adiciona os trabalhos solicitados ao DTO
         dto.setTrabalhos(trabalhosSolicitadosDTO);
-
+    
         return dto;
     }
-
-     public void save(UsuarioEntity usuario) {
-        usuarioRepository.save(usuario);
-    }
-
     
+    // public void save(UsuarioEntity usuario) {
+    // usuarioRepository.save(usuario);
+    // }
 
     @Transactional
     public void deleteUsuarioById(long id_usuario) {
@@ -264,44 +265,45 @@ public class UsuarioService {
     // @Transactional
     // public void deleteAvaliacaoById(Long id_avaliacao) {
 
-    //     Optional<AvaliacaoEntity> optionalAvaliacaoEntity = avaliacaoRepository.findById(id_avaliacao);
+    // Optional<AvaliacaoEntity> optionalAvaliacaoEntity =
+    // avaliacaoRepository.findById(id_avaliacao);
 
-    //     if (optionalAvaliacaoEntity.isEmpty()) {
+    // if (optionalAvaliacaoEntity.isEmpty()) {
 
-    //     }
-    //     AvaliacaoEntity avaliacaoEntity = optionalAvaliacaoEntity.get();
+    // }
+    // AvaliacaoEntity avaliacaoEntity = optionalAvaliacaoEntity.get();
 
-    //     if (avaliacaoEntity != null) {
-    //         avaliacaoRepository.deleteById(id_avaliacao);
-    //     } else {
+    // if (avaliacaoEntity != null) {
+    // avaliacaoRepository.deleteById(id_avaliacao);
+    // } else {
 
-    //         // throw new deletableException();
+    // // throw new deletableException();
 
-    //     }
+    // }
 
     // }
 
     // @Transactional
     // public void deleteTrabalhoSolicitadoById(Long id_trabalho_solicitado) {
 
-    //     Optional<TrabalhoSolicitadoEntity> optionalTrabalhoSolicitado = trabalhoSolicitadoRepository
-    //             .findById(id_trabalho_solicitado);
+    // Optional<TrabalhoSolicitadoEntity> optionalTrabalhoSolicitado =
+    // trabalhoSolicitadoRepository
+    // .findById(id_trabalho_solicitado);
 
-    //     if (optionalTrabalhoSolicitado.isEmpty()) {
-
-    //     }
-
-    //     TrabalhoSolicitadoEntity trabalhoSolicitadoEntity = optionalTrabalhoSolicitado.get();
-
-    //     if (trabalhoSolicitadoEntity != null) {
-    //         trabalhoSolicitadoRepository.deleteById(id_trabalho_solicitado);
-
-    //     }
-    //     // throw new deletableException();
+    // if (optionalTrabalhoSolicitado.isEmpty()) {
 
     // }
 
+    // TrabalhoSolicitadoEntity trabalhoSolicitadoEntity =
+    // optionalTrabalhoSolicitado.get();
 
+    // if (trabalhoSolicitadoEntity != null) {
+    // trabalhoSolicitadoRepository.deleteById(id_trabalho_solicitado);
+
+    // }
+    // // throw new deletableException();
+
+    // }
 
     @Transactional
 
@@ -315,10 +317,10 @@ public class UsuarioService {
 
         UsuarioEntity usuarioEntity = optionalUsuarioEntity.get();
 
-        usuarioEntity.setNome(dto.getNome());
+        usuarioEntity.setUsername(dto.getUsername());
         usuarioEntity.setEspecialidade(dto.getEspecialidade());
         usuarioEntity.setEmail(dto.getEmail());
-        usuarioEntity.setPassword(dto.getSenha());
+        usuarioEntity.setPassword(dto.getPassword());
         usuarioEntity.setTelefone(dto.getTelefone());
         usuarioEntity.setCep(dto.getCep());
         usuarioEntity.setTipoUsuario(dto.getTipoUsuario());
@@ -328,45 +330,50 @@ public class UsuarioService {
     }
 
     // @Transactional
-    // public void changeAvaliacaoInfoByid(long id_avaliacao, ChangeAvaliacaoDTO dto) {
+    // public void changeAvaliacaoInfoByid(long id_avaliacao, ChangeAvaliacaoDTO
+    // dto) {
 
-    //     Optional<AvaliacaoEntity> optionalAvaliacaoEntity = avaliacaoRepository.findById(id_avaliacao);
+    // Optional<AvaliacaoEntity> optionalAvaliacaoEntity =
+    // avaliacaoRepository.findById(id_avaliacao);
 
-    //     if (optionalAvaliacaoEntity.isEmpty()) {
+    // if (optionalAvaliacaoEntity.isEmpty()) {
 
-    //     }
+    // }
 
-    //     AvaliacaoEntity avaliacaoEntity = optionalAvaliacaoEntity.get();
+    // AvaliacaoEntity avaliacaoEntity = optionalAvaliacaoEntity.get();
 
-    //     avaliacaoEntity.setNota_avaliacao(dto.getNota_avaliacao());
+    // avaliacaoEntity.setNota_avaliacao(dto.getNota_avaliacao());
 
-    //     avaliacaoEntity.setTexto_avaliativo(dto.getTexto_avaliativo());
+    // avaliacaoEntity.setTexto_avaliativo(dto.getTexto_avaliativo());
 
-    //     avaliacaoRepository.save(avaliacaoEntity);
+    // avaliacaoRepository.save(avaliacaoEntity);
 
     // }
 
     // @Transactional
-    // public void changeTrabalhoSolicitadoInfoById(long id_trabalho_solicitado, ChangeTrabalhoSolicitadoDTO dto) {
+    // public void changeTrabalhoSolicitadoInfoById(long id_trabalho_solicitado,
+    // ChangeTrabalhoSolicitadoDTO dto) {
 
-    //     Optional<TrabalhoSolicitadoEntity> optionalTrabalhoSolicitado = trabalhoSolicitadoRepository
-    //             .findById((id_trabalho_solicitado));
+    // Optional<TrabalhoSolicitadoEntity> optionalTrabalhoSolicitado =
+    // trabalhoSolicitadoRepository
+    // .findById((id_trabalho_solicitado));
 
-    //     if (optionalTrabalhoSolicitado.isEmpty()) {
+    // if (optionalTrabalhoSolicitado.isEmpty()) {
 
-    //     }
+    // }
 
-    //     TrabalhoSolicitadoEntity trabalhoSolicitadoEntity = optionalTrabalhoSolicitado.get();
+    // TrabalhoSolicitadoEntity trabalhoSolicitadoEntity =
+    // optionalTrabalhoSolicitado.get();
 
-    //     // Atualiza os campos da entidade a partir do DTO recebido
-    //     trabalhoSolicitadoEntity.setTipo(dto.getTipo());
-    //     trabalhoSolicitadoEntity.setValor(dto.getValor());
-    //     trabalhoSolicitadoEntity.setLocalizacao(dto.getLocalizacao());
-    //     trabalhoSolicitadoEntity.setDescricao(dto.getDescricao());
-    //     trabalhoSolicitadoEntity.setStatus(dto.isStatus());
-    //     trabalhoSolicitadoRepository.save(trabalhoSolicitadoEntity);
+    // // Atualiza os campos da entidade a partir do DTO recebido
+    // trabalhoSolicitadoEntity.setTipo(dto.getTipo());
+    // trabalhoSolicitadoEntity.setValor(dto.getValor());
+    // trabalhoSolicitadoEntity.setLocalizacao(dto.getLocalizacao());
+    // trabalhoSolicitadoEntity.setDescricao(dto.getDescricao());
+    // trabalhoSolicitadoEntity.setStatus(dto.isStatus());
+    // trabalhoSolicitadoRepository.save(trabalhoSolicitadoEntity);
 
-    //     trabalhoSolicitadoRepository.save(trabalhoSolicitadoEntity);
+    // trabalhoSolicitadoRepository.save(trabalhoSolicitadoEntity);
 
     // }
 

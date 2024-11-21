@@ -29,9 +29,9 @@ public class UserServiceTest {
     public void testCriarUsuarioComSucesso() {
     
         CreateUsuarioDTO userDummy = new CreateUsuarioDTO();
-        userDummy.setNome("jackson");
+        userDummy.setUsername("jackson");
         userDummy.setEmail("sr.jackdias@gmail.com");
-        userDummy.setSenha("1234");
+        userDummy.setPassword("1234");
         userDummy.setTelefone("12345");
         userDummy.setCep("88049317");
         userDummy.setTipoUsuario("cliente");
@@ -40,9 +40,9 @@ public class UserServiceTest {
     
         assertNotNull(usuarioCriado);
         assertNotNull(usuarioCriado.getId_usuario());
-        assertEquals(userDummy.getNome(), usuarioCriado.getusername());
+        assertEquals(userDummy.getUsername(), usuarioCriado.getUsername());
         assertEquals(userDummy.getEmail(), usuarioCriado.getEmail());
-        assertEquals(userDummy.getSenha(), usuarioCriado.getPassword());
+        assertEquals(userDummy.getPassword(), usuarioCriado.getPassword());
         assertEquals(userDummy.getTelefone(), usuarioCriado.getTelefone());
         assertEquals(userDummy.getCep(), usuarioCriado.getCep());
         assertEquals(userDummy.getTipoUsuario(), usuarioCriado.getTipoUsuario());
@@ -52,9 +52,9 @@ public class UserServiceTest {
 @Test
 public void TestarEmailJaCadastrado() {
     CreateUsuarioDTO userDummy = new CreateUsuarioDTO();
-    userDummy.setNome("Maria");
+    userDummy.setUsername("Maria");
     userDummy.setEmail("sr.jackdias@gmail.com");
-    userDummy.setSenha("5432");
+    userDummy.setPassword("5432");
     userDummy.setTelefone("991834");
     userDummy.setCep("49328");
     userDummy.setTipoUsuario("Trabalhador");
@@ -81,9 +81,9 @@ public void TestarEmailJaCadastrado() {
 })
 public void testarCampoObrigatorioVazio(String nome, String email, String senha, String telefone, String cep, String mensagemEsperada) {
     CreateUsuarioDTO userDummy = new CreateUsuarioDTO();
-    userDummy.setNome(nome);
+    userDummy.setUsername(nome);
     userDummy.setEmail(email);
-    userDummy.setSenha(senha);
+    userDummy.setPassword(senha);
     userDummy.setTelefone(telefone);
     userDummy.setCep(cep);
     userDummy.setTipoUsuario("Trabalhador");
@@ -99,9 +99,9 @@ public void testarCampoObrigatorioVazio(String nome, String email, String senha,
 public void testLoginComSucesso() {
     // Criação do usuário para o teste de login
     CreateUsuarioDTO userDummy = new CreateUsuarioDTO();
-        userDummy.setNome("teste");
+        userDummy.setUsername("teste");
         userDummy.setEmail("jr.jackdias@gmail.com");
-        userDummy.setSenha("5432");
+        userDummy.setPassword("5432");
         userDummy.setTelefone("12345");
         userDummy.setCep("88049317");
         userDummy.setTipoUsuario("cliente");
@@ -117,7 +117,7 @@ public void testLoginComSucesso() {
 
     // Teste de login com dados válidos
     String email = userDummy.getEmail();
-    String senha = userDummy.getSenha();
+    String senha = userDummy.getPassword();
 
 
     boolean loginSucesso = usuarioService.loginUsuario(email, senha);

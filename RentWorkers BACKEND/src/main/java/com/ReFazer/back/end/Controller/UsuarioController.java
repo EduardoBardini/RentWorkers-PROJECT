@@ -3,6 +3,7 @@ package com.ReFazer.back.end.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,9 +43,9 @@ public class UsuarioController {
     public ResponseEntity<?> createUsuario(@RequestBody CreateUsuarioDTO dto) {
         // System.out.println(dto.getId_usuario());
 
-        System.out.println(dto.getNome());
+        System.out.println(dto.getUsername());
         System.out.println(dto.getEmail());
-        System.out.println(dto.getSenha());
+        System.out.println(dto.getPassword());
         System.out.println(dto.getTelefone());
         System.out.println(dto.getCep());
         System.out.println(dto.getTipoUsuario());
@@ -175,23 +176,27 @@ public class UsuarioController {
     //     return ResponseEntity.status(200).build();
 
     // }
-    @PutMapping("/{id_usuario}")
-    public ResponseEntity<?> updateUsuario(@PathVariable long id_usuario, @RequestBody ChangeUsuarioDTO changeUsuarioDTO) {
-    
-        UsuarioEntity usuario = usuarioService.getUsuarioEntityById(id_usuario);
-    
-        usuario.setNome(changeUsuarioDTO.getNome());
-        usuario.setEspecialidade(changeUsuarioDTO.getEspecialidade());
-        usuario.setEmail(changeUsuarioDTO.getEmail());
-        usuario.setPassword(changeUsuarioDTO.getSenha());
-        usuario.setTelefone(changeUsuarioDTO.getTelefone());
-        usuario.setCep(changeUsuarioDTO.getCep());
-        usuario.setTipoUsuario(changeUsuarioDTO.getTipoUsuario());
-    
-        usuarioService.save(usuario);
-    
-        return ResponseEntity.status(200).build();
+   @PutMapping("/{id_usuario}")
+public ResponseEntity<?> updateUsuario(@PathVariable long id_usuario, @RequestBody ChangeUsuarioDTO changeUsuarioDTO) {
+ usuarioService.changeUsuarioInfosById(id_usuario, changeUsuarioDTO);
+
+    if (changeUsuarioDTO.getTipoUsuario() == null) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("O campo tipo_usuario não pode ser nulo");
     }
+
+    // usuario.setUsername(changeUsuarioDTO.getUsername());
+    // usuario.setEspecialidade(changeUsuarioDTO.getEspecialidade());
+    // usuario.setEmail(changeUsuarioDTO.getEmail());
+    // usuario.setPassword(changeUsuarioDTO.getPassword());
+    // usuario.setTelefone(changeUsuarioDTO.getTelefone());
+    // usuario.setCep(changeUsuarioDTO.getCep());
+    // usuario.setTipoUsuario(changeUsuarioDTO.getTipoUsuario()); // Garantir que este valor não seja nulo
+
+    // usuarioService.save(usuario);
+
+    return ResponseEntity.status(200).build();
+}
+
     
 
  
