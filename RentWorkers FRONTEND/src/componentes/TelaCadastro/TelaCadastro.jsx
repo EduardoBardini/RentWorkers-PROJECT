@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { listaUsuarios } from '../../config/axios';
+import { listaUsuarios, validaCep } from '../../config/axios';
 
 
 
@@ -16,7 +16,9 @@ function TelaCadastro(){
     const [usuarios, setUsuarios] = useState([]);
 
     
-
+    
+    
+    
     useEffect(() => {
         listaUsuarios().then((response) => {
             setUsuarios(response.data);
@@ -68,6 +70,14 @@ function TelaCadastro(){
             alert("As senhas não se conferem");
             senhaIgual = true
         }
+
+        validaCep(cep).then((response) => {
+            console.log(response);
+        }).catch((error) => {
+            console.log(error)
+        })
+
+        
 
         if(inputsPreenchidos && !senhaIgual && !emailExiste && !telefoneExiste) {
             const usuario = {username , email, password , telefone, cep, tipoUsuario}

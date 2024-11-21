@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.swing.JOptionPane;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -318,7 +320,7 @@ public class UsuarioService {
         usuarioEntity.setUsername(dto.getUsername());
         usuarioEntity.setEspecialidade(dto.getEspecialidade());
         usuarioEntity.setEmail(dto.getEmail());
-        usuarioEntity.setPassword(dto.getSenha());
+        usuarioEntity.setPassword(dto.getPassword());
         usuarioEntity.setTelefone(dto.getTelefone());
         usuarioEntity.setCep(dto.getCep());
         usuarioEntity.setTipoUsuario(dto.getTipoUsuario());
@@ -369,5 +371,23 @@ public class UsuarioService {
     //     trabalhoSolicitadoRepository.save(trabalhoSolicitadoEntity);
 
     // }
+
+    public List<ShowUsuarioDTO> getAllTrabalhadores(){
+       
+        List<UsuarioEntity> usuarios = usuarioRepository.findAll();
+       
+        return usuarios.stream().map(usuario -> {
+            ShowUsuarioDTO usuarioDTO = new ShowUsuarioDTO();
+            
+            if(usuario.getTipoUsuario().equals("TRABALHADOR")){
+                usuarioDTO.setId_usuario(usuario.getId_Usuario());
+                usuarioDTO.setUsername(usuario.getUsername());
+                usuarioDTO.setCep(usuario.getCep());
+                usuarioDTO.setEspecialidade(usuario.getEspecialidade());
+            }
+        
+            return usuarioDTO;
+        }).toList();
+    }
 
 }

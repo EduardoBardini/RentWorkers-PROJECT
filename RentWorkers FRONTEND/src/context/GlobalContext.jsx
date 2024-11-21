@@ -7,21 +7,25 @@ export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
 
   const [token, setToken] = useState(localStorage.getItem("token"));
+  const [usuario, setUsuario] = useState(JSON.parse(localStorage.getItem("usuario")));
 
-  const login = (jwtToken) => {
-    setToken("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzci5qYWNrZGlhc0BnbWFpbC5jb20iLCJpYXQiOjE3MzE2MjM5MTYsImV4cCI6MTczMTYyMzk1Mn0.Yuj4SqyFplcoEKbuS9eEYjDwueVc-2o40JLqfhxyS_0");
-    localStorage.setItem("token", "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzci5qYWNrZGlhc0BnbWFpbC5jb20iLCJpYXQiOjE3MzE2MjM5MTYsImV4cCI6MTczMTYyMzk1Mn0.Yuj4SqyFplcoEKbuS9eEYjDwueVc-2o40JLqfhxyS_0");
+  const login = (jwtToken, usuario) => {
+    setToken(jwtToken);
+    localStorage.setItem("token", jwtToken);
+    setUsuario(usuario)
+    localStorage.setItem("usuario", JSON.stringify(usuario));
   };
 
   const logout = () => {
     setToken(null);
-    localStorage.removeItem("token");
+    setUsuario(null);
+    localStorage.clear();
   };
 
   const isAuthenticated = () => !!token;  
 
   return (
-    <UserContext.Provider value={{ token, login, logout, isAuthenticated }}>
+    <UserContext.Provider value={{ token, login, logout, isAuthenticated, usuario }}>
       {children}
     </UserContext.Provider>
   );

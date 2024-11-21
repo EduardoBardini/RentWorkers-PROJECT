@@ -84,6 +84,13 @@ public class UsuarioController {
 
         return ResponseEntity.status(200).body(usuarios);
     }
+    
+    @GetMapping("/trabalhadores")
+    public ResponseEntity<?> getAllTrabalhadores() {
+        List<ShowUsuarioDTO> trabalhadores = usuarioService.getAllTrabalhadores();
+
+        return ResponseEntity.status(200).body(trabalhadores);
+    }
 
     @GetMapping("/{id_usuario}")
     public ResponseEntity<?> getAllUsuarios(@PathVariable long id_usuario) {
@@ -175,7 +182,7 @@ public class UsuarioController {
     //     return ResponseEntity.status(200).build();
 
     // }
-    @PutMapping("/{id_usuario}")
+    @PutMapping("/**")
     public ResponseEntity<?> updateUsuario(@PathVariable long id_usuario, @RequestBody ChangeUsuarioDTO changeUsuarioDTO) {
     
         UsuarioEntity usuario = usuarioService.getUsuarioEntityById(id_usuario);
@@ -183,7 +190,7 @@ public class UsuarioController {
         usuario.setUsername(changeUsuarioDTO.getUsername());
         usuario.setEspecialidade(changeUsuarioDTO.getEspecialidade());
         usuario.setEmail(changeUsuarioDTO.getEmail());
-        usuario.setPassword(changeUsuarioDTO.getSenha());
+        usuario.setPassword(changeUsuarioDTO.getPassword());
         usuario.setTelefone(changeUsuarioDTO.getTelefone());
         usuario.setCep(changeUsuarioDTO.getCep());
         usuario.setTipoUsuario(changeUsuarioDTO.getTipoUsuario());
@@ -192,6 +199,8 @@ public class UsuarioController {
     
         return ResponseEntity.status(200).build();
     }
+
+
     
 
  

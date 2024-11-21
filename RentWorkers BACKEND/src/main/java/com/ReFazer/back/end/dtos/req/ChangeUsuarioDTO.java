@@ -6,7 +6,7 @@ public class ChangeUsuarioDTO {
     private String especialidade;
 
     private String email;
-    private String senha;
+    private String password;
     private String telefone;
     private String cep;
     private String tipoUsuario;
@@ -28,11 +28,11 @@ public class ChangeUsuarioDTO {
     public void setEmail(String email) {
         this.email = email;
     }
-    public String getSenha() {
-        return senha;
+    public String getPassword() {
+        return password;
     }
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setPassword(String password) {
+        this.password = password;
     }
     public String getTelefone() {
         return telefone;
@@ -52,6 +52,7 @@ public class ChangeUsuarioDTO {
     public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
+   
   
     
 }

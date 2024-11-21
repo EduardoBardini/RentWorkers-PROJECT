@@ -10,6 +10,7 @@ const api = axios.create({
 });
 
 
+
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token"); 
@@ -39,16 +40,24 @@ export const listaUsuarios = () => {
     return axios.get('http://localhost:8080/usuarios')
 }
 
+export const listaTrabalhadores = () => {
+    return axios.get('http://localhost:8080/usuarios/trabalhadores')
+}
 
-//// Corrigir a exportação da função atualizarUsuario
-//export const atualizarUsuario = async (dadosAtualizado) => {
-//    try {
-//        const response = await api.put(`/usuarios/${dadosAtualizado.id_usuario}`, dadosAtualizado);
-//        return response.data;
-//    } catch (error) {
-//        throw error;
-//    }
-//}
+export const validaCep = (cep) => {
+    return axios.get(`viacep.com.br/ws/${cep}/json/`)
+}
+
+
+// Corrigir a exportação da função atualizarUsuario
+export const atualizarUsuario = async (dadosAtualizado) => {
+    try {
+        const response = await api.put(`/usuarios/${dadosAtualizado.id_usuario}`, dadosAtualizado);
+        return response.data.token;
+    } catch (error) {
+        throw error;
+    }
+}
 
 
 export default api;

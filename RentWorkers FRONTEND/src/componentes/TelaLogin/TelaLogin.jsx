@@ -2,29 +2,50 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../TelaLogin/Login.css';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../context/GlobalContext';
+import { listaUsuarios } from '../../config/axios';
+import api from '../../config/axios';
+
 
 function TelaLogin() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setSenha] = useState('');
-    const { login } = useContext(UserContext); 
+    const { login } = useContext(UserContext);
+
+    const [usuarios, setUsuarios] = useState([]);
+
+
+
+    useEffect(() => {
+        listaUsuarios().then((response) => {
+            setUsuarios(response.data);
+        }).catch(error => {
+            console.log(error);
+        })
+    })
 
     const handleLogin = async (e) => {
-        
-        e.preventDefault();      
+
+        e.preventDefault();
         const loginData = {
-        email: email,
-        password: password
-      };
-      try {
-        const response = await api.post('/auth/login', loginData);      
-        login(response.data.token);
-        navigate("/telaprincipal");
-      } catch (error) {
-        console.error('Erro ao buscar dados do usuário:', error);
-    }
-    
-  };
+            email: email,
+            password: password
+        };
+
+        if (loginData.email == "" || loginData.password == "") {
+            alert("Preencha todos os campos");
+        } else {
+            try {
+                const response = await api.post('/auth/login', loginData);
+                login(response.data.token, response.data.usuario);
+                navigate("/telaprincipal");
+            } catch (error) {
+                alert("Usuario não existe")
+            }
+        }
+
+
+    };
 
     return (
         <div className="containerLogin">
@@ -32,7 +53,7 @@ function TelaLogin() {
                 <img className='imgStyle' src='/images/imagemLogin.jpg' alt="Login" />
             </div>
             <div className="divFormLogin">
-                <form className='divForm' onSubmit={ handleLogin }>
+                <form className='divForm' onSubmit={handleLogin}>
                     <div className='divTitulo'>
                         <h1>Faça o seu login</h1>
                     </div>
