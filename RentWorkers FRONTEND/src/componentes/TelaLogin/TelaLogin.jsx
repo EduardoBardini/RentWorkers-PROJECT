@@ -1,48 +1,54 @@
 import { Link, useNavigate } from 'react-router-dom';
 import '../TelaLogin/Login.css';
 import { useState, useEffect, useContext } from "react";
-import { listaUsuarios } from '../../services/api';
 import { UserContext } from '../../context/GlobalContext';
+import { listaUsuarios } from '../../config/axios';
+import api from '../../config/axios';
+
+
 
 function TelaLogin() {
     const navigate = useNavigate();
-    const [usuarios, setUsuarios] = useState([]);
     const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
-    const { login } = useContext(UserContext); 
+    const [password, setSenha] = useState('');
+    const { login } = useContext(UserContext);
+
+    const [usuarios, setUsuarios] = useState([]);
+
+
 
     useEffect(() => {
-        listaUsuarios()
-            .then((response) => {
-                setUsuarios(response.data);
-                console.log("Usuários carregados:", response.data);
-            })
-            .catch(error => {
-                console.log("Erro ao carregar usuários:", error);
-            });
-    }, []);
+        listaUsuarios().then((response) => {
+            setUsuarios(response.data);
+        }).catch(error => {
+            console.log(error);
+        })
+    })
 
-    function checkLogin(e) {
+    const handleLogin = async (e) => {
+
         e.preventDefault();
+        const loginData = {
+            email: email,
+            password: password
+        };
 
-        if (email === "" || senha === "") {
+        if (loginData.email == "" || loginData.password == "") {
             alert("Preencha todos os campos");
-            return;
-        }
-
-        const usuarioEncontrado = usuarios.find(
-            user => user.email === email && user.senha === senha
-        );
-
-        if (usuarioEncontrado) {
-            alert("Login realizado!"); 
-            login(usuarioEncontrado.id_usuario); 
-
-            navigate('/telaprincipal');
         } else {
-            alert("Email ou senha incorretos");
+            try {
+                const response = await api.post('/auth/login', loginData);
+                login(response.data.token, response.data.usuario);
+                navigate("/telaprincipal");
+            } catch (error) {
+                alert("Usuario não existe")
+            }
         }
-    }
+
+
+    };
+
+
 
     return (
         <div className="containerLogin">
@@ -50,7 +56,7 @@ function TelaLogin() {
                 <img className='imgStyle' src='/images/imagemLogin.jpg' alt="Login" />
             </div>
             <div className="divFormLogin">
-                <form className='divForm' onSubmit={checkLogin}>
+                <form className='divForm' onSubmit={handleLogin}>
                     <div className='divTitulo'>
                         <h1>Faça o seu login</h1>
                     </div>
@@ -70,7 +76,7 @@ function TelaLogin() {
                         <input
                             className='inptLogin'
                             type="password"
-                            value={senha}
+                            value={password}
                             onChange={(e) => setSenha(e.target.value)}
                             placeholder="Senha"
                         />

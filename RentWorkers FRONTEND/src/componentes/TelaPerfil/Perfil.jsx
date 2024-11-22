@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./Perfil.css";
-import { listaUsuarios,atualizarUsuario } from "../../services/api";
+import { listaUsuarios } from "../../config/axios";
 import { UserContext } from "../../context/GlobalContext";
+import { atualizarUsuario } from "../../config/axios";
 import { Hamburger, Plus, InformationSquare, OpenPadlock, Trash, Settings } from "./IconPerfil";
 
 
 
 function Perfil() {
-    const { idUsuarioLogado } = useContext(UserContext);
+    const { usuario } = useContext(UserContext);
 
     const [email, setEmail] = useState("");
     const [telefone, setTelefone] = useState("");
@@ -15,30 +16,23 @@ function Perfil() {
     const [editarUsuario, setEditarUsuario] = useState(false);
 
     useEffect(() => {
-        console.log("ID do Usuário Logado:", idUsuarioLogado);
-
-        if (!idUsuarioLogado) {
-            alert("Por favor, faça login para visualizar seu perfil.");
-            return;
-        }
 
         listaUsuarios()
             .then((response) => {
-                const usuarioLogado = response.data.find(
-                    (user) => user.id_usuario == idUsuarioLogado
-                );
-                if (usuarioLogado) {
-                    setEmail(usuarioLogado.email);
-                    setTelefone(usuarioLogado.telefone);
-                    setCep(usuarioLogado.cep);
+                
+                if (usuario) {
+                    setEmail(usuario.email);
+                    setTelefone(usuario.telefone);
+                    setCep(usuario.cep);
+
                 } else {
-                    console.log("Usuário não encontrado na lista.");
+                    console.log("Não esta logado");
                 }
             })
             .catch((error) => {
-                console.log("Erro ao carregar lista de usuários:", error);
+                console.log("Erro ao carregar =", error);
             });
-    }, [idUsuarioLogado]);
+    }, [usuario]);
 
     function mostrarEdicao() {
         setEditarUsuario(!editarUsuario); // Alterna entre visualização e edição
@@ -47,21 +41,17 @@ function Perfil() {
     function atualizarEdicao() {
 
         const dadosAtualizado = {
-
-            id_usuario: idUsuarioLogado,
-            email,
-            telefone,
-            cep,
-
-
+            id_usuario: usuario.id_usuario,
+            email: email,
+            telefone: telefone,
+            cep: cep
         }
 
         atualizarUsuario(dadosAtualizado)
-            .then(() => {
+            .then((response) => {
 
                 alert("Informações atualizadas com sucesso");
                 setEditarUsuario(false)
-
 
             })
             .catch((error) => {

@@ -1,28 +1,25 @@
 import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../TelaPrincipal/TelaPrincipal.css';
-import { listaUsuarios } from '../../services/api';
+import { listaTrabalhadores, listaUsuarios } from '../../config/axios';
 import { UserContext } from '../../context/GlobalContext';
 import CardTrabalhador from './CardTrabalhador';
 
 function TelaPrincipal() {
   const navigate = useNavigate();
   const { idUsuarioLogado } = useContext(UserContext);
-  const [usuarios, setUsuarios] = useState([]);
+  const [trabalhadores, setTrabalhadores] = useState([]);
   const [inptSearch, setInptSearch] = useState(""); 
   const [usuarioLogado, setUsuarioLogado] = useState(null);
 
   useEffect(() => {
-    listaUsuarios()
-      .then((response) => {
-        setUsuarios(response.data);
-        const usuarioAtual = response.data.find(user => user.id_usuario === idUsuarioLogado);
-        setUsuarioLogado(usuarioAtual); 
-      })
-      .catch((error) => {
-        console.log("Erro ao carregar usuários:", error);
-      });
-  }, [idUsuarioLogado]);
+    listaTrabalhadores().then((response) => {
+      console.log(response.data);
+      setTrabalhadores(response.data);
+    }).catch((error) => {
+      console.log(error);
+    })
+  })
 
   const handleSearchChange = (e) => {
     setInptSearch(e.target.value); 
@@ -72,9 +69,9 @@ function TelaPrincipal() {
       </div>
 
       <div className='container-body'>
-        <div className='div-card-trabalhador'>
-          <CardTrabalhador />
-        </div>
+        {trabalhadores.map((trabalhador) => (
+          <CardTrabalhador username={trabalhador.username}/>
+        ))}
       </div>
     </div>
   );

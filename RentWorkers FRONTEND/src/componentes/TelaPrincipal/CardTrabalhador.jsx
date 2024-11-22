@@ -1,29 +1,18 @@
-import '../TelaPrincipal/CardTrabalhador.css'
+import React from 'react';
+import '../TelaPrincipal/DadosPessoais.css';
 
-function CardTrabalhador({ nome , especialidade}) {
+function CardTrabalhador(props) {
+ 
 
-    return (
-        <div className="divContainerCardTrabalhador">
-            <div className="div-img-trabalhador"></div>
-            <div className='div-info-trabalhador'>
-               <div className='div-nome-trabalhador'><h3>Eduardo Bardini Vitoreti Dos Santos</h3></div>
-               <div className='div-nota-avaliacao'>{}</div>
-               <div className='div-info-adicionais'>
-                <label>Especialização: {nome}</label>
-                <label>Estado: {especialidade} </label>
-                <label>Cidade:  </label>
-               </div>
-               
-            </div>
+  return (
+    <div className="card-container">
+       <img className='imgPerfilUm' src={props.imagemPerfil} alt={`Foto de ${props.username}`} /> 
 
-
-
-
-
-
-        </div>
-    )
-
+      <p>Nome: {props.username}</p>
+      <p>Localização: {props.cep}</p>
+      <p>Especialização: {props.especializacao}</p> 
+    </div>
+  );
 }
 
 export default CardTrabalhador;
