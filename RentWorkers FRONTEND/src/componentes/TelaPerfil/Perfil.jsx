@@ -20,17 +20,11 @@ function Perfil() {
         listaUsuarios()
             .then((response) => {
                 
-<<<<<<< HEAD
                 if (usuario) {
                     setEmail(usuario.email);
                     setTelefone(usuario.telefone);
                     setCep(usuario.cep);
-=======
-                if (usuarioLogado) {
-                    setEmail(usuarioLogado.email);
-                    setTelefone(usuarioLogado.telefone);
-                    setCep(usuarioLogado.cep);
->>>>>>> 256c205ec980010473dee37e7d67a0fd1235c601
+
                 } else {
                     console.log("Não esta logado");
                 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import './DadosPessoais.css';
+import '../TelaPrincipal/DadosPessoais.css';
 
 function CardTrabalhador(props) {
  

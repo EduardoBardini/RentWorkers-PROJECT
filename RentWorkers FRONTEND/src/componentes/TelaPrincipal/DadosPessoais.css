@@ -1,20 +1,11 @@
-<<<<<<< HEAD:RentWorkers FRONTEND/src/componentes/TelaPrincipal/DadosPessoais.css
+
 .card-container{
-=======
-.dadosPessoais-container {
->>>>>>> 256c205ec980010473dee37e7d67a0fd1235c601:RentWorkers FRONTEND/src/componentes/TelaDeBusca/DadosPessoais.css
     border: 2px solid #000;
     border-radius: 10px;
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-<<<<<<< HEAD:RentWorkers FRONTEND/src/componentes/TelaPrincipal/DadosPessoais.css
     width: 250px;
     height: 300px;
-    
-=======
-    width: 300px;
-    height: 300px;
->>>>>>> 256c205ec980010473dee37e7d67a0fd1235c601:RentWorkers FRONTEND/src/componentes/TelaDeBusca/DadosPessoais.css
     padding: 15px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
