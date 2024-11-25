@@ -53,11 +53,12 @@ export const validaCep = (cep) => {
 export const atualizarUsuario = async (dadosAtualizado) => {
     try {
         const response = await api.put(`/usuarios/${dadosAtualizado.id_usuario}`, dadosAtualizado);
-        return response.data.token;
+        return response.data; // Alterado para retornar os dados da resposta
     } catch (error) {
         throw error;
     }
-}
+};
+
 
 
 export default api;

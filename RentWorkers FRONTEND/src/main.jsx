@@ -49,6 +49,13 @@ path: "/EditarPerfil",
 element: <EditarPerfil />
 }, 
 
+
+
+{
+path: "/cliente",
+element: <Cliente />
+}
+
 // PROJETO C OU SEM , AQUA365 -- VER
 
 ])

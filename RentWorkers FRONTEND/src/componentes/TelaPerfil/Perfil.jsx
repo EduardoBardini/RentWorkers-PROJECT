@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./Perfil.css";
 import { listaUsuarios } from "../../config/axios";
-import { UserContext } from "../../context/GlobalContext";
 import { atualizarUsuario } from "../../config/axios";
 import { Hamburger, Plus, InformationSquare, OpenPadlock, Trash, Settings } from "./IconPerfil";
-
+import { UserContext } from "../../context/GlobalContext";
 
 
 function Perfil() {
