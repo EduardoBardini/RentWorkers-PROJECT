@@ -220,6 +220,11 @@
       /* background-color: rgb(181,218,227);; */
       background-color: white;
    }
+
+   .divCondicionalEspecialidade {
+      height: 5%;
+      width: 100%;
+   }
   
    .divButton{
       width: 100%;

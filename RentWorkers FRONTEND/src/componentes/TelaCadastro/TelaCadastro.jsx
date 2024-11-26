@@ -34,6 +34,8 @@ function TelaCadastro(){
     const [telefone, setTelefone] = useState('');
     const [cep, setCep] = useState('');
     const [tipoUsuario, setTipoUsuario] = useState('');
+    const [especialidade , setEspecialidade] = useState('');
+    const [trabalhadorIsTrue, setTrabalhadorIsTrue] = useState(false);
 
     function cadastrarUsuario(e){
         e.preventDefault();
@@ -43,6 +45,7 @@ function TelaCadastro(){
         let telefoneExiste = false;
         let senhaIgual = false;
 
+        
         if(username != '' && email != '' && password != '' && confirmaSenha != '' && telefone != '' && cep != '' && tipoUsuario != '' ) {
              inputsPreenchidos = true
         }else {
@@ -123,7 +126,7 @@ function TelaCadastro(){
                             <input value={telefone} onChange={(e) => setTelefone(e.target.value)} className='inptCss' type='tel' placeholder='+55' />
                             <input value={cep} onChange={(e) => setCep(e.target.value)} className='inptCss' type="text" placeholder='CEP'/>
                         </div>
-                        <div className='radioButton'>
+                        <div className='radioButton'onChange={(e) => {if(e.target.value == "TRABALHADOR"){ setTrabalhadorIsTrue(true) } else { setTrabalhadorIsTrue(false)}}}>
                             <p>Tipo de conta: </p>
                             <label>
                                <input type='radio' value="CLIENTE" checked={tipoUsuario == "CLIENTE"} onChange={(e) => setTipoUsuario(e.target.value)} name='tipoConta' />
@@ -134,6 +137,17 @@ function TelaCadastro(){
                                 Trabalhador
                             </label>
                         </div>
+                        <div className='divCondicionalEspecialidade'>
+                            {trabalhadorIsTrue && 
+                         <div className='divCondicionalAtendida'> 
+                            <select> 
+                                <option value=""></option> 
+                                <option value="ELETRICISTA"> Eletricista </option>
+                            </select> 
+                        </div>}
+                        </div>
+                        
+                        
                     </div>
                     <div className='divButton'>
                         <button onClick={cadastrarUsuario} className='buttonCadastro' type='submit'>Cadastrar-se</button>
