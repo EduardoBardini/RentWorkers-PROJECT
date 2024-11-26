@@ -7,7 +7,7 @@ import CardTrabalhador from './CardTrabalhador';
 
 function TelaPrincipal() {
   const navigate = useNavigate();
-  const { idUsuarioLogado } = useContext(UserContext);
+  const { idUsuarioLogado, logout } = useContext(UserContext);
   const [trabalhadores, setTrabalhadores] = useState([]);
   const [inptSearch, setInptSearch] = useState(""); 
   const [usuarioLogado, setUsuarioLogado] = useState(null);
@@ -53,8 +53,11 @@ function TelaPrincipal() {
               <select
                 className='option-padrao'
                 onChange={(e) => {
-                  if (e.target.value === "perfil") {
+                  if (e.target.value == "perfil") {
                     navigate('/perfil');
+                  }else if(e.target.value == "sair") {
+                    logout();
+                    navigate('/telaprincipal')
                   }
                 }}
               >
@@ -62,6 +65,7 @@ function TelaPrincipal() {
                   {usuarioLogado ? usuarioLogado.nome : "Carregando..."}
                 </option>
                 <option value="perfil">Ir para Perfil</option>
+                <option value="sair">Sair</option>
               </select>
             </div>
           </div>

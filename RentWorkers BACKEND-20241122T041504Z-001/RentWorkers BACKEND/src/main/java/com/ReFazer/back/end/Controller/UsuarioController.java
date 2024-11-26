@@ -105,10 +105,10 @@ public class UsuarioController {
 
     @PatchMapping("/{id_usuario}")
     public ResponseEntity<?> changeUsuario(@PathVariable long id_usuario, @RequestBody ChangeUsuarioDTO   dto) {
-
+        System.out.println("TEste");
         usuarioService.changeUsuarioInfosById(id_usuario, dto);
 
-        return ResponseEntity.status(200).build();
+        return ResponseEntity.ok(dto);
 
     }
 
@@ -201,7 +201,7 @@ public ResponseEntity<?> updateUsuario(@PathVariable long id_usuario, @RequestBo
 
     // usuarioService.save(usuario);
 
-    return ResponseEntity.status(200).build();
+    return ResponseEntity.ok(changeUsuarioDTO);
 }
 
     

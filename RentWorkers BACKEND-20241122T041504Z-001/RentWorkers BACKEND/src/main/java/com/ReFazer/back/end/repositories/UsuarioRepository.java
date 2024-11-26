@@ -2,7 +2,10 @@ package com.ReFazer.back.end.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.ReFazer.back.end.dtos.resp.ShowUsuarioDTO;
 import com.ReFazer.back.end.entities.UsuarioEntity;
+import java.util.List;
+
 
 public interface UsuarioRepository extends JpaRepository<UsuarioEntity,Long> {
     // public List<UsuarioEntity> findByUsuarioNome(String  nome);
@@ -14,5 +17,7 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity,Long> {
     boolean existsByEmail(String email);
 
     UsuarioEntity findByEmail(String email);
+    
+    List<UsuarioEntity> findByTipoUsuario(String tipoUsuario);
 
 }

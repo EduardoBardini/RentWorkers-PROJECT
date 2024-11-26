@@ -52,7 +52,7 @@ export const validaCep = (cep) => {
 // Corrigir a exportação da função atualizarUsuario
 export const atualizarUsuario = async (dadosAtualizado) => {
     try {
-        const response = await api.put(`/usuarios/${dadosAtualizado.id_usuario}`, dadosAtualizado);
+        const response = await api.patch(`/usuarios/${dadosAtualizado.id_usuario}`, dadosAtualizado);
         return response.data; // Alterado para retornar os dados da resposta
     } catch (error) {
         throw error;

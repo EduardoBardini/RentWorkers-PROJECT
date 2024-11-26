@@ -11,7 +11,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class JwtTokenUtil {
 
-    private final String secretKey = "yourSecretKey"; // Substitua com uma chave mais segura
+    private final String secretKey = "routesecretdgsakfjgdskfgdakdsafkdskafdksjagfkjsakfjdgsakfgdsk"; // Substitua com uma chave mais segura
 
     public String generateToken(String username, String role) {
         return Jwts.builder()
@@ -31,7 +31,10 @@ public class JwtTokenUtil {
     }
 
     public String extractUsername(String token) {
-        return extractClaims(token).getSubject();
+        System.out.println(token);
+        String subject = extractClaims(token).getSubject();
+        System.out.println(subject);
+        return subject;
     }
 
     public String extractRole(String token) {
