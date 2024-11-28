@@ -3,6 +3,10 @@ package com.ReFazer.back.end.entities;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,27 +16,24 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 @Entity(name = "usuario")
 public class UsuarioEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
-    private Long id_usuario;
+    private Long id_Usuario;
 
-    @Column(name = "username")
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @Column(name = "especialidade")
     private String especialidade;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "telefone")
@@ -41,24 +42,30 @@ public class UsuarioEntity implements UserDetails {
     @Column(name = "cep")
     private String cep;
 
-    @Column(name = "tipo_usuario")
-    private String tipoUsuario;  
+    @Column(name = "tipo_usuario", nullable = false)
+    private String tipoUsuario;
 
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.REMOVE)
     private AvaliacaoEntity avaliacao;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<TrabalhoSolicitadoEntity> trabalhos;
 
-    
+    // Implementação de métodos da interface UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-      
-        return List.of(() -> tipoUsuario);  
+        return List.of(new SimpleGrantedAuthority(tipoUsuario));
     }
 
-   
-  
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
 
     @Override
     public boolean isAccountNonExpired() {
@@ -80,21 +87,13 @@ public class UsuarioEntity implements UserDetails {
         return true;
     }
 
-
-    public Long getId_usuario() {
-        return id_usuario;
+    // Getters e setters
+    public Long getId_Usuario() {
+        return id_Usuario;
     }
 
-    public void setId_usuario(Long id_usuario) {
-        this.id_usuario = id_usuario;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setId_Usuario(Long id_Usuario) {
+        this.id_Usuario = id_Usuario;
     }
 
     public String getEspecialidade() {
@@ -111,10 +110,6 @@ public class UsuarioEntity implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public void setPassword(String password) {
@@ -159,5 +154,13 @@ public class UsuarioEntity implements UserDetails {
 
     public void setTrabalhos(List<TrabalhoSolicitadoEntity> trabalhos) {
         this.trabalhos = trabalhos;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsernameUser() {
+        return username;
     }
 }

@@ -12,6 +12,9 @@ public class ShowUsuarioDTO {
 
     private String email;
     private String password;
+
+
+    private String senha;
     private String telefone;
     private String cep;
     private String tipoUsuario;
@@ -49,6 +52,12 @@ public class ShowUsuarioDTO {
     public void setPassword(String password) {
         this.password = password;
     }
+    public String getSenha() {
+        return senha;
+    }
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
     public String getTelefone() {
         return telefone;
     }
@@ -79,8 +88,7 @@ public class ShowUsuarioDTO {
     public void setTrabalhos(List<ShowTrabalhoSolicitadoDTO> trabalhos) {
         this.trabalhos = trabalhos;
     }
- 
-
+   
 
     
 }
