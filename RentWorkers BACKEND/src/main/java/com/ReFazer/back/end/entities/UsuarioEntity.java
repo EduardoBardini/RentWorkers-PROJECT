@@ -64,7 +64,7 @@ public class UsuarioEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return username;
     }
 
     @Override
@@ -159,8 +159,11 @@ public class UsuarioEntity implements UserDetails {
     public void setUsername(String username) {
         this.username = username;
     }
+<<<<<<< HEAD
 
     public String getUsernameUser() {
         return username;
     }
+=======
+>>>>>>> 0930e9eba4beeae265aa03b163c93685118867bb
 }
