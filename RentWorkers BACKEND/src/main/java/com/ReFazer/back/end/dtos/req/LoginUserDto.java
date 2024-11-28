@@ -20,5 +20,4 @@ public class LoginUserDto {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }

@@ -29,11 +29,11 @@ public class AuthenticationService {
 
     public UsuarioEntity signup(RegisterUserDto input) {
         UsuarioEntity usuario = new UsuarioEntity();
-        usuario.setUsername(input.getUsername());
+        usuario.setUsername(input.getNome());
         usuario.setEspecialidade(input.getEspecialidade());
         usuario.setEmail(input.getEmail());
         usuario.setCep(input.getCep());
-        usuario.setTelefone(input.getTelefone());
+        usuario.setCep(input.getCep());
         usuario.setTipoUsuario(input.getTipoUsuario());
 
         usuario.setPassword(passwordEncoder.encode(input.getPassword()));
@@ -49,7 +49,5 @@ public class AuthenticationService {
 
         return userRepository.findByEmail(input.getEmail())
                 .orElseThrow();
-
-                
     }
 }

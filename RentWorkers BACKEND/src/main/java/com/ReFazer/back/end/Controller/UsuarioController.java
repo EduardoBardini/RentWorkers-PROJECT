@@ -85,13 +85,6 @@ public class UsuarioController {
 
         return ResponseEntity.status(200).body(usuarios);
     }
-    
-    @GetMapping("/trabalhadores")
-    public ResponseEntity<?> getAllTrabalhadores() {
-        List<ShowUsuarioDTO> trabalhadores = usuarioService.getAllTrabalhadores();
-
-        return ResponseEntity.status(200).body(trabalhadores);
-    }
 
     @GetMapping("/{id_usuario}")
     public ResponseEntity<?> getAllUsuarios(@PathVariable long id_usuario) {
@@ -105,10 +98,10 @@ public class UsuarioController {
 
     @PatchMapping("/{id_usuario}")
     public ResponseEntity<?> changeUsuario(@PathVariable long id_usuario, @RequestBody ChangeUsuarioDTO   dto) {
-        System.out.println("TEste");
+
         usuarioService.changeUsuarioInfosById(id_usuario, dto);
 
-        return ResponseEntity.ok(dto);
+        return ResponseEntity.status(200).build();
 
     }
 
@@ -183,7 +176,7 @@ public class UsuarioController {
     //     return ResponseEntity.status(200).build();
 
     // }
-    @PutMapping("/{id_usuario}")
+   @PutMapping("/{id_usuario}")
 public ResponseEntity<?> updateUsuario(@PathVariable long id_usuario, @RequestBody ChangeUsuarioDTO changeUsuarioDTO) {
  usuarioService.changeUsuarioInfosById(id_usuario, changeUsuarioDTO);
 
@@ -201,7 +194,7 @@ public ResponseEntity<?> updateUsuario(@PathVariable long id_usuario, @RequestBo
 
     // usuarioService.save(usuario);
 
-    return ResponseEntity.ok(changeUsuarioDTO);
+    return ResponseEntity.status(200).build();
 }
 
     

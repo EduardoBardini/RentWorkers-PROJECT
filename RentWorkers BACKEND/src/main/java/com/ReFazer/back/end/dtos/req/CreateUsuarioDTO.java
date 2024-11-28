@@ -14,6 +14,13 @@ public class CreateUsuarioDTO {
     private String telefone;
     private String cep;
     private String tipoUsuario;
+    // private CreateAvaliacaoDTO avaliacao;
+    // private List<CreateTrabalhoSolicitadoDTO> trabalhos;
+    // public Long getId_usuario() {
+    //     return id_usuario;
+    // }
+    // public void setId_usuario(Long id_usuario) {
+    //     this.id_usuario = id_usuario;
     public String getUsername() {
         return username;
     }
@@ -35,7 +42,7 @@ public class CreateUsuarioDTO {
     public String getPassword() {
         return password;
     }
-    public void setSenha(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
     public String getTelefone() {
@@ -56,16 +63,8 @@ public class CreateUsuarioDTO {
     public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
-
     
-    // private CreateAvaliacaoDTO avaliacao;
-    // private List<CreateTrabalhoSolicitadoDTO> trabalhos;
-    // public Long getId_usuario() {
-    //     return id_usuario;
-    // }
-    // public void setId_usuario(Long id_usuario) {
-    //     this.id_usuario = id_usuario;
-   
+
     
     // public CreateAvaliacaoDTO getAvaliacao() {
     //     return avaliacao;

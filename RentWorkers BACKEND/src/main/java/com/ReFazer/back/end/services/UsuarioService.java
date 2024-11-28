@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 // import com.ReFazer.back.end.dtos.req.ChangeAvaliacaoDTO;
 // import com.ReFazer.back.end.dtos.req.ChangeTrabalhoSolicitadoDTO;
@@ -162,7 +161,7 @@ public class UsuarioService {
                         avaliacaoDTO.setTexto_avaliativo(usuario.getAvaliacao().getTexto_avaliativo());
                     }
 
-                    usuarioDTO.setId_usuario(usuario.getId_Usuario());
+                    usuarioDTO.setId_usuario(usuario.getId_usuario());
                     usuarioDTO.setUsername(usuario.getUsername());
                     usuarioDTO.setEspecialidade(usuario.getEspecialidade());
                     usuarioDTO.setEmail(usuario.getEmail());
@@ -175,26 +174,6 @@ public class UsuarioService {
 
                     return usuarioDTO;
                 }).toList();
-    }
-
-    @GetMapping("/trabalhadores")
-    public List<ShowUsuarioDTO> getAllTrabalhadores() {
-
-        List<UsuarioEntity> trabalhadores = usuarioRepository.findByTipoUsuario("TRABALHADOR");
-
-        return trabalhadores.stream().map(trabalhador -> {
-
-            ShowUsuarioDTO trabalhadorDto = new ShowUsuarioDTO();
-
-            trabalhadorDto.setId_usuario(trabalhador.getId_Usuario());
-            trabalhadorDto.setTelefone(trabalhador.getTelefone());
-            trabalhadorDto.setUsername(trabalhador.getUsernameUser());
-            trabalhadorDto.setEspecialidade(trabalhador.getEspecialidade());
-            trabalhadorDto.setCep(trabalhador.getCep()); 
-        
-            return trabalhadorDto;
-
-        }).toList();        
     }
 
     // public UsuarioEntity getUsuarioEntityById(Long id_usuario) {
@@ -215,7 +194,7 @@ public class UsuarioService {
         ShowUsuarioDTO dto = new ShowUsuarioDTO();
         
         // Preenche os dados do DTO
-        dto.setId_usuario(usuarioEntity.getId_Usuario());
+        dto.setId_usuario(usuarioEntity.getId_usuario());
         dto.setUsername(usuarioEntity.getUsername());
         dto.setEspecialidade(usuarioEntity.getEspecialidade());
         dto.setEmail(usuarioEntity.getEmail());
@@ -272,7 +251,7 @@ public class UsuarioService {
 
         UsuarioEntity usuarioEntity = optionalUsuarioEntity.get();
 
-        if (usuarioEntity.getId_Usuario() != null) {
+        if (usuarioEntity.getId_usuario() != null) {
             usuarioRepository.deleteById(id_usuario);
 
         } else {
@@ -338,7 +317,7 @@ public class UsuarioService {
 
         UsuarioEntity usuarioEntity = optionalUsuarioEntity.get();
 
-        // usuarioEntity.setUsername(dto.getUsername());
+        usuarioEntity.setUsername(dto.getUsername());
         usuarioEntity.setEspecialidade(dto.getEspecialidade());
         usuarioEntity.setEmail(dto.getEmail());
         usuarioEntity.setPassword(dto.getPassword());
@@ -350,7 +329,6 @@ public class UsuarioService {
 
     }
 
-    
     // @Transactional
     // public void changeAvaliacaoInfoByid(long id_avaliacao, ChangeAvaliacaoDTO
     // dto) {

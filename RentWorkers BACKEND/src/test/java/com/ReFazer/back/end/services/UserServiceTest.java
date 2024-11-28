@@ -31,7 +31,7 @@ public class UserServiceTest {
         CreateUsuarioDTO userDummy = new CreateUsuarioDTO();
         userDummy.setUsername("jackson");
         userDummy.setEmail("sr.jackdias@gmail.com");
-        userDummy.setSenha("1234");
+        userDummy.setPassword("1234");
         userDummy.setTelefone("12345");
         userDummy.setCep("88049317");
         userDummy.setTipoUsuario("cliente");
@@ -39,7 +39,7 @@ public class UserServiceTest {
         var usuarioCriado = usuarioService.createUsuario(userDummy);
     
         assertNotNull(usuarioCriado);
-        assertNotNull(usuarioCriado.getId_Usuario());
+        assertNotNull(usuarioCriado.getId_usuario());
         assertEquals(userDummy.getUsername(), usuarioCriado.getUsername());
         assertEquals(userDummy.getEmail(), usuarioCriado.getEmail());
         assertEquals(userDummy.getPassword(), usuarioCriado.getPassword());
@@ -54,7 +54,7 @@ public void TestarEmailJaCadastrado() {
     CreateUsuarioDTO userDummy = new CreateUsuarioDTO();
     userDummy.setUsername("Maria");
     userDummy.setEmail("sr.jackdias@gmail.com");
-    userDummy.setSenha("5432");
+    userDummy.setPassword("5432");
     userDummy.setTelefone("991834");
     userDummy.setCep("49328");
     userDummy.setTipoUsuario("Trabalhador");
@@ -83,7 +83,7 @@ public void testarCampoObrigatorioVazio(String nome, String email, String senha,
     CreateUsuarioDTO userDummy = new CreateUsuarioDTO();
     userDummy.setUsername(nome);
     userDummy.setEmail(email);
-    userDummy.setSenha(senha);
+    userDummy.setPassword(senha);
     userDummy.setTelefone(telefone);
     userDummy.setCep(cep);
     userDummy.setTipoUsuario("Trabalhador");
@@ -101,7 +101,7 @@ public void testLoginComSucesso() {
     CreateUsuarioDTO userDummy = new CreateUsuarioDTO();
         userDummy.setUsername("teste");
         userDummy.setEmail("jr.jackdias@gmail.com");
-        userDummy.setSenha("5432");
+        userDummy.setPassword("5432");
         userDummy.setTelefone("12345");
         userDummy.setCep("88049317");
         userDummy.setTipoUsuario("cliente");
@@ -125,8 +125,6 @@ public void testLoginComSucesso() {
     // Então o login deve ser bem-sucedido
     assertTrue(loginSucesso);
 }
-
-
 
 
 
