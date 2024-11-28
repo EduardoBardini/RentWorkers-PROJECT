@@ -183,7 +183,6 @@ public class UsuarioController {
     //     return ResponseEntity.status(200).build();
 
     // }
-<<<<<<< HEAD
     @PutMapping("/{id_usuario}")
 public ResponseEntity<?> updateUsuario(@PathVariable long id_usuario, @RequestBody ChangeUsuarioDTO changeUsuarioDTO) {
  usuarioService.changeUsuarioInfosById(id_usuario, changeUsuarioDTO);
@@ -204,26 +203,6 @@ public ResponseEntity<?> updateUsuario(@PathVariable long id_usuario, @RequestBo
 
     return ResponseEntity.ok(changeUsuarioDTO);
 }
-=======
-    @PutMapping("/**")
-    public ResponseEntity<?> updateUsuario(@PathVariable long id_usuario, @RequestBody ChangeUsuarioDTO changeUsuarioDTO) {
-    
-        UsuarioEntity usuario = usuarioService.getUsuarioEntityById(id_usuario);
-    
-        usuario.setUsername(changeUsuarioDTO.getUsername());
-        usuario.setEspecialidade(changeUsuarioDTO.getEspecialidade());
-        usuario.setEmail(changeUsuarioDTO.getEmail());
-        usuario.setPassword(changeUsuarioDTO.getPassword());
-        usuario.setTelefone(changeUsuarioDTO.getTelefone());
-        usuario.setCep(changeUsuarioDTO.getCep());
-        usuario.setTipoUsuario(changeUsuarioDTO.getTipoUsuario());
-    
-        usuarioService.save(usuario);
-    
-        return ResponseEntity.status(200).build();
-    }
-
->>>>>>> 0930e9eba4beeae265aa03b163c93685118867bb
 
     
 

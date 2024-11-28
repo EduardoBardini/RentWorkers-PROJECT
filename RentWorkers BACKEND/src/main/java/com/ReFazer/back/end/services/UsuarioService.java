@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.swing.JOptionPane;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,10 +47,6 @@ public class UsuarioService {
             throw new EmailJaCadastradoException("O e-mail já está cadastrado: " + userDummy.getEmail());
         }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 0930e9eba4beeae265aa03b163c93685118867bb
         if (userDummy.getUsername() == null || userDummy.getUsername().isEmpty()) {
             throw new CampoObrigatorioException("O campo nome é obrigatório.");
         }
@@ -219,17 +213,11 @@ public class UsuarioService {
         // Obtém a entidade do usuário
         UsuarioEntity usuarioEntity = optionalUsuarioEntity.get();
         ShowUsuarioDTO dto = new ShowUsuarioDTO();
-<<<<<<< HEAD
         
         // Preenche os dados do DTO
         dto.setId_usuario(usuarioEntity.getId_Usuario());
         dto.setUsername(usuarioEntity.getUsername());
         dto.setEspecialidade(usuarioEntity.getEspecialidade());
-=======
-        dto.setId_usuario(usuarioEntity.getId_Usuario());
-        dto.setEspecialidade(usuarioEntity.getEspecialidade());
-        dto.setUsername(usuarioEntity.getUsername());
->>>>>>> 0930e9eba4beeae265aa03b163c93685118867bb
         dto.setEmail(usuarioEntity.getEmail());
         dto.setPassword(usuarioEntity.getPassword());
         dto.setTelefone(usuarioEntity.getTelefone());
@@ -350,11 +338,7 @@ public class UsuarioService {
 
         UsuarioEntity usuarioEntity = optionalUsuarioEntity.get();
 
-<<<<<<< HEAD
         // usuarioEntity.setUsername(dto.getUsername());
-=======
-        usuarioEntity.setUsername(dto.getUsername());
->>>>>>> 0930e9eba4beeae265aa03b163c93685118867bb
         usuarioEntity.setEspecialidade(dto.getEspecialidade());
         usuarioEntity.setEmail(dto.getEmail());
         usuarioEntity.setPassword(dto.getPassword());
@@ -414,23 +398,5 @@ public class UsuarioService {
     // trabalhoSolicitadoRepository.save(trabalhoSolicitadoEntity);
 
     // }
-
-    public List<ShowUsuarioDTO> getAllTrabalhadores(){
-       
-        List<UsuarioEntity> usuarios = usuarioRepository.findAll();
-       
-        return usuarios.stream().map(usuario -> {
-            ShowUsuarioDTO usuarioDTO = new ShowUsuarioDTO();
-            
-            if(usuario.getTipoUsuario().equals("TRABALHADOR")){
-                usuarioDTO.setId_usuario(usuario.getId_Usuario());
-                usuarioDTO.setUsername(usuario.getUsername());
-                usuarioDTO.setCep(usuario.getCep());
-                usuarioDTO.setEspecialidade(usuario.getEspecialidade());
-            }
-        
-            return usuarioDTO;
-        }).toList();
-    }
 
 }

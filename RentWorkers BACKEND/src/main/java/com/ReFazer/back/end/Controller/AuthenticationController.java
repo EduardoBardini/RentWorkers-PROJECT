@@ -59,32 +59,9 @@ public class AuthenticationController {
     // 1. Buscar o usuário no banco de dados
     UsuarioEntity usuario = userRepository.findByEmail(loginUserDto.getEmail());
 
-<<<<<<< HEAD
     // 2. Verificar se o usuário foi encontrado
     if (usuario == null) {
         throw new AuthenticationException("Usuário não encontrado");
-=======
-<<<<<<< HEAD
-    // 2. Verificar se o usuário foi encontrado
-    if (usuario == null) {
-        throw new AuthenticationException("Usuário não encontrado");
-=======
-        LoginResponse response = new LoginResponse();
-        response.setToken(jwtToken);
-        response.setExpiresIn(jwtService.getExpirationTime());
-        ShowUsuarioDTO usuario = new ShowUsuarioDTO();
-        usuario.setCep(authenticatedUser.getCep());
-        usuario.setEmail(authenticatedUser.getEmail());
-        usuario.setTelefone(authenticatedUser.getTelefone());
-
-        
-
-
-        response.setUsuario(usuario);
-
-        return ResponseEntity.ok(response);
->>>>>>> 256c205ec980010473dee37e7d67a0fd1235c601
->>>>>>> 0930e9eba4beeae265aa03b163c93685118867bb
     }
 
     // 3. Verificar se a senha fornecida corresponde ao hash da senha armazenada
