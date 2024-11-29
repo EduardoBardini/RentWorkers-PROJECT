@@ -1,0 +1,247 @@
+.containerLogin{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    
+}
+ .divImagem{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #abd7d6
+ }
+ .imgStyle{
+    height: 100%;
+    width: 100%;
+ }
+ .divFormLogin{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #abd7d6
+    
+ }
+
+
+ .divForm{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   width: 75%;
+   height: 75%;
+ }
+  .divTitulo{
+   display: flex;
+   justify-content: center;
+   width: 100%;
+   height: 20%;
+   font-size: 35px;
+   
+   
+  }
+  .divSubTitulo{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+   height: 5%;
+   font-size: 20px;
+  }
+  .divEmail{
+   width: 100%;
+   height: 10%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+  }
+  .divSenha{
+   width: 100%;
+   height: 10%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+  }
+
+  .inptLogin{
+    width: 435px;
+    height: 40px;
+    padding-left: 10px;
+    font-size: 15px;
+    border-radius: 5px;
+    border-color: transparent;
+  }
+
+  .buttonStyle {
+    width: 450px;
+    height: 50px;
+    font-size: 15px;
+    background-color: #66b7c9;
+    border-radius: 5px;
+    border-color: transparent;
+  }
+  .divButtonLogin{
+   width: 100%;
+   height: 10%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+  }
+  
+
+ /* NOTEBOOK SENAI */
+
+  @media (min-width: 1024px) {
+    
+    .divForm{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 80%;
+      height: 75%;
+      gap: 5px;
+    }
+  
+    .divTitulo{
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      height: 20%;
+      font-size: 30px;
+      
+      
+     }
+     .divSubTitulo{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 9%;
+      padding-bottom: 5px;
+      font-size: 20px;
+     }
+     
+     .divEmail{
+      width: 100%;
+      height: 10%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+     }
+     .divSenha{
+      width: 100%;
+      height: 10%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+     }
+   
+     .inptLogin{
+       width: 100%; 
+       height: 85%;
+       padding-left: 10px;
+       font-size: 15px;
+       border-radius: 5px;
+       border-color: transparent;
+     }
+   
+     .buttonStyle {
+       width: 100%;
+       height: 80%;
+       font-size: 15px;
+       background-color: #66b7c9;
+       border-radius: 5px;
+       border-color: transparent;
+     }
+     .divButtonLogin{
+      width: 100%;
+      height: 20%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-top: 5px;
+     }
+  }
+
+  /* PC */
+
+  @media (min-width: 1440px) {
+    .divForm{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 80%;
+      height: 75%;
+      gap: 5px;
+    }
+  
+    .divTitulo{
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      height: 20%;
+      font-size: 30px;
+      
+      
+     }
+     .divSubTitulo{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 9%;
+      padding-bottom: 5px;
+      font-size: 20px;
+     }
+     
+     .divEmail{
+      width: 100%;
+      height: 10%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+     }
+     .divSenha{
+      width: 100%;
+      height: 10%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+     }
+   
+     .inptLogin{
+       width: 100%; 
+       height:80%;
+       padding-left: 10px;
+       font-size: 15px;
+       border-radius: 5px;
+       border-color: transparent;
+     }
+   
+     .buttonStyle {
+       width: 100%;
+       height: 60%;
+       font-size: 15px;
+       background-color: #66b7c9;
+       border-radius: 5px;
+       border-color: transparent;
+     }
+     .divButtonLogin{
+      width: 100%;
+      height: 19%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-top: 5px;
+     }
+  }
