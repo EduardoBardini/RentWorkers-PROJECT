@@ -56,8 +56,8 @@ function TelaPrincipal() {
                   if (e.target.value == "perfil") {
                     navigate('/perfil');
                   }else if(e.target.value == "sair") {
+                    navigate('/login');
                     logout();
-                    navigate('/telaprincipal')
                   }
                 }}
               >
