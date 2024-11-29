@@ -6,7 +6,7 @@ public class CreateAvaliacaoDTO {
     private double nota_avaliacao;
     private String texto_avaliativo;
 
-    private UsuarioEntity usuario;
+    private Long id_usuario;
 
     public double getNota_avaliacao() {
         return nota_avaliacao;
@@ -24,14 +24,16 @@ public class CreateAvaliacaoDTO {
         this.texto_avaliativo = texto_avaliativo;
     }
 
-    public UsuarioEntity getUsuario() {
-        return usuario;
+    public Long getId_usuario() {
+        return id_usuario;
     }
 
-    public void setUsuario(UsuarioEntity usuarioEntity) {
-        this.usuario = usuarioEntity;
+    public void setId_usuario(Long id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
+
+    
 
 
   

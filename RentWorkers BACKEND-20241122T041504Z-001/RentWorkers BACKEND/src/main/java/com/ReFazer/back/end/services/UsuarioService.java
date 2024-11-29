@@ -20,6 +20,7 @@ import com.ReFazer.back.end.dtos.resp.ShowUsuarioDTO;
 // import com.ReFazer.back.end.entities.AvaliacaoEntity;
 import com.ReFazer.back.end.entities.TrabalhoSolicitadoEntity;
 import com.ReFazer.back.end.entities.UsuarioEntity;
+import com.ReFazer.back.end.exceptions.UsuarioNaoEncontradoException;
 import com.ReFazer.back.end.repositories.AvaliacaoRepository;
 import com.ReFazer.back.end.repositories.TrabalhoSolicitadoRepository;
 import com.ReFazer.back.end.repositories.UsuarioRepository;
@@ -325,31 +326,44 @@ public class UsuarioService {
     // // throw new deletableException();
 
     // }
-
     @Transactional
-
     public void changeUsuarioInfosById(long id_usuario, ChangeUsuarioDTO dto) {
-
+        System.out.println("Iniciando a atualização dos dados do usuário com ID: " + id_usuario);
+    
+        // Recupera o usuário opcional
         Optional<UsuarioEntity> optionalUsuarioEntity = usuarioRepository.findById(id_usuario);
-
+    
         if (optionalUsuarioEntity.isEmpty()) {
-
+            throw new UsuarioNaoEncontradoException("Usuário não encontrado");
         }
-
+    
         UsuarioEntity usuarioEntity = optionalUsuarioEntity.get();
-
-        // usuarioEntity.setUsername(dto.getUsername());
-        usuarioEntity.setEspecialidade(dto.getEspecialidade());
-        usuarioEntity.setEmail(dto.getEmail());
-        usuarioEntity.setPassword(dto.getPassword());
-        usuarioEntity.setTelefone(dto.getTelefone());
-        usuarioEntity.setCep(dto.getCep());
-        usuarioEntity.setTipoUsuario(dto.getTipoUsuario());
-
+    
+        // Atualiza apenas os campos fornecidos no DTO
+        if (dto.getEmail() != null) {
+            usuarioEntity.setEmail(dto.getEmail());
+        }
+        if (dto.getTelefone() != null) {
+            usuarioEntity.setTelefone(dto.getTelefone());
+        }
+        if (dto.getCep() != null) {
+            usuarioEntity.setCep(dto.getCep());
+        }
+        // Apenas atualiza tipoUsuario se ele foi fornecido
+        if (!isNullOrEmpty(dto.getTipoUsuario())) {
+            usuarioEntity.setTipoUsuario(dto.getTipoUsuario());
+        }
+    
+        System.out.println("Atualizando dados do usuário...");
         usuarioRepository.save(usuarioEntity);
-
+        System.out.println("Dados do usuário atualizados com sucesso.");
     }
+    
+private boolean isNullOrEmpty(String str) {
+    return str == null || str.trim().isEmpty();
+}
 
+    
     
     // @Transactional
     // public void changeAvaliacaoInfoByid(long id_avaliacao, ChangeAvaliacaoDTO

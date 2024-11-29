@@ -21,7 +21,6 @@ import com.ReFazer.back.end.dtos.req.ChangeUsuarioDTO;
 // import com.ReFazer.back.end.dtos.req.CreateAvaliacaoDTO;
 import com.ReFazer.back.end.dtos.req.CreateUsuarioDTO;
 import com.ReFazer.back.end.dtos.resp.ShowUsuarioDTO;
-import com.ReFazer.back.end.entities.UsuarioEntity;
 // import com.ReFazer.back.end.services.TrabalhoSolicitadoService;
 import com.ReFazer.back.end.services.UsuarioService;
 
@@ -184,25 +183,37 @@ public class UsuarioController {
 
     // }
     @PutMapping("/{id_usuario}")
-public ResponseEntity<?> updateUsuario(@PathVariable long id_usuario, @RequestBody ChangeUsuarioDTO changeUsuarioDTO) {
- usuarioService.changeUsuarioInfosById(id_usuario, changeUsuarioDTO);
-
-    if (changeUsuarioDTO.getTipoUsuario() == null) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("O campo tipo_usuario não pode ser nulo");
+    public ResponseEntity<?> updateUsuario(@PathVariable long id_usuario, @RequestBody ChangeUsuarioDTO changeUsuarioDTO) {
+        System.out.println("Recebendo requisição para atualizar usuário com ID: " + id_usuario);
+    
+        // Verificando se o token foi enviado e se a autenticação está funcionando
+        // Aqui você pode adicionar uma lógica para verificar o token de autenticação
+        String token = "Seu mecanismo de recuperação de token, caso necessário";
+        if (token == null || token.isEmpty()) {
+            System.out.println("Token não fornecido.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token de autenticação é necessário.");
+        } else {
+            System.out.println("Token recebido: " + token);
+            // Se houver algum processo de validação de token, adicione aqui
+        }
+    
+        // Chama o serviço de atualização
+        try {
+            usuarioService.changeUsuarioInfosById(id_usuario, changeUsuarioDTO);
+            System.out.println("Usuário atualizado com sucesso.");
+        } catch (Exception e) {
+            System.out.println("Erro ao atualizar usuário: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar o usuário.");
+        }
+    
+        if (changeUsuarioDTO.getTipoUsuario() == null) {
+            System.out.println("Erro: 'tipoUsuario' é obrigatório.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("O campo tipo_usuario não pode ser nulo");
+        }
+    
+        return ResponseEntity.ok(changeUsuarioDTO);
     }
-
-    // usuario.setUsername(changeUsuarioDTO.getUsername());
-    // usuario.setEspecialidade(changeUsuarioDTO.getEspecialidade());
-    // usuario.setEmail(changeUsuarioDTO.getEmail());
-    // usuario.setPassword(changeUsuarioDTO.getPassword());
-    // usuario.setTelefone(changeUsuarioDTO.getTelefone());
-    // usuario.setCep(changeUsuarioDTO.getCep());
-    // usuario.setTipoUsuario(changeUsuarioDTO.getTipoUsuario()); // Garantir que este valor não seja nulo
-
-    // usuarioService.save(usuario);
-
-    return ResponseEntity.ok(changeUsuarioDTO);
-}
+    
 
     
 
