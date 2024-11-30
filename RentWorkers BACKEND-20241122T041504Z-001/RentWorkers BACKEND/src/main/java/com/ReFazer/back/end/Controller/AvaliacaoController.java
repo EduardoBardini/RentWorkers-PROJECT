@@ -1,9 +1,12 @@
 package com.ReFazer.back.end.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ReFazer.back.end.dtos.req.ChangeAvaliacaoDTO;
 import com.ReFazer.back.end.dtos.req.CreateAvaliacaoDTO;
+import com.ReFazer.back.end.dtos.resp.ShowAvaliacaoDTO;
+import com.ReFazer.back.end.dtos.resp.ShowUsuarioDTO;
 import com.ReFazer.back.end.services.AvaliacaoService;
+import com.ReFazer.back.end.services.UsuarioService;
 
 @RestController
 @RequestMapping("/avaliacoes")
@@ -23,6 +29,7 @@ public class AvaliacaoController {
 
     @Autowired
     AvaliacaoService avaliacaoService;
+
 
     @PostMapping
     public ResponseEntity<?> createAvaliacao(@RequestBody CreateAvaliacaoDTO dto){
@@ -35,6 +42,19 @@ public class AvaliacaoController {
         return ResponseEntity.status(201).build();
 
     }
+
+    @GetMapping
+    public ResponseEntity<?> getAllAvaliacoes(){
+
+        List<ShowAvaliacaoDTO> avaliacao = avaliacaoService.getAllAvaliacoes();
+
+
+        return ResponseEntity.status(200).body(avaliacao);
+
+    }
+
+
+
 
        @DeleteMapping("{id_avaliacao}")
 

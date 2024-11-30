@@ -10,17 +10,13 @@ import jakarta.persistence.ManyToOne;
 
 @Entity(name = "trabalho_solicitado")
 public class TrabalhoSolicitadoEntity {
-    
-   
 
-     @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @Column(name = "id_trabalho_solicitado")
 
     private Long id_trabalho_solicitado;
-
-
 
     @Column(name = "tipo")
     private String tipo;
@@ -34,21 +30,19 @@ public class TrabalhoSolicitadoEntity {
     @Column(name = "descricao")
     private String descricao;
 
-
     @Column(name = "status")
     private boolean status;
-
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     private UsuarioEntity usuario;
 
     @ManyToOne
-    @JoinColumn(name = "id_cliente")
+    @JoinColumn(name = "id_cliente", nullable = true) // Permite que o id_cliente seja nulo
     private UsuarioEntity cliente;
 
     @ManyToOne
-    @JoinColumn(name = "id_trabalhador")
+    @JoinColumn(name = "id_trabalhador", nullable = true) // Permite que o id_trabalhador seja nulo
     private UsuarioEntity trabalhador;
 
     public Long getId_trabalho_solicitado() {
@@ -122,8 +116,5 @@ public class TrabalhoSolicitadoEntity {
     public void setTrabalhador(UsuarioEntity trabalhador) {
         this.trabalhador = trabalhador;
     }
-
-
-
 
 }
