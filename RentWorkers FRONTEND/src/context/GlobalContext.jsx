@@ -9,6 +9,8 @@ export const UserProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [usuario, setUsuario] = useState(JSON.parse(localStorage.getItem("usuario")));
 
+  console.log(token)
+
   const login = (jwtToken, usuario) => {
     setToken(jwtToken);
     localStorage.setItem("token", jwtToken);
@@ -22,10 +24,9 @@ export const UserProvider = ({ children }) => {
     localStorage.clear();
   };
 
-  const isAuthenticated = () => !!token;  
 
   return (
-    <UserContext.Provider value={{ token, login, logout, isAuthenticated, usuario }}>
+    <UserContext.Provider value={{ token, login, logout, usuario }}>
       {children}
     </UserContext.Provider>
   );

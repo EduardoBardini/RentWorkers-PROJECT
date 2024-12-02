@@ -1,31 +1,52 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import '../TelaPrincipal/DadosPessoais.css';
-import Modal from 'react-modal';
 
-Modal.setAppElement('#root');
+function CardTrabalhador({ username, localizacao, especializacao, onClick }) {
+  const [cidadeEstado, setCidadeEstado] = useState('');
 
+  const obterCidadeEstado = async (cep) => {
+    if (!cep) {
+      setCidadeEstado('CEP não informado');
+      return;
+    }
 
-function CardTrabalhador(props) {
- 
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+    const cepFormatado = cep.replace(/[^\d]+/g, ''); 
 
-  function abrirModal() {
-    setIsOpen(true);
-  }
-  function fecharModal() {
-    setIsOpen(false)
-  }
+    if (cepFormatado.length !== 8) {
+      setCidadeEstado('CEP inválido');
+      return;
+    }
+
+    try {
+      const response = await axios.get(`https://viacep.com.br/ws/${cepFormatado}/json/`);
+
+      if (response.data.localidade && response.data.uf) {
+        setCidadeEstado(`${response.data.localidade} / ${response.data.uf}`);
+      } else {
+        setCidadeEstado('Localização não encontrada');
+      }
+    } catch (error) {
+      console.error('Erro ao buscar a localização:', error);
+      setCidadeEstado('Erro ao buscar localização');
+    }
+  };
+
+  useEffect(() => {
+    if (localizacao) {
+      obterCidadeEstado(localizacao);  
+    } else {
+      setCidadeEstado('CEP não informado');
+    }
+  }, [localizacao]);  
+
   return (
-    <div className="card-container" onClick={abrirModal}>
-       <img className='imgPerfilUm' src={props.imagemPerfil} alt={`Foto de ${props.username}`} /> 
-       <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={fecharModal}
-        contentLabel="Modal de exemplo"
-      />
-      <p>Nome: {props.username}</p>
-      <p>Localização: {props.cep}</p>
-      <p>Especialização: {props.especializacao}</p> 
+    <div className="card-container">
+      <img className="imgPerfilUm" src="images/imagem-perfil-png.png" alt={`Foto de ${username}`} />
+      <p>Nome: {username}</p>
+      <p>Localização: {cidadeEstado}</p>
+      <p>Especialização: {especializacao}</p>
+      <button onClick={onClick}>Solicitar Serviço</button>
     </div>
   );
 }

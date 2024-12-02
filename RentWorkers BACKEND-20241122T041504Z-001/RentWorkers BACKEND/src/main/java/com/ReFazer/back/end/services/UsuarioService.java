@@ -164,7 +164,7 @@ public class UsuarioService {
                     }
 
                     usuarioDTO.setId_usuario(usuario.getId_Usuario());
-                    usuarioDTO.setUsername(usuario.getUsername());
+                    usuarioDTO.setUsername(usuario.getUsernameUser());
                     usuarioDTO.setEspecialidade(usuario.getEspecialidade());
                     usuarioDTO.setEmail(usuario.getEmail());
                     usuarioDTO.setPassword(usuario.getPassword());

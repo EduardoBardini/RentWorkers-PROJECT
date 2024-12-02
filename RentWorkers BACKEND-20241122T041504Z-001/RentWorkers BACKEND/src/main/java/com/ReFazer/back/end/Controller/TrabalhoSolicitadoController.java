@@ -29,31 +29,42 @@ public class TrabalhoSolicitadoController {
 
     @Autowired
 
-    UsuarioRepository  usuarioRepository;
-
+    UsuarioRepository usuarioRepository;
 
     @PostMapping
     public ResponseEntity<?> createTrabalhoSolicitado(@RequestBody CreateTrabalhoSolicitadoDTO dto) {
-        System.out.println(dto.getTipo());
-        System.out.println(dto.getValor());
-        System.out.println(dto.getLocalizacao());
-        System.out.println(dto.getDescricao());
-        System.out.println(dto.isStatus());
-    
-        // Verificar se o DTO contém um cliente e criar o trabalho solicitado
-        if (dto.getId_cliente() != null) {
-            UsuarioEntity cliente = usuarioRepository.findById(dto.getId_cliente())
-                    .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
-            trabalhoSolicitadoService.createTrabalhoSolicitado(dto, cliente);
-        } else {
-            // Se não houver cliente, passar null para a função de criação
-            trabalhoSolicitadoService.createTrabalhoSolicitado(dto, null);
+        // Verificar se os dados obrigatórios estão presentes no DTO
+        if (dto.getTipo() == null || dto.getValor() == 0 || dto.getValor() <= 0 || dto.getDescricao() == null || dto.getLocalizacao() == null) {
+            return ResponseEntity.badRequest().body("Campos obrigatórios não fornecidos ou valor inválido.");
         }
     
-        // Retornar resposta de sucesso
-        return ResponseEntity.status(201).build();
+        try {
+            // Imprimir para depuração (remova após testes)
+            System.out.println("Tipo: " + dto.getTipo());
+            System.out.println("Valor: " + dto.getValor());
+            System.out.println("Localização: " + dto.getLocalizacao());
+            System.out.println("Descrição: " + dto.getDescricao());
+            System.out.println("Status: " + dto.isStatus());
+    
+            // Verificar se o DTO contém um ID de cliente e criar o trabalho solicitado
+            if (dto.getId_cliente() != null) {
+                UsuarioEntity cliente = usuarioRepository.findById(dto.getId_cliente())
+                        .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+                trabalhoSolicitadoService.createTrabalhoSolicitado(dto, cliente);
+            } else {
+                // Se não houver cliente, passar null para a função de criação
+                trabalhoSolicitadoService.createTrabalhoSolicitado(dto, null);
+            }
+    
+            // Retornar resposta de sucesso
+            return ResponseEntity.status(201).body("Solicitação de trabalho criada com sucesso.");
+    
+        } catch (RuntimeException e) {
+            // Exceção genérica, você pode criar exceções personalizadas
+            return ResponseEntity.status(400).body("Erro: " + e.getMessage());
+        }
     }
-
+    
 
     @PatchMapping("{id_trabalho_solicitado}")
     public ResponseEntity<?> changeTrabalhoSolicitado(@PathVariable long id_usuario,

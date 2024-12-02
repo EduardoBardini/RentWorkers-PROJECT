@@ -2,9 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import "./Perfil.css";
 import { listaUsuarios } from "../../config/axios";
 import { atualizarUsuario } from "../../config/axios";
-import { Hamburger, Plus, InformationSquare, OpenPadlock, Trash, Settings } from "./IconPerfil";
 import { UserContext } from "../../context/GlobalContext";
-
 
 function Perfil() {
     const { usuario } = useContext(UserContext);
@@ -12,20 +10,21 @@ function Perfil() {
     const [email, setEmail] = useState("");
     const [telefone, setTelefone] = useState("");
     const [cep, setCep] = useState("");
+    const [username, setUsername] = useState('');
     const [editarUsuario, setEditarUsuario] = useState(false);
 
     useEffect(() => {
-
         listaUsuarios()
             .then((response) => {
-                
                 if (usuario) {
                     setEmail(usuario.email);
                     setTelefone(usuario.telefone);
                     setCep(usuario.cep);
+                    setUsername(usuario.username);
 
+                    console.log(response.data)
                 } else {
-                    console.log("Não esta logado");
+                    console.log("Não está logado");
                 }
             })
             .catch((error) => {
@@ -34,49 +33,35 @@ function Perfil() {
     }, [usuario]);
 
     function mostrarEdicao() {
-        setEditarUsuario(!editarUsuario); // Alterna entre visualização e edição
+        setEditarUsuario(!editarUsuario); 
     }
 
     function atualizarEdicao() {
-
         const dadosAtualizado = {
             id_usuario: usuario.id_usuario,
             email: email,
             telefone: telefone,
-            cep: cep
-        }
+            cep: cep,
+            username: username,
+        };
 
         atualizarUsuario(dadosAtualizado)
-            .then((response) => {
-
+            .then(() => {
                 alert("Informações atualizadas com sucesso");
-                setEditarUsuario(false)
-
+                setEditarUsuario(false);
             })
             .catch((error) => {
-
-                console.error("erro ao atualizar os dados do usuario", error);
-                alert("erro ao salvar informações,Tente Novamente")
-
-            })
-
+                console.error("Erro ao atualizar os dados do usuário", error);
+                alert("Erro ao salvar informações. Tente novamente.");
+            });
     }
 
     return (
         <div className="container-Perfil">
-            <div className="divPainel">
-                <Hamburger style={{ width: "50px", height: "60px", marginTop: "4rem" }} />
-                <Plus style={{ width: "50px", height: "50px" }} />
-                <InformationSquare style={{ width: "50px", height: "60px" }} />
-                <OpenPadlock style={{ width: "50px", height: "60px" }} />
-                <Trash style={{ width: "60px", height: "60px" }} />
-                <Settings style={{ width: "60px", height: "60px" }} />
-            </div>
-
             <div className="divPerfil">
                 <div className="div-cima">
                     <img className="imgPerfilum" src="/images/download 46 (1).png" alt="Perfil" />
-                    <p className="fonteNome">Jackson Arthur Dudu dos Santos</p>
+                    <p className="fonteNome">{username}</p>
                 </div>
 
                 <div className="divPerfil-Esquerda">
@@ -89,56 +74,68 @@ function Perfil() {
 
                 <div className="div-meio">
                     {editarUsuario ? (
-                        <div>
-                            <p>Email:
+                        <div className="formulario-edicao">
+                            <div className="campo-edicao">
+                                <label htmlFor="username">Username:</label>
                                 <input
+                                    id="username"
                                     type="text"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    placeholder="Digite seu username"
+                                />
+                            </div>
+
+                            <div className="campo-edicao">
+                                <label htmlFor="email">Email:</label>
+                                <input
+                                    id="email"
+                                    type="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="Digite seu email"
                                 />
+                            </div>
 
-                            </p>
-                            <p>Telefone:
+                            <div className="campo-edicao">
+                                <label htmlFor="telefone">Telefone:</label>
                                 <input
-                                    type="text"
+                                    id="telefone"
+                                    type="tel"
                                     value={telefone}
                                     onChange={(e) => setTelefone(e.target.value)}
+                                    placeholder="Digite seu telefone"
                                 />
-                            </p>
+                            </div>
 
-
-                            <p> CEP:
-
+                            <div className="campo-edicao">
+                                <label htmlFor="cep">CEP:</label>
                                 <input
+                                    id="cep"
                                     type="text"
                                     value={cep}
                                     onChange={(e) => setCep(e.target.value)}
+                                    placeholder="Digite seu CEP"
                                 />
+                            </div>
 
-                            </p>
-
-
+                            <div className="div-botoes">
+                                <button onClick={atualizarEdicao} className="botaoSalvar">Salvar</button>
+                                <button onClick={mostrarEdicao} className="botaoInfo">Cancelar</button>
+                            </div>
                         </div>
                     ) : (
-                        <div>
-                            <p>Email: {email}</p>
-                            <p>Telefone: {telefone}</p>
-                            <p>CEP: {cep}</p>
+                        <div className="dados-usuario">
+                            <p><strong>Username:</strong> {username}</p>
+                            <p><strong>Email:</strong> {email}</p>
+                            <p><strong>Telefone:</strong> {telefone}</p>
+                            <p><strong>CEP:</strong> {cep}</p>
+
+                            <div className="div-botoes">
+                                <button onClick={mostrarEdicao} className="botaoInfo">Editar Informações</button>
+                            </div>
                         </div>
                     )}
-
-                    <div className="div-botoes">
-                        <button onClick={atualizarEdicao} className="botaoSalvar">Salvar</button>
-                        <button onClick={mostrarEdicao} className="botaoInfo">Editar Informações</button>
-                    </div>
-
-                    <div className="div-form">
-                        <div className="div-formeio">
-                            <img className="imgPerfildois" src="/images/download 46 (1).png" alt="Perfil" />
-                            <button className="botaoExcluir">Excluir Foto</button>
-                            <button className="botaoAlterar">Alterar Foto</button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
