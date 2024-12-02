@@ -64,7 +64,7 @@ public class UsuarioEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return email; // O login será feito pelo email
     }
 
     @Override
@@ -85,6 +85,11 @@ public class UsuarioEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    // Getter para o username real
+    public String getUsernameFromEntity() {
+        return username;
     }
 
     // Getters e setters
@@ -158,9 +163,5 @@ public class UsuarioEntity implements UserDetails {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getUsernameUser() {
-        return username;
     }
 }

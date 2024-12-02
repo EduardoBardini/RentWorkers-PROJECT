@@ -189,7 +189,7 @@ public class UsuarioService {
 
             trabalhadorDto.setId_usuario(trabalhador.getId_Usuario());
             trabalhadorDto.setTelefone(trabalhador.getTelefone());
-            trabalhadorDto.setUsername(trabalhador.getUsernameUser());
+            trabalhadorDto.setUsername(trabalhador.getUsernameFromEntity());
             trabalhadorDto.setEspecialidade(trabalhador.getEspecialidade());
             trabalhadorDto.setCep(trabalhador.getCep()); 
         
