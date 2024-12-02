@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.ReFazer.back.end.dtos.req.CreateUsuarioDTO;
+import com.ReFazer.back.end.entities.UsuarioEntity;
 
 import jakarta.transaction.Transactional;
 
@@ -25,29 +26,28 @@ public class UserServiceTest {
       @Autowired
     UsuarioService usuarioService;
 
-    @Test
-    public void testCriarUsuarioComSucesso() {
-    
-        CreateUsuarioDTO userDummy = new CreateUsuarioDTO();
-        userDummy.setUsername("jackson");
-        userDummy.setEmail("sr.jackdias@gmail.com");
-        userDummy.setSenha("1234");
-        userDummy.setTelefone("12345");
-        userDummy.setCep("88049317");
-        userDummy.setTipoUsuario("cliente");
-    
-        var usuarioCriado = usuarioService.createUsuario(userDummy);
-    
-        assertNotNull(usuarioCriado);
-        assertNotNull(usuarioCriado.getId_Usuario());
-        assertEquals(userDummy.getUsername(), usuarioCriado.getUsername());
-        assertEquals(userDummy.getEmail(), usuarioCriado.getEmail());
-        assertEquals(userDummy.getPassword(), usuarioCriado.getPassword());
-        assertEquals(userDummy.getTelefone(), usuarioCriado.getTelefone());
-        assertEquals(userDummy.getCep(), usuarioCriado.getCep());
-        assertEquals(userDummy.getTipoUsuario(), usuarioCriado.getTipoUsuario());
-    }
-    
+@Test
+public void testCriarUsuarioComSucesso() {
+    CreateUsuarioDTO userDummy = new CreateUsuarioDTO();
+    userDummy.setUsername("jackson");
+    userDummy.setEmail("sr.jackdias@gmail.com");
+    userDummy.setSenha("1234");
+    userDummy.setTelefone("12345");
+    userDummy.setCep("88049317");
+    userDummy.setTipoUsuario("cliente");
+
+    UsuarioEntity usuarioCriado = usuarioService.createUsuario(userDummy);
+
+    // Verificando se os dados foram salvos corretamente
+    assertNotNull(usuarioCriado);
+    assertNotNull(usuarioCriado.getId_Usuario());
+    assertEquals(userDummy.getUsername(), usuarioCriado.getUsernameFromEntity());
+    assertEquals(userDummy.getEmail(), usuarioCriado.getEmail());
+    assertEquals(userDummy.getPassword(), usuarioCriado.getPassword());
+    assertEquals(userDummy.getTelefone(), usuarioCriado.getTelefone());
+    assertEquals(userDummy.getCep(), usuarioCriado.getCep());
+    assertEquals(userDummy.getTipoUsuario(), usuarioCriado.getTipoUsuario());
+}
 
 @Test
 public void TestarEmailJaCadastrado() {
