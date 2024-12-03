@@ -7,10 +7,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ReFazer.back.end.dtos.req.ChangeStatusTrabalhoDTO;
 // import com.ReFazer.back.end.dtos.req.ChangeAvaliacaoDTO;
 import com.ReFazer.back.end.dtos.req.ChangeTrabalhoSolicitadoDTO;
 import com.ReFazer.back.end.dtos.req.CreateTrabalhoSolicitadoDTO;
@@ -64,6 +66,18 @@ public class TrabalhoSolicitadoController {
             return ResponseEntity.status(400).body("Erro: " + e.getMessage());
         }
     }
+
+    @PutMapping("/change-status/{id}")
+    public ResponseEntity<String> changeStatusTrabalho(@PathVariable Long id, @RequestBody ChangeStatusTrabalhoDTO dto) {
+        try {
+            // Chama o serviço para atualizar o status do trabalho
+            trabalhoSolicitadoService.changeStatusTrabalhoById(id, dto);
+            return ResponseEntity.ok("Status do trabalho atualizado com sucesso.");
+        } catch (RuntimeException e) {
+            // Se ocorrer algum erro (ex: trabalho não encontrado), retorna erro
+            return ResponseEntity.status(404).body("Erro: " + e.getMessage());
+        }
+    }
     
 
     @PatchMapping("{id_trabalho_solicitado}")
@@ -94,14 +108,6 @@ public class TrabalhoSolicitadoController {
 
     // }
 
-    @PatchMapping("/{id_usuario}/trabalhos/{tipo}")
-    public ResponseEntity<?> changeTrabalhoBytipo(@PathVariable String tipo,
-            @RequestBody ChangeTrabalhoSolicitadoDTO dto) {
-
-        trabalhoSolicitadoService.changeTrabalhoByTipo(tipo, dto);
-
-        return ResponseEntity.status(200).build();
-    }
 
     @PatchMapping("{id_usuario}/trabalhos/{id_trabalho_solicitado}")
     public ResponseEntity<?> changeTrabalhoByid(@PathVariable long id_trabalho_solicitado,

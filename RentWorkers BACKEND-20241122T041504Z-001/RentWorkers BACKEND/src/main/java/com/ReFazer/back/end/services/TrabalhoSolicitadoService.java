@@ -1,5 +1,7 @@
 package com.ReFazer.back.end.services;
 
+import java.lang.StackWalker.Option;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.ReFazer.back.end.dtos.req.ChangeStatusTrabalhoDTO;
 import com.ReFazer.back.end.dtos.req.ChangeTrabalhoSolicitadoDTO;
 import com.ReFazer.back.end.dtos.req.CreateTrabalhoSolicitadoDTO;
 import com.ReFazer.back.end.entities.TrabalhoSolicitadoEntity;
@@ -43,14 +46,14 @@ public class TrabalhoSolicitadoService {
 
         trabalho.setStatus(dto.isStatus()); // Status do trabalho
 
-        // Atribuindo o usuário (cliente ou outro usuário relevante)
-        if (dto.getId_usuario() != null) {
-            // Buscar o usuário no banco de dados
-            UsuarioEntity usuario = usuarioRepository.findById(dto.getId_usuario())
-                    .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-            trabalho.setUsuario(usuario); // Associar o usuário ao trabalho
+        // Verificar se o DTO contém o ID do cliente e associá-lo
+        if (dto.getId_cliente() != null) {
+            // Buscar o cliente no banco de dados
+            UsuarioEntity clienteEntity = usuarioRepository.findById(dto.getId_cliente())
+                    .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+            trabalho.setCliente(clienteEntity); // Associar o cliente ao trabalho
         } else {
-            throw new RuntimeException("Usuário não fornecido no DTO");
+            throw new RuntimeException("ID do cliente não fornecido no DTO");
         }
 
         // Verificar se o DTO contém o ID do trabalhador e associá-lo
@@ -60,12 +63,12 @@ public class TrabalhoSolicitadoService {
                     .orElseThrow(() -> new RuntimeException("Trabalhador não encontrado"));
             trabalho.setTrabalhador(trabalhador); // Associar o trabalhador ao trabalho
         } else {
-            throw new RuntimeException("Trabalhador não fornecido no DTO");
+            throw new RuntimeException("ID do trabalhador não fornecido no DTO");
         }
 
-        // Se o cliente foi passado como parâmetro, associá-lo ao trabalho
+        // Associando o usuário (cliente) passado como parâmetro
         if (cliente != null) {
-            trabalho.setCliente(cliente); // Associar o cliente ao trabalho
+            trabalho.setUsuario(cliente); // Associar o cliente ao trabalho
         } else {
             throw new RuntimeException("Cliente não fornecido no parâmetro");
         }
@@ -74,25 +77,19 @@ public class TrabalhoSolicitadoService {
         trabalhoSolicitadoRepository.save(trabalho);
     }
 
-    @Transactional
-    public void changeTrabalhoByTipo(String tipo, ChangeTrabalhoSolicitadoDTO dto) {
+    public void changeStatusTrabalhoById(Long id, ChangeStatusTrabalhoDTO dto) {
+        // Buscar o trabalho solicitado pelo ID
+        Optional<TrabalhoSolicitadoEntity> trabalhoSolicitadoEntityOptional = trabalhoSolicitadoRepository.findById(id);
 
-        Optional<TrabalhoSolicitadoEntity> optionalTrabalhoSolicitadoEntity = trabalhoSolicitadoRepository
-                .findBytipo(tipo);
-
-        if (optionalTrabalhoSolicitadoEntity.isEmpty()) {
-            // jogar uma excecao
-
+        if (trabalhoSolicitadoEntityOptional.isPresent()) {
+            TrabalhoSolicitadoEntity trabalhoSolicitadoEntity = trabalhoSolicitadoEntityOptional.get();
+            // Alterando o status para 'true'
+            trabalhoSolicitadoEntity.setStatus(true);
+            // Salvando a alteração no banco de dados
+            trabalhoSolicitadoRepository.save(trabalhoSolicitadoEntity);
+        } else {
+            throw new RuntimeException("Trabalho solicitado não encontrado com o ID fornecido.");
         }
-        TrabalhoSolicitadoEntity trabalhoSolicitadoEntity = optionalTrabalhoSolicitadoEntity.get();
-
-        trabalhoSolicitadoEntity.setTipo(dto.getTipo());
-        trabalhoSolicitadoEntity.setValor(dto.getValor());
-        trabalhoSolicitadoEntity.setLocalizacao(dto.getLocalizacao());
-        trabalhoSolicitadoEntity.setDescricao(dto.getDescricao());
-        trabalhoSolicitadoEntity.setStatus(dto.isStatus());
-
-        trabalhoSolicitadoRepository.save(trabalhoSolicitadoEntity);
     }
 
     @Transactional

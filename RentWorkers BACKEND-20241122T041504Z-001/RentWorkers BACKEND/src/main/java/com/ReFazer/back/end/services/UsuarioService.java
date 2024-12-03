@@ -164,7 +164,7 @@ public class UsuarioService {
                     }
 
                     usuarioDTO.setId_usuario(usuario.getId_Usuario());
-                    usuarioDTO.setUsername(usuario.getUsernameUser());
+                    usuarioDTO.setUsername(usuario.getUsernameFromEntity());
                     usuarioDTO.setEspecialidade(usuario.getEspecialidade());
                     usuarioDTO.setEmail(usuario.getEmail());
                     usuarioDTO.setPassword(usuario.getPassword());
@@ -217,7 +217,7 @@ public class UsuarioService {
         
         // Preenche os dados do DTO
         dto.setId_usuario(usuarioEntity.getId_Usuario());
-        dto.setUsername(usuarioEntity.getUsername());
+        dto.setUsername(usuarioEntity.getUsernameFromEntity());
         dto.setEspecialidade(usuarioEntity.getEspecialidade());
         dto.setEmail(usuarioEntity.getEmail());
         dto.setPassword(usuarioEntity.getPassword());

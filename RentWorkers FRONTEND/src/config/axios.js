@@ -50,6 +50,10 @@ export const validaCep = (cep) => {
     return axios.get(`viacep.com.br/ws/${cep}/json/`)
 }
 
+export const dadosUsuarioLogado = (id) => {
+    return axios.get(`http://127.0.0.1:8080/usuarios/${id}`)
+}
+
 
 // Corrigir a exportação da função atualizarUsuario
 export const atualizarUsuario = async (dadosAtualizado) => {
