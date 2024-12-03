@@ -35,7 +35,7 @@ public class CreateUsuarioDTO {
     public String getPassword() {
         return password;
     }
-    public void setSenha(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
     public String getTelefone() {
@@ -56,7 +56,7 @@ public class CreateUsuarioDTO {
     public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
-
+ 
     
     // private CreateAvaliacaoDTO avaliacao;
     // private List<CreateTrabalhoSolicitadoDTO> trabalhos;
