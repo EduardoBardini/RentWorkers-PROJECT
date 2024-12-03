@@ -1,3 +1,4 @@
+
 package com.ReFazer.back.end.services;
 
 import java.util.ArrayList;
@@ -30,6 +31,8 @@ import jakarta.transaction.Transactional;
 @Service
 public class UsuarioService {
 
+    private String mensagemLogin;
+    
     @Autowired
 
     UsuarioRepository usuarioRepository;
@@ -128,16 +131,38 @@ public class UsuarioService {
 
     // }
 
-    public boolean loginUsuario(String email, String senha) {
+    public boolean loginUsuario(String email, String password) {
+        // Busca o usuário pelo email
         UsuarioEntity usuario = usuarioRepository.findByEmail(email);
-
-        if (usuario != null && usuario.getPassword().equals(senha)) {
-            return true; // Login bem-sucedido
-        } else {
-            return false; // Falha no login
+        
+        // Verifica se o usuário não existe
+        if (usuario == null) {
+            mensagemLogin = "Conta não existe.";
+            return false; // Retorna false se o usuário não existe
         }
+        
+        // // Verifica se a senha está incorreta
+        // if (!usuario.getPassword().equals(password)) {
+        //     mensagemLogin = "Senha ou Email incorretos.";
+        //     return false; // Retorna false se a senha está incorreta
+        // }
+        
+        // Caso o login seja bem-sucedido
+        mensagemLogin = "Login bem-sucedido.";
+        return true; // Retorna true se o login for bem-suced
+    
+        
     }
-
+    
+    
+    
+    
+    public String getMensagemLogin() {
+        return mensagemLogin; // Método para obter a mensagem de login
+    }
+    
+    
+    
     public List<ShowUsuarioDTO> getAllUsuarios() {
         List<UsuarioEntity> usuarioEntity = usuarioRepository.findAll();
 
@@ -164,7 +189,7 @@ public class UsuarioService {
                     }
 
                     usuarioDTO.setId_usuario(usuario.getId_Usuario());
-                    usuarioDTO.setUsername(usuario.getUsernameUser());
+                    usuarioDTO.setUsername(usuario.getUsername());
                     usuarioDTO.setEspecialidade(usuario.getEspecialidade());
                     usuarioDTO.setEmail(usuario.getEmail());
                     usuarioDTO.setPassword(usuario.getPassword());
@@ -336,12 +361,24 @@ public class UsuarioService {
         if (optionalUsuarioEntity.isEmpty()) {
             throw new UsuarioNaoEncontradoException("Usuário não encontrado");
         }
+
+        UsuarioEntity usuario = usuarioRepository.findById(id_usuario).orElseThrow(() -> new UsuarioNaoEncontradoException("Usuário não encontrado"));
+
+        // Verifica se a senha atual informada é correta
+        if (dto.getPassword() != null && !usuario.getPassword().equals(dto.getPassword())) {
+            throw new SenhaIncorretaException("Senha atual incorreta");
+        }
     
         UsuarioEntity usuarioEntity = optionalUsuarioEntity.get();
     
         // Atualiza apenas os campos fornecidos no DTO
         if (dto.getEmail() != null) {
             usuarioEntity.setEmail(dto.getEmail());
+        }
+
+        if(dto.getNewPassword() != null){
+            usuarioEntity.setPassword(dto.getNewPassword());
+
         }
         if (dto.getTelefone() != null) {
             usuarioEntity.setTelefone(dto.getTelefone());

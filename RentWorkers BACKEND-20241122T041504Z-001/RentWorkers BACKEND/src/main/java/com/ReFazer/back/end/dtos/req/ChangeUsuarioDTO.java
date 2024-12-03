@@ -10,6 +10,7 @@ public class ChangeUsuarioDTO {
     private String telefone;
     private String cep;
     private String tipoUsuario;
+    private String newPassword;
     public String getUsername() {
         return username;
     }
@@ -52,7 +53,14 @@ public class ChangeUsuarioDTO {
     public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
-   
+    public String getNewPassword() {
+        return newPassword;
+    }
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+  
   
     
 }
