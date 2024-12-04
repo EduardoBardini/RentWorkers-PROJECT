@@ -189,11 +189,7 @@ public class UsuarioService {
                     }
 
                     usuarioDTO.setId_usuario(usuario.getId_Usuario());
-<<<<<<< HEAD
                     usuarioDTO.setUsername(usuario.getUsernameFromEntity());
-=======
-                    usuarioDTO.setUsername(usuario.getUsername());
->>>>>>> 4a63767d39f39d4a4fb187342de9180413ba54a3
                     usuarioDTO.setEspecialidade(usuario.getEspecialidade());
                     usuarioDTO.setEmail(usuario.getEmail());
                     usuarioDTO.setPassword(usuario.getPassword());
