@@ -1,6 +1,7 @@
 package com.ReFazer.back.end.services;
 
 import java.lang.StackWalker.Option;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.ReFazer.back.end.dtos.req.ChangeStatusTrabalhoDTO;
 import com.ReFazer.back.end.dtos.req.ChangeTrabalhoSolicitadoDTO;
 import com.ReFazer.back.end.dtos.req.CreateTrabalhoSolicitadoDTO;
+import com.ReFazer.back.end.dtos.resp.ShowTrabalhoSolicitadoDTO;
 import com.ReFazer.back.end.entities.TrabalhoSolicitadoEntity;
 import com.ReFazer.back.end.entities.UsuarioEntity;
 import com.ReFazer.back.end.repositories.TrabalhoSolicitadoRepository;
@@ -76,6 +78,32 @@ public class TrabalhoSolicitadoService {
         // Salvar a entidade TrabalhoSolicitado no repositório
         trabalhoSolicitadoRepository.save(trabalho);
     }
+
+    public List<ShowTrabalhoSolicitadoDTO> getAllTrabalhoSolicitado(){
+
+        List<ShowTrabalhoSolicitadoDTO> trabalhos = new ArrayList<>();
+
+        for(TrabalhoSolicitadoEntity trabalhoSolicitado : trabalhoSolicitadoRepository.findAll()){
+            ShowTrabalhoSolicitadoDTO trabalhoSolicitadoDTO = new ShowTrabalhoSolicitadoDTO();
+
+            trabalhoSolicitadoDTO.setTipo(trabalhoSolicitado.getTipo());
+            trabalhoSolicitadoDTO.setValor(trabalhoSolicitado.getValor());
+            trabalhoSolicitadoDTO.setLocalizacao(trabalhoSolicitado.getLocalizacao());
+            trabalhoSolicitadoDTO.setDescricao(trabalhoSolicitado.getDescricao());
+            trabalhoSolicitadoDTO.setStatus(trabalhoSolicitado.isStatus());
+
+            trabalhos.add(trabalhoSolicitadoDTO);
+
+
+
+        }
+
+        return trabalhos;
+
+
+    }
+
+
 
     public void changeStatusTrabalhoById(Long id, ChangeStatusTrabalhoDTO dto) {
         // Buscar o trabalho solicitado pelo ID

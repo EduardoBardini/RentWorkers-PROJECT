@@ -1,9 +1,12 @@
 package com.ReFazer.back.end.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +19,7 @@ import com.ReFazer.back.end.dtos.req.ChangeStatusTrabalhoDTO;
 // import com.ReFazer.back.end.dtos.req.ChangeAvaliacaoDTO;
 import com.ReFazer.back.end.dtos.req.ChangeTrabalhoSolicitadoDTO;
 import com.ReFazer.back.end.dtos.req.CreateTrabalhoSolicitadoDTO;
+import com.ReFazer.back.end.dtos.resp.ShowTrabalhoSolicitadoDTO;
 import com.ReFazer.back.end.entities.UsuarioEntity;
 import com.ReFazer.back.end.repositories.UsuarioRepository;
 import com.ReFazer.back.end.services.TrabalhoSolicitadoService;
@@ -65,6 +69,14 @@ public class TrabalhoSolicitadoController {
             // Exceção genérica, você pode criar exceções personalizadas
             return ResponseEntity.status(400).body("Erro: " + e.getMessage());
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getAllTrabalhoSolicitado(){
+
+        List<ShowTrabalhoSolicitadoDTO> trabalhos = trabalhoSolicitadoService.getAllTrabalhoSolicitado();
+
+        return ResponseEntity.status(200).body(trabalhos);
     }
 
     @PutMapping("/change-status/{id}")
