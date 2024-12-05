@@ -54,12 +54,16 @@ export const dadosUsuarioLogado = (id) => {
     return axios.get(`http://127.0.0.1:8080/usuarios/${id}`)
 }
 
+export const excluirUsuario = (id) => {
+    return axios.delete(`http://127.0.0.1:8080/usuarios/${id}`)
+}
 
-// Corrigir a exportação da função atualizarUsuario
+
+
 export const atualizarUsuario = async (dadosAtualizado) => {
     try {
         const response = await api.patch(`/usuarios/${dadosAtualizado.id_usuario}`, dadosAtualizado);
-        return response.data; // Alterado para retornar os dados da resposta
+        return response.data; 
     } catch (error) {
         throw error;
     }

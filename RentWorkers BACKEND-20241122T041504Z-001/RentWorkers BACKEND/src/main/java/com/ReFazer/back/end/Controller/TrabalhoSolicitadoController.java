@@ -39,36 +39,32 @@ public class TrabalhoSolicitadoController {
 
     @PostMapping
     public ResponseEntity<?> createTrabalhoSolicitado(@RequestBody CreateTrabalhoSolicitadoDTO dto) {
-        // Verificar se os dados obrigatórios estão presentes no DTO
+        
         if (dto.getTipo() == null || dto.getValor() == 0 || dto.getValor() <= 0 || dto.getDescricao() == null || dto.getLocalizacao() == null) {
             return ResponseEntity.badRequest().body("Campos obrigatórios não fornecidos ou valor inválido.");
         }
     
-        try {
-            // Imprimir para depuração (remova após testes)
+
             System.out.println("Tipo: " + dto.getTipo());
             System.out.println("Valor: " + dto.getValor());
             System.out.println("Localização: " + dto.getLocalizacao());
             System.out.println("Descrição: " + dto.getDescricao());
             System.out.println("Status: " + dto.isStatus());
     
-            // Verificar se o DTO contém um ID de cliente e criar o trabalho solicitado
             if (dto.getId_cliente() != null) {
                 UsuarioEntity cliente = usuarioRepository.findById(dto.getId_cliente())
                         .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
                 trabalhoSolicitadoService.createTrabalhoSolicitado(dto, cliente);
-            } else {
-                // Se não houver cliente, passar null para a função de criação
-                trabalhoSolicitadoService.createTrabalhoSolicitado(dto, null);
+            }
+            
+            if(dto.getId_trabalhador() != null) {
+                UsuarioEntity trabalhador = usuarioRepository.findById(dto.getId_trabalhador()).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+                trabalhoSolicitadoService.createTrabalhoSolicitado(dto, trabalhador);
             }
     
-            // Retornar resposta de sucesso
             return ResponseEntity.status(201).body("Solicitação de trabalho criada com sucesso.");
     
-        } catch (RuntimeException e) {
-            // Exceção genérica, você pode criar exceções personalizadas
-            return ResponseEntity.status(400).body("Erro: " + e.getMessage());
-        }
+       
     }
 
     @GetMapping

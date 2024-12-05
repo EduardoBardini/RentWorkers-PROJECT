@@ -1,5 +1,6 @@
 package com.ReFazer.back.end.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,17 +33,17 @@ public class TrabalhoSolicitadoEntity {
 
     @Column(name = "status")
     private boolean status;
-
-    @ManyToOne
+    
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_usuario")
     private UsuarioEntity usuario;
 
     @ManyToOne
-    @JoinColumn(name = "id_cliente", nullable = true) // Permite que o id_cliente seja nulo
+    @JoinColumn(name = "id_cliente", nullable = true) 
     private UsuarioEntity cliente;
 
     @ManyToOne
-    @JoinColumn(name = "id_trabalhador", nullable = true) // Permite que o id_trabalhador seja nulo
+    @JoinColumn(name = "id_trabalhador", nullable = true) 
     private UsuarioEntity trabalhador;
 
     public Long getId_trabalho_solicitado() {

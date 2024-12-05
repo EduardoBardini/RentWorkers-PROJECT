@@ -4,14 +4,12 @@ import { useUserContext } from '../../context/GlobalContext';
 const ProtectedRoute = ({ children }) => {
   const { token } = useUserContext();
 
-  console.log("Token:", token);
+  const tokenLocal = localStorage.getItem('token')
 
-  // Se o usuário não está autenticado, redirecione para o login
-  if (!token) {
+  if (!tokenLocal) {
     return <Navigate to="/login" replace />;
   }
 
-  // Se autenticado, renderize o conteúdo protegido
   return children;
 };
 

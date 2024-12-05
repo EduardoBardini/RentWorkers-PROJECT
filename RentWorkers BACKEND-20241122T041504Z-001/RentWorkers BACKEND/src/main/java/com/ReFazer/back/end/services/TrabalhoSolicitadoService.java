@@ -35,42 +35,39 @@ public class TrabalhoSolicitadoService {
 
     @Transactional
     public void createTrabalhoSolicitado(CreateTrabalhoSolicitadoDTO dto, UsuarioEntity cliente) {
-        // Criar a entidade TrabalhoSolicitado
         TrabalhoSolicitadoEntity trabalho = new TrabalhoSolicitadoEntity();
 
-        // Preencher os campos obrigatórios
-        trabalho.setTipo(dto.getTipo()); // A especialização do trabalhador
-        trabalho.setValor(dto.getValor()); // O valor oferecido
-        trabalho.setDescricao(dto.getDescricao()); // Descrição do problema
+        trabalho.setTipo(dto.getTipo()); 
+        trabalho.setValor(dto.getValor());
+        trabalho.setDescricao(dto.getDescricao()); 
 
-        // Receber o campo "localizacao" diretamente do DTO
-        trabalho.setLocalizacao(dto.getLocalizacao()); // A localização completa vinda do frontend
+        
+        trabalho.setLocalizacao(dto.getLocalizacao());
 
-        trabalho.setStatus(dto.isStatus()); // Status do trabalho
+        trabalho.setStatus(dto.isStatus()); 
 
-        // Verificar se o DTO contém o ID do cliente e associá-lo
+        
         if (dto.getId_cliente() != null) {
-            // Buscar o cliente no banco de dados
+           
             UsuarioEntity clienteEntity = usuarioRepository.findById(dto.getId_cliente())
                     .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
-            trabalho.setCliente(clienteEntity); // Associar o cliente ao trabalho
+            trabalho.setCliente(clienteEntity);
         } else {
             throw new RuntimeException("ID do cliente não fornecido no DTO");
         }
 
-        // Verificar se o DTO contém o ID do trabalhador e associá-lo
+        
         if (dto.getId_trabalhador() != null) {
-            // Buscar o trabalhador no banco de dados
             UsuarioEntity trabalhador = usuarioRepository.findById(dto.getId_trabalhador())
                     .orElseThrow(() -> new RuntimeException("Trabalhador não encontrado"));
-            trabalho.setTrabalhador(trabalhador); // Associar o trabalhador ao trabalho
+            trabalho.setTrabalhador(trabalhador); 
         } else {
             throw new RuntimeException("ID do trabalhador não fornecido no DTO");
         }
 
-        // Associando o usuário (cliente) passado como parâmetro
+     
         if (cliente != null) {
-            trabalho.setUsuario(cliente); // Associar o cliente ao trabalho
+            trabalho.setUsuario(cliente); 
         } else {
             throw new RuntimeException("Cliente não fornecido no parâmetro");
         }
@@ -78,6 +75,18 @@ public class TrabalhoSolicitadoService {
         // Salvar a entidade TrabalhoSolicitado no repositório
         trabalhoSolicitadoRepository.save(trabalho);
     }
+
+    // public void postaTrabalhoAoTrabalhador( CreateTrabalhoSolicitadoDTO dto ) { 
+    //     List<TrabalhoSolicitadoEntity> trabalho = trabalhoSolicitadoRepository.findAll();
+
+    //     for (int i = 0; i < trabalho.size(); i++ ) {
+    //        if(trabalho.get(i).getTrabalhador().getId_Usuario().equals(dto.getId_trabalhador())){
+    //          trabalho.get(i).setUsuario();
+    //        }
+    //     }
+        
+        
+    // }
 
     public List<ShowTrabalhoSolicitadoDTO> getAllTrabalhoSolicitado(){
 

@@ -17,25 +17,22 @@ function ParteHome() {
 
                 <div className='bodyMsg'>
                     <div className='bodyMensagemContainer'>
-                     <div className='tituloMsgBody'>
-                        <h2>Bem-vindo à RentWorkers</h2>
-                     </div>
-                     <div className='descMsgBody'>
-                        <label>Encontrar ajuda para o trabalho doméstico nunca foi tão fácil.
-                        Conecte-se com profissionais qualificados para cuidar do seu lar com eficiência e confiança.</label>
-                     </div>
+                        <div className='tituloMsgBody'>
+                           <h2>Bem-vindo à RentWorkers</h2>
+                        </div>
+                        <div className='descMsgBody'>
+                           <label className='labelEditada'>Encontrar ajuda para o trabalho nunca foi tão fácil.
+                           Conecte-se com profissionais qualificados para cuidar do seu lar com eficiência e confiança.</label>
+                        </div>
                     </div>
                 </div>
 
-                <div className='bodyMsg'>
-
+                <div className='div-imagem-home'>
 
                 </div>
-               
-                
-
             </div>
-        
+            
+            
         
                 
         </div>

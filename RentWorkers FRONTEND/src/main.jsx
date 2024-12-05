@@ -9,7 +9,6 @@ import TelaCadastro from './componentes/TelaCadastro/TelaCadastro.jsx';
 import TelaPrincipal from './componentes/TelaPrincipal/TelaPrincipal.jsx';
 import Perfil from './componentes/TelaPerfil/Perfil.jsx';
 
-import CardTrabalhador from './componentes/TelaPrincipal/CardTrabalhador.jsx';
 import EditarPerfil from './componentes/TelaEditarPerfil/EditarPerfil.jsx';
 import Cliente from './componentes/TelaCliente/Cliente.jsx';
 
@@ -60,9 +59,18 @@ const router = createBrowserRouter([
     path: "/cadastro",
     element: <TelaCadastro />,
   },
+  {
+    path: "/telatrabalhador",
+    element: (
+      <ProtectedRoute>
+        <TelaTrabalhador />
+      </ProtectedRoute>
+    ),
+  }
 ]);
 
 import { UserProvider } from './context/GlobalContext.jsx';
+import TelaTrabalhador from './componentes/TelaTrabalhador/TelaTrabalhador.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

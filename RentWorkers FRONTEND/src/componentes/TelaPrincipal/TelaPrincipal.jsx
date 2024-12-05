@@ -14,7 +14,6 @@ function TelaPrincipal() {
   const { logout, usuario } = useContext(UserContext);
   const [trabalhadores, setTrabalhadores] = useState([]);
   const [inptSearch, setInptSearch] = useState("");
-  const [usuarioLogado, setUsuarioLogado] = useState(usuario);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [trabalhadorSelecionado, setTrabalhadorSelecionado] = useState(null);
   const [descricaoProblema, setDescricaoProblema] = useState('');
@@ -27,6 +26,8 @@ function TelaPrincipal() {
   const [bairro, setBairro] = useState('');
   const [numeroCasa, setNumeroCasa] = useState('');
   const [localizacao, setLocalizacao] = useState('');
+  const [trabalhadoresPesquisados, setTrabalhadoresPesquisados] = useState([])
+  const [modoPesquisa, setModoPesquisa] = useState(false);
 
   useEffect(() => {
     listaTrabalhadores()
@@ -34,13 +35,20 @@ function TelaPrincipal() {
       .catch((error) => console.log(error));
   }, []);
 
-  useEffect(() => {
-    if (usuario) {
-      setUsuarioLogado(usuario);
-    }
-  }, [usuario]);
 
-  const handleSearchChange = (e) => setInptSearch(e.target.value);
+  const handleSearchChange = (e) => {
+    
+    
+    setInptSearch(e.target.value);
+    if (trabalhadores.length > 0) {
+      for (let i = 0; i < trabalhadores.length; i++ ){
+         if(trabalhadores[i].especialidade == e.target.value) {
+          setTrabalhadoresPesquisados([...trabalhadoresPesquisados, trabalhadores[i]])
+         }
+      }
+    }
+  }
+
 
   const abrirModal = (trabalhador) => {
     setTrabalhadorSelecionado(trabalhador);
@@ -53,13 +61,9 @@ function TelaPrincipal() {
   const fecharModal = () => setModalIsOpen(false);
 
   const obterCidadeEstado = async (cep) => {
-    const cepFormatado = cep.replace(/[^\d]+/g, '');
-    if (cepFormatado.length !== 8) {
-      setLocalizacao('CEP inválido');
-      return;
-    }
+
     try {
-      const response = await axios.get(`https://viacep.com.br/ws/${cepFormatado}/json/`);
+      const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
       if (response.data.erro) {
         setLocalizacao('Localização não encontrada');
       } else if (response.data.localidade && response.data.uf) {
@@ -78,7 +82,8 @@ function TelaPrincipal() {
   };
 
   const enviarSolicitacao = async () => {
-    const idUsuarioLogado = usuarioLogado?.id_usuario;
+  
+    const idUsuarioLogado = usuario.id_usuario;
     if (!idUsuarioLogado) {
       console.error('ID do usuário não encontrado');
       return;
@@ -132,7 +137,7 @@ function TelaPrincipal() {
                   }
                 }}
               >
-                <option value="">{usuarioLogado ? usuarioLogado.nome : "Carregando..."}</option>
+                <option className="none-here" value=""></option>
                 <option value="perfil">Ir para Perfil</option>
                 <option value="sair">Sair</option>
               </select>
@@ -149,7 +154,10 @@ function TelaPrincipal() {
             especializacao={trabalhador.especialidade}
             onClick={() => abrirModal(trabalhador)}
           />
+          
         ))}
+        
+       
       </div>
       <Modal
         isOpen={modalIsOpen}
