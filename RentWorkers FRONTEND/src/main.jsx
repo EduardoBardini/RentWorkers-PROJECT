@@ -11,6 +11,7 @@ import Perfil from './componentes/TelaPerfil/Perfil.jsx';
 
 import EditarPerfil from './componentes/TelaEditarPerfil/EditarPerfil.jsx';
 import Cliente from './componentes/TelaCliente/Cliente.jsx';
+import PaginaBusca from './componentes/TelaDeBusca/PaginaBusca.jsx'
 
 import ProtectedRoute from './componentes/verificacao/ProtectedRoute.jsx';
 
@@ -66,7 +67,13 @@ const router = createBrowserRouter([
         <TelaTrabalhador />
       </ProtectedRoute>
     ),
-  }
+  },
+
+  {
+    path: "/buscarPerfil",
+    element: <PaginaBusca />
+  },
+  
 ]);
 
 import { UserProvider } from './context/GlobalContext.jsx';

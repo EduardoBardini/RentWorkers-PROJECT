@@ -39,7 +39,7 @@ function TelaLogin() {
             try {
                 const response = await api.post('/auth/login', loginData);
                 login(response.data.token, response.data.usuario);
-                navigate("/telaprincipal")
+                navigate("/buscarPerfil")
                 window.location.reload()
             } catch (error) {
                 alert("Usuario não existe")

@@ -1,8 +1,8 @@
-import React from 'react';
-import './DadosPessoais.css';
-import {useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import './CardTrabalhador.css';
 
-function DadosPessoais({ username, localizacao, especializacao, onClick }) {
+function CardTrabalhador({ username, localizacao, especializacao, onClick }) {
   const [cidadeEstado, setCidadeEstado] = useState('');
 
   const obterCidadeEstado = async (cep) => {
@@ -38,17 +38,17 @@ function DadosPessoais({ username, localizacao, especializacao, onClick }) {
     } else {
       setCidadeEstado('CEP não informado');
     }
-  }, [localizacao]); 
-  return (
-    <div className="dadosPessoais-container">
-       <img className='imgPerfilUm' src={d.imagemPerfil} alt={`Foto de ${d.nome}`} /> 
+  }, [localizacao]);  
 
+  return (
+    <div className="card-container">
+      <img className="imgPerfilUm" src="images/imagem-perfil-png.png" alt={`Foto de ${username}`} />
       <p>Nome: {username}</p>
-      <p>Função: {cidadeEstado}</p> 
-      <p>Localização: {especializacao}</p>
+      <p>Localização: {cidadeEstado}</p>
+      <p>Especialização: {especializacao}</p>
       <button onClick={onClick}>Solicitar Serviço</button>
     </div>
   );
 }
 
-export default DadosPessoais;
+export default CardTrabalhador;

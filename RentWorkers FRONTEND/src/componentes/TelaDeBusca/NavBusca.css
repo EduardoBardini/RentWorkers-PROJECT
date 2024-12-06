@@ -134,3 +134,136 @@
    border: none;
    cursor: pointer;
 }
+
+.ReactModal__Overlay {
+   background-color: rgba(0, 0, 0, 0.75);
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   z-index: 1000;
+ }
+ 
+ .ReactModal__Content {
+   position: relative;
+   padding: 20px;
+   max-width: 400px;
+   width: 80%;
+   background-color: white;
+   border-radius: 8px;
+   z-index: 1001;
+   text-align: center;
+ }
+ 
+ .modal-overlay {
+   background-color: rgba(0, 0, 0, 0.6);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   z-index: 9999;
+ }
+ 
+ .modal-container {
+   background-color: #ffffff;
+   border-radius: 8px;
+   padding: 20px;
+   width: 60%;
+   max-width: 500px;
+   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+   position: relative;
+   z-index: 10000;
+   max-height: 80%;
+   overflow-y: auto;
+ }
+ 
+ .modal-container h2 {
+   font-size: 24px;
+   color: #333;
+   margin-bottom: 20px;
+   text-align: center;
+   font-weight: 600;
+ }
+ 
+ .inputsModal, textarea {
+   width: 100%;
+   padding: 12px;
+   margin: 10px 0;
+   border: 1px solid #ddd;
+   border-radius: 8px;
+   font-size: 14px;
+   background-color: #f9f9f9;
+   box-sizing: border-box;
+   transition: border 0.3s ease-in-out;
+ }
+ 
+ input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
+   border-color: #007bff;
+   outline: none;
+ }
+ 
+ .btn-submit {
+   background-color: #66b7c9;
+   color: #fff;
+   padding: 12px 20px;
+   font-size: 16px;
+   border: none;
+   border-radius: 6px;
+   cursor: pointer;
+   transition: background-color 0.3s ease;
+   width: 100%;
+   margin-top: 15px;
+ }
+ 
+ .btn-submit:hover {
+   background-color: #abd7d6;
+ }
+ 
+ .btn-close {
+   background-color: #66b7c9;
+   color: #fff;
+   padding: 12px 20px;
+   font-size: 16px;
+   border: none;
+   border-radius: 6px;
+   cursor: pointer;
+   transition: background-color 0.3s ease;
+   width: 100%;
+   margin-top: 10px;
+ }
+ 
+ .btn-close:hover {
+   background-color: #abd7d6;
+ }
+ 
+ label {
+   font-weight: 500;
+   font-size: 16px;
+   color: #333;
+   display: block;
+   margin-bottom: 5px;
+ }
+ 
+ textarea {
+   resize: vertical;
+   height: 120px;
+ }
+ 
+ h3 {
+   font-size: 20px;
+   color: #333;
+   margin-top: 20px;
+   font-weight: 600;
+ }
+ 
+ .none-here {
+   display: none;
+ }
