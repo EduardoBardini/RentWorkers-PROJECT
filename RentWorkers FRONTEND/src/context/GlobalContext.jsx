@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext } from 'react';
+import { dadosUsuarioLogado } from '../config/axios';
 
 // Criação do contexto
 export const UserContext = createContext();
@@ -6,8 +7,11 @@ export const UserContext = createContext();
 // Componente Provider
 export const UserProvider = ({ children }) => {
 
-  const [token, setToken] = useState(localStorage.getItem("token"));
-  const [usuario, setUsuario] = useState(JSON.parse(localStorage.getItem("usuario")));
+  const [token, setToken] = useState();
+  const [usuario, setUsuario] = useState();
+  const [count, setCount] = useState()
+
+  
 
   const login = (jwtToken, usuario) => {
     setToken(jwtToken);
@@ -21,15 +25,24 @@ export const UserProvider = ({ children }) => {
     setUsuario(null);
     localStorage.clear();
   };
+ if(usuario != null && count < 1) {
+    dadosUsuarioLogado(usuario.id_usuario).then((response) => {
+    setUsuario(response.data)
+    localStorage.setItem("usuario", JSON.stringify(response.data))
+  }).catch((error) => {
+    console.log("Não existe um usuario com este ID")
+    console.log(error)
+  })
+ }
+  
 
-  const isAuthenticated = () => !!token;  
 
   return (
-    <UserContext.Provider value={{ token, login, logout, isAuthenticated, usuario }}>
+    <UserContext.Provider value={{ token, login, logout, usuario }}>
       {children}
     </UserContext.Provider>
   );
 };
 
-// Hook para acessar o contexto
+
 export const useUserContext = () => useContext(UserContext);

@@ -2,66 +2,129 @@ import React, { useState, useEffect, useContext } from "react";
 import "./Perfil.css";
 import { listaUsuarios } from "../../config/axios";
 import { UserContext } from "../../context/GlobalContext";
-import { atualizarUsuario } from "../../config/axios";
+import { atualizarUsuario, dadosUsuarioLogado, excluirUsuario } from "../../config/axios";
 import { Hamburger, Plus, InformationSquare, OpenPadlock, Trash, Settings } from "./IconPerfil";
+import CardTrabalho from "./CardTrabalhador";
 
 
+import { useNavigate } from "react-router-dom";  // Correção: importando useNavigate corretamente
 
 function Perfil() {
+    const navigate = useNavigate();
+
     const { usuario } = useContext(UserContext);
+
+    const [estadoAnteriorUsername, setEstadoInteriorUsername] = useState();
+    const [estadoAnteriorEmail, setEstadoAnteriorEmail] = useState();
+    const [estadoAnteriorTelefone, setEstadoAnteriorTelefone] = useState();
+    const [estadoAnteriorCep, setEstadoAnteriorCep] = useState();
 
     const [email, setEmail] = useState("");
     const [telefone, setTelefone] = useState("");
     const [cep, setCep] = useState("");
+    const [username, setUsername] = useState('');
     const [editarUsuario, setEditarUsuario] = useState(false);
+    const [telaDados, setTelaDados] = useState(true)
+    const [mostrarTrabalhos, setMostrarTrabalhos] = useState(false);
+    const [trabalhos, setTrabalhos] = useState([]);
 
     useEffect(() => {
-
-        listaUsuarios()
-            .then((response) => {
-                
-                if (usuario) {
+        if (usuario) {
+            dadosUsuarioLogado(usuario.id_usuario)
+                .then((response) => {
                     setEmail(usuario.email);
                     setTelefone(usuario.telefone);
                     setCep(usuario.cep);
+                    setUsername(usuario.username);
 
-                } else {
-                    console.log("Não esta logado");
-                }
-            })
-            .catch((error) => {
-                console.log("Erro ao carregar =", error);
-            });
+                    localStorage.setItem('usuario', JSON.stringify(response.data))
+
+                    if (response.data.trabalhos) {
+                        setTrabalhos(response.data.trabalhos);
+                    }
+
+                    localStorage.setItem('usuario', JSON.stringify(response.data))
+
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    console.log("Erro ao carregar dados do usuário:", error);
+                });
+        } else {
+            console.log("Não está logado");
+        }
     }, [usuario]);
 
-    function mostrarEdicao() {
-        setEditarUsuario(!editarUsuario); // Alterna entre visualização e edição
-    }
+    
 
     function atualizarEdicao() {
-
         const dadosAtualizado = {
             id_usuario: usuario.id_usuario,
             email: email,
             telefone: telefone,
-            cep: cep
-        }
+            cep: cep,
+            username: username,
+        };
 
         atualizarUsuario(dadosAtualizado)
-            .then((response) => {
-
+            .then(() => {
                 alert("Informações atualizadas com sucesso");
-                setEditarUsuario(false)
-
+                mostrarDados();                
             })
             .catch((error) => {
-
-                console.error("erro ao atualizar os dados do usuario", error);
-                alert("erro ao salvar informações,Tente Novamente")
-
-            })
-
+                console.error("Erro ao atualizar os dados do usuário", error);
+                alert("Erro ao salvar informações. Tente novamente.");
+            });
     }
+
+    function mostrarSolicitacoes() {
+        setMostrarTrabalhos(true);
+        setEditarUsuario(false)
+        setTelaDados(false)
+    }
+
+    function mostrarDados() {
+        setTelaDados(true)
+        setMostrarTrabalhos(false)
+        setEditarUsuario(false)
+    }
+
+    function mostrarEdicao() {
+        setEditarUsuario(true)
+        setMostrarTrabalhos(false)
+        setTelaDados(false)
+        setEstadoInteriorUsername(username)
+        setEstadoAnteriorEmail(email)
+        setEstadoAnteriorTelefone(telefone)
+        setEstadoAnteriorCep(cep)
+    }
+    function fecharEdicaoPerfil() {
+        setEditarUsuario(false)
+        setMostrarTrabalhos(false)
+        setTelaDados(true)
+        setUsername(estadoAnteriorUsername)
+        setEstadoAnteriorEmail(estadoAnteriorEmail)
+        setEstadoAnteriorTelefone(estadoAnteriorTelefone)
+        setEstadoAnteriorCep(estadoAnteriorCep)
+    }
+
+    function voltarTelaPrincipal() {
+        setTelaDados(false)
+        setMostrarTrabalhos(false)
+        setEditarUsuario(false)
+        navigate('/telaprincipal')
+    }
+
+    function excluirConta() {
+        excluirUsuario(usuario.id_usuario).then((response) => {
+            console.log(response)
+            window.location.reload();
+            localStorage.clear();
+        }).catch((error) => {
+            console.log(error)
+        })
+    }
+
 
     return (
         <div className="container-Perfil">
@@ -77,69 +140,95 @@ function Perfil() {
             <div className="divPerfil">
                 <div className="div-cima">
                     <img className="imgPerfilum" src="/images/download 46 (1).png" alt="Perfil" />
-                    <p className="fonteNome">Jackson Arthur Dudu dos Santos</p>
+                    <p className="fonteNome">{usuario ? `${usuario.username}` : "Nome do Usuário"}</p>
                 </div>
 
                 <div className="divPerfil-Esquerda">
-                    <div className="div-dados"><p>Dados</p></div>
+                <div className="div-dados" onClick={mostrarDados}><p>Dados</p></div>
                     <div className="div-nota"><p>Nota e Avaliações</p></div>
-                    <div className="div-solicitacoes"><p>Solicitações de trabalho</p></div>
-                    <div className="div-vazio"></div>
-                    <div className="div-Sair"><p>Sair</p></div>
+                    <div className="div-solicitacoes" onClick={mostrarSolicitacoes}><p>Solicitações de trabalho</p></div>
+                    <div className="div-ExcluirConta" onClick={excluirConta}>Excluir Conta</div>
+                    <div className="div-Sair" onClick={voltarTelaPrincipal}>Voltar</div>
                 </div>
 
                 <div className="div-meio">
-                    {editarUsuario ? (
-                        <div>
-                            <p>Email:
-                                <input
-                                    type="text"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-
-                            </p>
-                            <p>Telefone:
-                                <input
-                                    type="text"
-                                    value={telefone}
-                                    onChange={(e) => setTelefone(e.target.value)}
-                                />
-                            </p>
-
-
-                            <p> CEP:
-
-                                <input
-                                    type="text"
-                                    value={cep}
-                                    onChange={(e) => setCep(e.target.value)}
-                                />
-
-                            </p>
-
-
+                    {mostrarTrabalhos ? (
+                        <div className="listaTrabalhos">
+                            {trabalhos.length === 0 ? (
+                                <p>Nenhuma solicitação de trabalho encontrada.</p>
+                            ) : (
+                                trabalhos.map((trabalho, index) => (
+                                    <CardTrabalho key={index} trabalho={trabalho} usuario={usuario} />
+                                ))
+                            )}
                         </div>
                     ) : (
                         <div>
-                            <p>Email: {email}</p>
-                            <p>Telefone: {telefone}</p>
-                            <p>CEP: {cep}</p>
+                            {editarUsuario  && (
+                                <div className="formulario-edicao">
+                                    <div className="campo-edicao">
+                                        <label htmlFor="username">Username:</label>
+                                        <input
+                                            id="username"
+                                            type="text"
+                                            value={username}
+                                            onChange={(e) => setUsername(e.target.value)}
+                                            placeholder="Digite seu username"
+                                        />
+                                    </div>
+
+                                    <div className="campo-edicao">
+                                        <label htmlFor="email">Email:</label>
+                                        <input
+                                            id="email"
+                                            type="email"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            placeholder="Digite seu email"
+                                        />
+                                    </div>
+
+                                    <div className="campo-edicao">
+                                        <label htmlFor="telefone">Telefone:</label>
+                                        <input
+                                            id="telefone"
+                                            type="tel"
+                                            value={telefone}
+                                            onChange={(e) => setTelefone(e.target.value)}
+                                            placeholder="Digite seu telefone"
+                                        />
+                                    </div>
+
+                                    <div className="campo-edicao">
+                                        <label htmlFor="cep">CEP:</label>
+                                        <input
+                                            id="cep"
+                                            type="text"
+                                            value={cep}
+                                            onChange={(e) => setCep(e.target.value)}
+                                            placeholder="Digite seu CEP"
+                                        />
+                                    </div>
+
+                                    <div className="div-botoes">
+                                        <button onClick={atualizarEdicao} className="botaoSalvar">Salvar</button>
+                                        <button onClick={mostrarEdicao} className="botaoInfo">Cancelar</button>
+                                    </div>
+                                </div>)}
+                            {telaDados && (
+                                <div className="dados-usuario">
+                                    <p><strong>Username:</strong> {username}</p>
+                                    <p><strong>Email:</strong> {email}</p>
+                                    <p><strong>Telefone:</strong> {telefone}</p>
+                                    <p><strong>CEP:</strong> {cep}</p>
+
+                                    <div className="div-botoes">
+                                        <button onClick={mostrarEdicao} className="botaoInfo">Editar Informações</button>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     )}
-
-                    <div className="div-botoes">
-                        <button onClick={atualizarEdicao} className="botaoSalvar">Salvar</button>
-                        <button onClick={mostrarEdicao} className="botaoInfo">Editar Informações</button>
-                    </div>
-
-                    <div className="div-form">
-                        <div className="div-formeio">
-                            <img className="imgPerfildois" src="/images/download 46 (1).png" alt="Perfil" />
-                            <button className="botaoExcluir">Excluir Foto</button>
-                            <button className="botaoAlterar">Alterar Foto</button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

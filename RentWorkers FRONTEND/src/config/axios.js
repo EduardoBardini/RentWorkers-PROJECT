@@ -14,6 +14,8 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token"); 
+
+    console.log(token)
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -48,16 +50,25 @@ export const validaCep = (cep) => {
     return axios.get(`viacep.com.br/ws/${cep}/json/`)
 }
 
+export const dadosUsuarioLogado = (id) => {
+    return axios.get(`http://127.0.0.1:8080/usuarios/${id}`)
+}
 
-// Corrigir a exportação da função atualizarUsuario
+export const excluirUsuario = (id) => {
+    return axios.delete(`http://127.0.0.1:8080/usuarios/${id}`)
+}
+
+
+
 export const atualizarUsuario = async (dadosAtualizado) => {
     try {
-        const response = await api.put(`/usuarios/${dadosAtualizado.id_usuario}`, dadosAtualizado);
-        return response.data.token;
+        const response = await api.patch(`/usuarios/${dadosAtualizado.id_usuario}`, dadosAtualizado);
+        return response.data; 
     } catch (error) {
         throw error;
     }
-}
+};
+
 
 
 export default api;

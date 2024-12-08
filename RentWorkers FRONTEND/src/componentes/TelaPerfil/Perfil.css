@@ -1,780 +1,232 @@
-@media (min-width:1440px) {
-    
+/* Universal Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  /* Font Styles */
+  .fonteDois, .fonteTres, .fonteQuadro {
+    font-size: 40px;
+    font-weight: normal;
+    line-height: 1;
+    margin-top: 2rem;
+  }
+  
+  .fonteDois {
+    padding-right: 3rem;
+  }
+  
+  .fonteTres {
+    padding-left: 4rem;
+  }
+  
+  .fonteQuadro {
+    padding-right: 10rem;
+  }
+  
+  /* Layout Styles */
+  .container-Perfil {
+    background-color: rgba(120, 208, 210, 1);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .divPainel {
+    background-color: white;
+    width: 5%;
+    height: 90%;
+    margin-left: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    gap: 25px;
+  }
+  
+  .divPerfil {
+    background-color: rgba(120, 208, 210, 1);
+    width: 80%;
+    height: 90%;
+    margin-left: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .div-cima {
+    background-color: rgb(238, 223, 223);
+    width: 100%;
+    height: 25%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: row;
+    gap: 30px;
+  }
+  
+  .fonteNome {
+    font-size: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    border: 0px;
+    padding-top: 100px;
+  }
+  
+  .imgPerfilum {
+    padding-left: 50px;
+  }
+  
+  .divPerfil-Esquerda {
+    background-color: white;
+    width: 17%;
+    height: 75%;
+  }
+  
+  .div-dados, .div-nota, .div-ExcluirConta, .div-Sair,.div-solicitacoes {
+    width: 100%;
+    height: 20%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid black;
+    font-size: 30px;
+    font-weight: normal;
+    text-align: center;
+  }
+  
+  .div-meio {
+    background-color: #e4f6f6;
+    width: 83%;
+    height: 75%;
+    border-bottom-right-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+  
+  /* Button and Form Styles */
+  .div-botoes {
 
-    .fonteDois{
+    width: 58%;
+    height: 30%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-left: 6rem;
+    gap: 20px;
+  }
+  
+  .botaoSalvar, .botaoInfo {
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    width: 200px;
+    transition: transform 0.3s ease;
+  }
+  
+  .botaoSalvar {
+    background-color: #abd7d6;
+    color: black;
+  }
 
-        font-size: 40px;
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: normal; /* Se desejar que todas as fontes sejam normais */
-        line-height: 1; /* Remove o espaçamento entre as linhas */
-        margin: 0; /* Remove as margens padrão */
-        padding: 0; /* Remove qualquer preenchimento */
-        padding-right: 3rem;
-        margin-top: 2rem;
+.dados-usuario{
+
+    background-color:white;
+    width: 500px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 8px;
+    border: 1px solid #66b7c9;
+
+  }
+  
+  .botaoInfo {
+    background-color: #66b7c9;
+    color: white;
+  }
+  
+  .botaoSalvar:hover, .botaoInfo:hover {
+    transform: scale(1.05);
+  }
+  
+  .botaoSalvar:active, .botaoInfo:active {
+    transform: scale(0.98);
+  }
+  
+  .botaoSalvar:disabled, .botaoInfo:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+  }
+  
+  /* Form Styling */
+  .formulario-edicao .campo-edicao {
+    margin-bottom: 15px;
+    width: 700px;
+  }
+  
+  .formulario-edicao input[type="text"], 
+  .formulario-edicao input[type="email"], 
+  .formulario-edicao input[type="tel"] {
+    padding: 12px;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #66b7c9;
+    font-size: 16px;
+    margin-top: 8px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+  
+  .formulario-edicao input[type="text"]:focus, 
+  .formulario-edicao input[type="email"]:focus, 
+  .formulario-edicao input[type="tel"]:focus {
+    border-color: #abd7d6;
+    outline: none;
+  }
+  
+  /* Add Flexibility for Different Screen Sizes */
+  @media (max-width: 768px) {
+    .divPainel {
+      display: none;
     }
-
-
-
-    .fonteTres{
-
-
-        font-size: 40px;
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: normal; /* Se desejar que todas as fontes sejam normais */
-        line-height: 1; /* Remove o espaçamento entre as linhas */
-        margin: 0; /* Remove as margens padrão */
-        padding: 0; /* Remove qualquer preenchimento */
-        padding-left: 4rem;
-        margin-top: 2rem;
-
-
+  
+    .divPerfil {
+      flex-direction: column;
     }
-
-
-    .fonteQuadro{
-
-
-        font-size: 40px;
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: normal; /* Se desejar que todas as fontes sejam normais */
-        line-height: 1; /* Remove o espaçamento entre as linhas */
-        margin: 0; /* Remove as margens padrão */
-        padding: 0; /* Remove qualquer preenchimento */
-        padding-right: 10rem;
-        margin-top: 2rem;
-
-
+  
+    .div-cima {
+      flex-direction: column;
+      align-items: center;
     }
-
-    .div-botoes{
-
-        width: 50%;
-        height: 20%;
-        /* background-color: red; */
-        background-color:#e4f6f6;
-        display: flex;
-        justify-content: space-around;
-        align-items: end;
-        margin-left: 6rem;
+  
+    .divPerfil-Esquerda {
+      width: 100%;
+      height: auto;
     }
-
-    .div-form{
-        /* background-color: red; */
-            background-color:#e4f6f6;
-            width:17%;
-            height: 65%;
-            padding: 90px;
-            border-bottom-right-radius: 40px;
-            display: flex;
-            align-items: center;
-            justify-content:center;
-            
-         
-            /* margin-left: 12rem; */
-        }
-        
-
-        .div-solicitacoes {
-
-
-            width: 100%;
-            height: 20%;
-            background-color: white;
-            /* border-bottom: 3px solid black; */
-        
-            border-bottom: 2px solid black;
-        
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        
-        
-            font-size: 30px;
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: normal; 
-            text-align: center;
-        }
-
-
-        .botaoSalvar{
-            width: 30%;
-            height: 20%;
-            padding: 30px;
-            border-radius: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        
-            border: solid 4px black;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 20px;
-            margin-top: 7rem;
-            font-size: 30px;
-           
-            font-weight: normal; 
-        }
-        
-        
-        .botaoInfo{
-           
-            width: 52%;
-            height: 40%;
-            padding: 30px;
-            border-radius: 40px;
-        
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: solid 4px black;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 20px;
-            margin-top: 7rem;
-            font-size: 30px;
-           
-            font-weight: normal; 
-        }
-        
-        
-        .div-formeio{
-
-
-            padding: 40px;
-            background-color: white;
-            border-radius: 18px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-
-        .botaoExcluir{
-
-            width: 50%;
-            height: 40%;
-            padding: 20px;
-            border-radius: 10px;
-            
-            
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 15px;
-            font-weight: normal;
-            border: solid 4px black;
-            font-weight: bolder;
-            
-            
-            }
-            
-            .botaoAlterar{
-            
-                width: 50%;
-                height: 40%;
-                padding: 20px;
-                border-radius: 10px;
-                font-family: Arial, Helvetica, sans-serif;
-                font-size: 15px;
-                font-weight: bolder;
-            
-                border: solid 4px black;
-            }
-
-
-
-            .container-Perfil {
-                background-color: rgba(120, 208, 210, 1);
-                width: 100%;
-                height: 100%;
-                display: flex;
-                justify-content: flex-start;
-                align-items: center;
-            
-            
-            }
-            
-            
-            .divPainel {
-                background-color: white;
-                width: 5%;
-                height: 90%;
-                margin-left: 5rem;
-                display: flex;
-                align-items: center;
-                justify-content: start;
-                flex-direction: column;
-                gap: 25px;
-            
-            }
-            
-            .divPerfil {
-            
-            
-                background-color: rgba(120, 208, 210, 1);
-            
-                width: 80%;
-                height: 90%;
-                margin-left: 5rem;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: row;
-                flex-wrap: wrap;
-            
-            
-            }
-            
-            .div-cima {
-            
-              
-                background-color: rgb(238, 223, 223);
-                width: 100%;
-                height: 25%;
-                display: flex;
-                justify-content: start;
-                align-items: center;
-                flex-direction: row;
-                gap: 30px;
-            
-            
-            
-            
-            }
-            
-            .fonteNome {
-            
-                font-size: 50px;
-                font-family: Arial, Helvetica, sans-serif;
-                border: 0px;
-                padding-top: 100px;
-            
-            }
-            
-            .imgPerfilum {
-            
-                padding-left: 50px;
-            
-            
-            
-            }
-            
-            .divPerfil-Esquerda {
-            
-                background-color: white;
-                width: 17%;
-                height: 75%;
-            
-            
-            
-            }
-            
-            .div-dados {
-                width: 100%;
-                height: 20%;
-                background-color: white;
-                /* border-bottom: 3px solid black; */
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border-bottom: 2px solid black;
-                font-size: 30px;
-                font-family: Arial, Helvetica, sans-serif;
-                font-weight: normal; 
-            }
-            
-            
-            .div-nota {
-            
-                width: 100%;
-                height: 20%;
-                background-color: white;
-                /* border-bottom: 3px solid black; */
-            
-                border-bottom: 2px solid black;
-            
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 30px;
-                font-family: Arial, Helvetica, sans-serif;
-                font-weight: normal; 
-            }
-            
-            
-            
-            
-            
-            
-            
-            .div-vazio {
-            
-            
-            
-                width: 100%;
-                height: 20%;
-                background-color: white;
-                /* border-bottom: 3px solid black; */
-            
-                border-bottom: 2px solid black;
-            
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            
-            
-            }
-            
-            .div-Sair {
-            
-            
-                width: 100%;
-                height: 17.8%;
-                background-color: white;
-                /* border-bottom: 3px solid black; */
-            
-            
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 30px;
-                font-family: Arial, Helvetica, sans-serif;
-                font-weight: normal; 
-            }
-            
-            
-            
-            .div-meio {
-                background-color:#e4f6f6;
-            
-                width: 83%;
-                height: 75%;
-                border-bottom-right-radius: 40px;
-            
-                display: flex;
-               justify-content: center;
-                align-items: center;
-                flex-direction:column;
-                flex-wrap: wrap;
-                gap: 40px;
-                
-            
-            }
-            
-            
-            .fonteUm {
-                font-size: 40px;
-                font-family: Arial, Helvetica, sans-serif;
-                font-weight: normal; /* Se desejar que todas as fontes sejam normais */
-                line-height: 1; /* Remove o espaçamento entre as linhas */
-                margin: 0; /* Remove as margens padrão */
-                padding: 0; /* Remove qualquer preenchimento */
-                margin-top: 2rem;
-            }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            .imgPerfildois{
-            
-                width: 250px;
-            
-            
-            }
-            
-            
+  
+    .div-meio {
+      width: 100%;
+      margin-top: 20px;
     }
-
-    
-
-    @media (min-width:1024px) {
-        
-    .fonteDois{
-
-        font-size: 40px;
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: normal; /* Se desejar que todas as fontes sejam normais */
-        line-height: 1; /* Remove o espaçamento entre as linhas */
-        margin: 0; /* Remove as margens padrão */
-        padding: 0; /* Remove qualquer preenchimento */
-        padding-right: 3rem;
-        margin-top: 2rem;
-    }
-
-
-
-    .fonteTres{
-
-
-        font-size: 40px;
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: normal; /* Se desejar que todas as fontes sejam normais */
-        line-height: 1; /* Remove o espaçamento entre as linhas */
-        margin: 0; /* Remove as margens padrão */
-        padding: 0; /* Remove qualquer preenchimento */
-        padding-left: 4rem;
-        margin-top: 2rem;
-
-
-    }
-
-
-    .fonteQuadro{
-
-
-        font-size: 40px;
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: normal; /* Se desejar que todas as fontes sejam normais */
-        line-height: 1; /* Remove o espaçamento entre as linhas */
-        margin: 0; /* Remove as margens padrão */
-        padding: 0; /* Remove qualquer preenchimento */
-        padding-right: 10rem;
-        margin-top: 2rem;
-
-
-    }
-
-    .div-botoes{
-
-        width: 50%;
-        height: 20%;
-        /* background-color: red; */
-        background-color:#e4f6f6;
-        display: flex;
-        justify-content: space-around;
-        align-items: end;
-        margin-left: 6rem;
-    }
-
-    .div-form{
-        /* background-color: red; */
-            background-color:#e4f6f6;
-            width:17%;
-            height: 65%;
-            padding: 90px;
-            border-bottom-right-radius: 40px;
-            display: flex;
-            align-items: center;
-            justify-content:center;
-            
-         
-            /* margin-left: 12rem; */
-        }
-        
-
-        .div-solicitacoes {
-
-
-            width: 100%;
-            height: 20%;
-            background-color: white;
-            /* border-bottom: 3px solid black; */
-        
-            border-bottom: 2px solid black;
-        
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        
-        
-            font-size: 30px;
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: normal; 
-            text-align: center;
-        }
-
-
-        .botaoSalvar{
-            width: 30%;
-            height: 20%;
-            padding: 30px;
-            border-radius: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        
-            border: solid 4px black;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 20px;
-            margin-top: 7rem;
-            font-size: 30px;
-           
-            font-weight: normal; 
-        }
-        
-        
-        .botaoInfo{
-           
-            width: 52%;
-            height: 40%;
-            padding: 30px;
-            border-radius: 40px;
-        
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: solid 4px black;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 20px;
-            margin-top: 7rem;
-            font-size: 30px;
-           
-            font-weight: normal; 
-        }
-        
-        
-        .div-formeio{
-
-
-            padding: 40px;
-            background-color: white;
-            border-radius: 18px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-
-        .botaoExcluir{
-
-            width: 50%;
-            height: 40%;
-            padding: 20px;
-            border-radius: 10px;
-            
-            
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 15px;
-            font-weight: normal;
-            border: solid 4px black;
-            font-weight: bolder;
-            
-            
-            }
-            
-            .botaoAlterar{
-            
-                width: 50%;
-                height: 40%;
-                padding: 20px;
-                border-radius: 10px;
-                font-family: Arial, Helvetica, sans-serif;
-                font-size: 15px;
-                font-weight: bolder;
-            
-                border: solid 4px black;
-            }
-
-
-
-            .container-Perfil {
-                background-color: rgba(120, 208, 210, 1);
-                width: 100%;
-                height: 100%;
-                display: flex;
-                justify-content: flex-start;
-                align-items: center;
-            
-            
-            }
-            
-            
-            .divPainel {
-                background-color: white;
-                width: 5%;
-                height: 90%;
-                margin-left: 5rem;
-                display: flex;
-                align-items: center;
-                justify-content: start;
-                flex-direction: column;
-                gap: 25px;
-            
-            }
-            
-            .divPerfil {
-            
-            
-                background-color: rgba(120, 208, 210, 1);
-            
-                width: 80%;
-                height: 90%;
-                margin-left: 5rem;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: row;
-                flex-wrap: wrap;
-            
-            
-            }
-            
-            .div-cima {
-            
-              
-                background-color: rgb(238, 223, 223);
-                width: 100%;
-                height: 25%;
-                display: flex;
-                justify-content: start;
-                align-items: center;
-                flex-direction: row;
-                gap: 30px;
-            
-            
-            
-            
-            }
-            
-            .fonteNome {
-            
-                font-size: 50px;
-                font-family: Arial, Helvetica, sans-serif;
-                border: 0px;
-                padding-top: 100px;
-            
-            }
-            
-            .imgPerfilum {
-            
-                padding-left: 50px;
-            
-            
-            
-            }
-            
-            .divPerfil-Esquerda {
-            
-                background-color: white;
-                width: 17%;
-                height: 75%;
-            
-            
-            
-            }
-            
-            .div-dados {
-                width: 100%;
-                height: 20%;
-                background-color: white;
-                /* border-bottom: 3px solid black; */
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border-bottom: 2px solid black;
-                font-size: 30px;
-                font-family: Arial, Helvetica, sans-serif;
-                font-weight: normal; 
-            }
-            
-            
-            .div-nota {
-            
-                width: 100%;
-                height: 20%;
-                background-color: white;
-                /* border-bottom: 3px solid black; */
-            
-                border-bottom: 2px solid black;
-            
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 30px;
-                font-family: Arial, Helvetica, sans-serif;
-                font-weight: normal; 
-            }
-            
-            
-            
-            
-            
-            
-            
-            .div-vazio {
-            
-            
-            
-                width: 100%;
-                height: 20%;
-                background-color: white;
-                /* border-bottom: 3px solid black; */
-            
-                border-bottom: 2px solid black;
-            
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            
-            
-            }
-            
-            .div-Sair {
-            
-            
-                width: 100%;
-                height: 17.8%;
-                background-color: white;
-                /* border-bottom: 3px solid black; */
-            
-            
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 30px;
-                font-family: Arial, Helvetica, sans-serif;
-                font-weight: normal; 
-            }
-            
-            
-            
-            .div-meio {
-                background-color:#e4f6f6;
-            
-                width: 83%;
-                height: 75%;
-                border-bottom-right-radius: 40px;
-            
-                display: flex;
-               justify-content: center;
-                align-items: center;
-                flex-direction:column;
-                flex-wrap: wrap;
-                gap: 40px;
-                
-            
-            }
-            
-            
-            .fonteUm {
-                font-size: 40px;
-                font-family: Arial, Helvetica, sans-serif;
-                font-weight: normal; /* Se desejar que todas as fontes sejam normais */
-                line-height: 1; /* Remove o espaçamento entre as linhas */
-                margin: 0; /* Remove as margens padrão */
-                padding: 0; /* Remove qualquer preenchimento */
-                margin-top: 2rem;
-            }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            .imgPerfildois{
-            
-                width: 250px;
-            
-            
-            }
-            
-    }
-
+  }
+  
